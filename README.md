@@ -71,7 +71,7 @@ Pe pagina de autentificare există butonul „Completează datele demo”.
 | `/configurator/:slug/:material` | Configurator dimensiuni (opțiuni, slider+input lungime, cantitate, calcul preț) |
 | `/cautare?q=` | Rezultate căutare |
 | `/cos` | Coș |
-| `/finalizare-comanda` | Pénztár / checkout (facturare, livrare, plată, proformă la transfer bancar) |
+| `/finalizare-comanda` | Finalizare comandă (facturare, livrare, plată, proformă la transfer bancar) |
 | `/comanda/:id` | Confirmarea comenzii |
 | `/proforma/:id`, `/factura/:id` | Documente printabile (Tipărește / Salvează PDF, Descarcă HTML) |
 | `/autentificare`, `/inregistrare` | Cont |
