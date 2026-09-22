@@ -109,7 +109,7 @@ export function Header() {
       </div>
       <div className="container-cm flex h-16 items-center gap-3 lg:h-[68px] lg:gap-4">
         {/* Logo + Acasă */}
-        <div className="flex items-center gap-3 lg:gap-4">
+        <div className="flex shrink-0 items-center gap-3 lg:gap-4">
           <Link to="/" className="flex shrink-0 items-center" aria-label="Color Metal – Acasă">
             <img src={asset('/assets/brand/color-metal-logo.png')} alt="Color Metal – Partner in engineering" className="h-[22px] w-auto sm:h-7 lg:h-8" width={1200} height={158} />
           </Link>
@@ -119,7 +119,7 @@ export function Header() {
         </div>
 
         {/* Nav desktop */}
-        <nav className="hidden items-center gap-0.5 lg:flex" aria-label="Navigare principală">
+        <nav className="hidden shrink-0 items-center gap-0.5 xl:flex" aria-label="Navigare principală">
           {NAV.map((n) => (
             <NavLink key={n.to} to={n.to} className={({ isActive }) => cls('whitespace-nowrap rounded-md px-2 py-1.5 text-[13px] font-medium transition hover:text-brand-bronze', isActive ? 'text-brand-bronze' : 'text-ink-soft')}>
               {n.label}
@@ -128,7 +128,7 @@ export function Header() {
         </nav>
 
         {/* Search */}
-        <form onSubmit={submitSearch} className="relative ml-auto hidden w-full max-w-[240px] md:block xl:max-w-[300px]" role="search">
+        <form onSubmit={submitSearch} className="relative ml-auto hidden w-full min-w-[150px] max-w-[240px] md:block xl:max-w-[280px]" role="search">
           <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted" />
           <input
             type="search"
@@ -163,7 +163,7 @@ export function Header() {
         </form>
 
         {/* Actions */}
-        <div className="ml-auto flex items-center gap-0.5 sm:gap-1 md:ml-0">
+        <div className="ml-auto flex shrink-0 items-center gap-0.5 sm:gap-1 md:ml-0">
           <Link to="/favorite" className="relative flex h-10 w-10 items-center justify-center rounded-lg hover:bg-surface" aria-label={`Favorite (${slugs.length})`}>
             <Heart className={cls('h-5 w-5', slugs.length > 0 && 'fill-brand-gold text-brand-gold')} />
             {slugs.length > 0 && <span className="absolute -right-0.5 -top-0.5 min-w-[18px] rounded-full bg-ink px-1 text-center text-[10px] font-bold leading-[18px] text-white">{slugs.length}</span>}
@@ -175,7 +175,7 @@ export function Header() {
             <span className="rounded-full bg-white/20 px-1.5 text-xs tabular-nums">{count}</span>
           </Link>
 
-          <button onClick={() => setMenuOpen(true)} className="flex h-10 w-10 items-center justify-center rounded-lg hover:bg-surface lg:hidden" aria-label="Deschide meniul">
+          <button onClick={() => setMenuOpen(true)} className="flex h-10 w-10 items-center justify-center rounded-lg hover:bg-surface xl:hidden" aria-label="Deschide meniul">
             <Menu className="h-5 w-5" />
           </button>
         </div>
@@ -183,7 +183,7 @@ export function Header() {
 
       {/* Mobile drawer */}
       {menuOpen && (
-        <div className="fixed inset-0 z-[70] lg:hidden" role="dialog" aria-modal="true" aria-label="Meniu">
+        <div className="fixed inset-0 z-[70] xl:hidden" role="dialog" aria-modal="true" aria-label="Meniu">
           <div className="absolute inset-0 bg-ink/40" onClick={() => setMenuOpen(false)} />
           <div className="absolute right-0 top-0 flex h-full w-[86%] max-w-sm flex-col bg-white shadow-2xl">
             <div className="flex items-center justify-between border-b border-line px-4 py-3">
