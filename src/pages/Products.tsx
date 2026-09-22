@@ -2,7 +2,6 @@ import { useMemo, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { Search, SlidersHorizontal } from 'lucide-react';
 import { CATEGORIES, SHAPES, type ShapeCategory } from '@/data/shapes';
-import { MATERIALS, MATERIAL_ORDER, type MaterialId } from '@/data/materials';
 import { ProductCard } from '@/components/product/ProductCard';
 import { Breadcrumbs, EmptyState, PageHeader } from '@/components/ui/misc';
 import { searchShapes } from '@/lib/search';
@@ -11,15 +10,13 @@ import { cls } from '@/lib/format';
 export function ProductsPage() {
   const [params, setParams] = useSearchParams();
   const cat = (params.get('categorie') as ShapeCategory | null) ?? null;
-  const mat = (params.get('material') as MaterialId | null) ?? null;
   const [q, setQ] = useState('');
 
   const list = useMemo(() => {
     let l = q.trim() ? searchShapes(q) : SHAPES;
     if (cat) l = l.filter((s) => s.category === cat);
-    if (mat) l = l.filter((s) => s.materials.includes(mat));
     return l;
-  }, [q, cat, mat]);
+  }, [q, cat]);
 
   const setParam = (key: string, value: string | null) => {
     const next = new URLSearchParams(params);
@@ -56,18 +53,6 @@ export function ProductsPage() {
           <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted" />
           <input type="search" value={q} onChange={(e) => setQ(e.target.value)} placeholder="Caută produse" aria-label="Caută produse" className="input h-10 pl-9" />
         </div>
-      </div>
-      <div className="mt-3 flex flex-wrap items-center gap-2">
-        <span className="text-xs font-semibold uppercase tracking-wide text-muted">Material:</span>
-        <button className={chip(!mat)} onClick={() => setParam('material', null)}>
-          Toate
-        </button>
-        {MATERIAL_ORDER.map((m) => (
-          <button key={m} className={chip(mat === m)} onClick={() => setParam('material', mat === m ? null : m)}>
-            <span className="mr-1.5 inline-block h-2.5 w-2.5 rounded-full align-middle" style={{ background: MATERIALS[m].swatch }} />
-            {MATERIALS[m].label}
-          </button>
-        ))}
       </div>
 
       {list.length === 0 ? (
