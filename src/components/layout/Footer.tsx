@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import { Mail, MapPin, Phone } from 'lucide-react';
 import { SITE, telHref } from '@/config/site';
 import { asset } from '@/lib/format';
+import { PaymentBadges } from '@/components/ui/PaymentBadges';
 
 export function Footer() {
   const year = new Date().getFullYear();
@@ -76,9 +77,12 @@ export function Footer() {
         </div>
       </div>
       <div className="border-t border-line">
-        <div className="container-cm flex flex-col gap-2 py-5 text-xs text-muted sm:flex-row sm:items-center sm:justify-between">
-          <p>© {year} {SITE.legalName}. Toate drepturile rezervate.</p>
-          <p>Plăți online securizate · Prețuri afișate în lei, cu TVA 21% · RO</p>
+        <div className="container-cm flex flex-col gap-3 py-5 text-xs text-muted sm:flex-row sm:items-center sm:justify-between">
+          <p>© {year} {SITE.legalName}. Toate drepturile rezervate. · Prețuri afișate în lei, cu TVA 21%.</p>
+          <div className="flex flex-col gap-1.5 sm:items-end">
+            <PaymentBadges />
+            <p>Plăți online securizate prin NETOPIA Payments</p>
+          </div>
         </div>
       </div>
     </footer>

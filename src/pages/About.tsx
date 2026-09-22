@@ -35,7 +35,7 @@ export function AboutPage() {
             </p>
             <h2>Webshopul Color Metal</h2>
             <p>
-              Webshopul aduce online exact logica din depozit: alegi forma, apoi materialul, apoi dimensiunile. Prețul se calculează automat din greutatea piesei, iar debitarea la lungime se face cu toleranțele afișate în configurator. Pentru cantități mari sau dimensiuni speciale, echipa de vânzări răspunde la{' '}
+              Webshopul aduce online exact logica din depozit: alegi forma, apoi materialul, apoi dimensiunile. Prețul se calculează automat din greutatea piesei. Pentru cantități mari sau dimensiuni speciale, echipa de vânzări răspunde la{' '}
               <a href={`mailto:${SITE.emails.direct}`}>{SITE.emails.direct}</a> sau la call center {SITE.phones.callCenter}.
             </p>
           </article>

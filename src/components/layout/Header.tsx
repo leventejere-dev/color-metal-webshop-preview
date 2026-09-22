@@ -157,10 +157,6 @@ export function Header() {
             </>
           )}
 
-          <span className="hidden px-1.5 text-[11px] font-semibold tracking-wide text-muted md:inline" aria-label="Limbă: română">
-            RO
-          </span>
-
           <Link to="/favorite" className="relative flex h-9 w-9 items-center justify-center rounded-lg hover:bg-surface" aria-label={`Favorite (${slugs.length})`}>
             <Heart className={cls('h-5 w-5', slugs.length > 0 && 'fill-brand-gold text-brand-gold')} />
             {slugs.length > 0 && <span className="absolute -right-0.5 -top-0.5 min-w-[18px] rounded-full bg-ink px-1 text-center text-[10px] font-bold leading-[18px] text-white">{slugs.length}</span>}
@@ -235,7 +231,7 @@ export function Header() {
                 </div>
               )}
             </nav>
-            <p className="border-t border-line px-4 py-3 text-xs text-muted">Color Metal Webshop · RO</p>
+            <p className="border-t border-line px-4 py-3 text-xs text-muted">Color Metal Webshop</p>
           </div>
         </div>
       )}

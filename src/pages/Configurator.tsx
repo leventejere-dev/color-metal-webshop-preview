@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { Link, Navigate, useParams, useSearchParams } from 'react-router-dom';
-import { ArrowLeft, Info, RotateCcw, ShoppingCart, Ruler } from 'lucide-react';
-import { SHAPE_BY_SLUG, TOLERANCES, type Shape } from '@/data/shapes';
+import { ArrowLeft, Info, RotateCcw, ShoppingCart } from 'lucide-react';
+import { SHAPE_BY_SLUG, type Shape } from '@/data/shapes';
 import { ELOX_COLORS, FINISHES, MATERIALS, type EloxColorId, type FinishId, type MaterialId } from '@/data/materials';
 import { OptionGroup } from '@/components/configurator/OptionGroup';
 import { ContactConsultant } from '@/components/configurator/ContactConsultant';
@@ -105,8 +105,6 @@ function Configurator({ shape, materialId }: { shape: Shape; materialId: Materia
   const overLimit = qty > MAX_ONLINE_QTY;
   const canAdd = complete && !overLimit && unitWeight > 0;
   const anySelection = Object.values(sel).some((v) => v != null) || ranges.length != null;
-  // toleranța se afișează doar la profile/țevi și bare (la plăci este informație internă)
-  const tol = shape.tolerance === 'placa' ? null : TOLERANCES[shape.tolerance];
 
   const configLabel = complete
     ? `${shape.name} ${material.label}${finish ? ` (${FINISHES[finish].label}${eloxColor ? ` ${ELOX_COLORS.find((c) => c.id === eloxColor)?.label}` : ''})` : ''} – ${dimsLabel(shape, dims, { length: lengthMm })}`
@@ -193,16 +191,6 @@ function Configurator({ shape, materialId }: { shape: Shape; materialId: Materia
           {shape.ranges.map((r) => (
             <RangeField key={r.key} label={r.label} value={ranges.length ?? null} min={bounds.length.min} max={bounds.length.max} step={r.step} presets={r.presets} notice={notices.length || null} onChange={setLength} />
           ))}
-
-          {tol && (
-            <div className="flex gap-3 rounded-xl border border-brand-gold/40 bg-brand-gold-light/60 p-4 text-sm">
-              <Ruler className="mt-0.5 h-5 w-5 shrink-0 text-brand-gold-dark" />
-              <div>
-                <p className="font-semibold text-ink">{tol.title}</p>
-                <p className="mt-0.5 text-ink-soft">{tol.text}</p>
-              </div>
-            </div>
-          )}
 
           {/* Cantitate */}
           <div className="rounded-xl border border-line bg-white p-4 sm:p-5">

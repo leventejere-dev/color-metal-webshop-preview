@@ -59,6 +59,13 @@ export interface CartItem {
 }
 
 export type PaymentMethod = 'transfer' | 'card' | 'ramburs';
+export type CourierId = 'fan' | 'cargus' | 'sameday';
+
+export const COURIERS: { id: CourierId; label: string; text: string }[] = [
+  { id: 'fan', label: 'FAN Courier', text: 'Livrare 24–48 h, plata la curier' },
+  { id: 'cargus', label: 'Cargus', text: 'Livrare 24–48 h, plata la curier' },
+  { id: 'sameday', label: 'Sameday', text: 'Livrare rapidă, plata la curier' },
+];
 export type OrderStatus = 'asteapta_plata' | 'confirmata' | 'in_procesare' | 'livrata' | 'anulata';
 
 export interface Order {
@@ -72,6 +79,10 @@ export interface Order {
   grossRon: number;
   totalWeightKg: number;
   payment: PaymentMethod;
+  /** firma de curierat (doar la ramburs) */
+  courier?: CourierId;
+  /** ultimele 4 cifre ale cardului (doar la plata cu cardul; restul datelor nu se salvează) */
+  cardLast4?: string;
   status: OrderStatus;
   billing: Address;
   delivery: Address;

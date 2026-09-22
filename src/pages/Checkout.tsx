@@ -1,11 +1,12 @@
 import { useEffect, useMemo, useState, type FormEvent } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { Building2, CreditCard, FileText, Landmark, Truck, User } from 'lucide-react';
+import { Building2, CreditCard, FileText, Landmark, Lock, Truck, User } from 'lucide-react';
 import { useCart } from '@/context/CartContext';
 import { useAuth } from '@/context/AuthContext';
 import { useToast } from '@/context/ToastContext';
 import { ordersApi } from '@/lib/api';
-import type { Address, PaymentMethod } from '@/lib/types';
+import { COURIERS, type Address, type CourierId, type PaymentMethod } from '@/lib/types';
+import { PaymentBadges } from '@/components/ui/PaymentBadges';
 import { Input, Textarea, Checkbox } from '@/components/ui/Field';
 import { Button } from '@/components/ui/Button';
 import { Breadcrumbs, Notice, PageHeader, SummaryRow } from '@/components/ui/misc';
@@ -19,9 +20,45 @@ const emptyAddress = (): Address => ({ name: '', company: '', cui: '', street: '
 
 const PAYMENTS: { id: PaymentMethod; label: string; text: string; icon: typeof Landmark }[] = [
   { id: 'transfer', label: 'Transfer bancar', text: 'Primești o factură proformă; comanda intră în producție după confirmarea plății.', icon: Landmark },
-  { id: 'card', label: 'Card online', text: 'Plată securizată cu cardul (în prototip: simulată, fără procesator real).', icon: CreditCard },
-  { id: 'ramburs', label: 'Ramburs la livrare', text: 'Plătești curierului la primirea coletului.', icon: Truck },
+  { id: 'card', label: 'Card online', text: 'Plată securizată cu cardul prin NETOPIA Payments (Visa / Mastercard).', icon: CreditCard },
+  { id: 'ramburs', label: 'Ramburs la livrare', text: 'Plătești curierului la primirea coletului (FAN Courier, Cargus, Sameday).', icon: Truck },
 ];
+
+/* ---- card: formatare + validare (Luhn) – datele cardului nu sunt salvate nicăieri ---- */
+const onlyDigits = (v: string) => v.replace(/\D/g, '');
+const formatCard = (v: string) =>
+  onlyDigits(v)
+    .slice(0, 19)
+    .replace(/(.{4})/g, '$1 ')
+    .trim();
+const formatExpiry = (v: string) => {
+  const d = onlyDigits(v).slice(0, 4);
+  return d.length > 2 ? `${d.slice(0, 2)}/${d.slice(2)}` : d;
+};
+const luhn = (num: string) => {
+  let sum = 0;
+  let dbl = false;
+  for (let i = num.length - 1; i >= 0; i--) {
+    let n = Number(num[i]);
+    if (dbl) {
+      n *= 2;
+      if (n > 9) n -= 9;
+    }
+    sum += n;
+    dbl = !dbl;
+  }
+  return num.length >= 13 && sum % 10 === 0;
+};
+const cardBrand = (num: string) => (/^4/.test(num) ? 'Visa' : /^(5[1-5]|2[2-7])/.test(num) ? 'Mastercard' : null);
+const expiryValid = (v: string) => {
+  const m = /^(\d{2})\/(\d{2})$/.exec(v);
+  if (!m) return false;
+  const mm = Number(m[1]);
+  const yy = 2000 + Number(m[2]);
+  if (mm < 1 || mm > 12) return false;
+  const now = new Date();
+  return yy > now.getFullYear() || (yy === now.getFullYear() && mm >= now.getMonth() + 1);
+};
 
 export function CheckoutPage() {
   const { items, totals, clear, ready } = useCart();
@@ -35,6 +72,8 @@ export function CheckoutPage() {
   const [sameDelivery, setSameDelivery] = useState(!user?.delivery);
   const [delivery, setDelivery] = useState<Address>(() => ({ ...emptyAddress(), ...(user?.delivery ?? {}) }));
   const [payment, setPayment] = useState<PaymentMethod | null>(null);
+  const [courier, setCourier] = useState<CourierId | null>(null);
+  const [card, setCard] = useState({ number: '', expiry: '', cvv: '', name: '' });
   const [notes, setNotes] = useState('');
   const [terms, setTerms] = useState({ custom: false, tc: false, gdpr: false });
   const [errors, setErrors] = useState<Record<string, string>>({});
@@ -43,6 +82,18 @@ export function CheckoutPage() {
   useEffect(() => {
     if (ready && items.length === 0 && !busy) navigate('/cos', { replace: true });
   }, [ready, items.length, busy, navigate]);
+
+  // La încărcare directă a paginii, contul se încarcă după montare → preluăm datele când devin disponibile.
+  useEffect(() => {
+    if (!user || email) return;
+    setEmail(user.email);
+    setLegal(user.company ? 'pj' : 'pf');
+    setBilling((b) => ({ ...b, ...(user.billing ?? {}), name: user.billing?.name || user.name, phone: user.billing?.phone || user.phone, company: user.company ?? user.billing?.company ?? '', cui: user.cui ?? user.billing?.cui ?? '' }));
+    if (user.delivery) {
+      setSameDelivery(false);
+      setDelivery((d) => ({ ...d, ...user.delivery }));
+    }
+  }, [user, email]);
 
   const effectiveDelivery = useMemo<Address>(() => (sameDelivery ? { ...billing, company: undefined, cui: undefined } : delivery), [sameDelivery, billing, delivery]);
 
@@ -65,6 +116,14 @@ export function CheckoutPage() {
       if (!delivery.county.trim()) e.dcounty = 'Introdu județul.';
     }
     if (!payment) e.payment = 'Alege o metodă de plată.';
+    if (payment === 'ramburs' && !courier) e.courier = 'Alege firma de curierat.';
+    if (payment === 'card') {
+      const num = onlyDigits(card.number);
+      if (!luhn(num)) e.cardNumber = 'Numărul cardului nu este valid.';
+      if (!expiryValid(card.expiry)) e.cardExpiry = 'Data expirării nu este validă (LL/AA).';
+      if (!/^\d{3,4}$/.test(card.cvv)) e.cardCvv = 'Codul CVV are 3–4 cifre.';
+      if (card.name.trim().length < 3) e.cardName = 'Introdu numele de pe card.';
+    }
     if (!terms.custom || !terms.tc || !terms.gdpr) e.terms = 'Bifează toate confirmările pentru a continua.';
     setErrors(e);
     if (Object.keys(e).length) {
@@ -82,6 +141,8 @@ export function CheckoutPage() {
         userId: user?.id ?? null,
         items,
         payment,
+        courier: courier ?? undefined,
+        cardLast4: payment === 'card' ? onlyDigits(card.number).slice(-4) : undefined,
         billing: { ...billing, company: legal === 'pj' ? billing.company : undefined, cui: legal === 'pj' ? billing.cui : undefined },
         delivery: effectiveDelivery,
         customerEmail: email.trim().toLowerCase(),
@@ -89,7 +150,7 @@ export function CheckoutPage() {
       });
       write('lastOrder', order.id);
       clear();
-      toast('Comanda a fost înregistrată cu succes.', { cta: { label: 'Vezi comanda', to: `/comanda/${order.id}` } });
+      toast(payment === 'card' ? 'Plata a fost procesată prin NETOPIA Payments (simulare). Comanda a fost înregistrată.' : 'Comanda a fost înregistrată cu succes.', { cta: { label: 'Vezi comanda', to: `/comanda/${order.id}` } });
       navigate(mode === 'proforma' ? `/proforma/${order.id}` : `/comanda/${order.id}`);
     } catch (err) {
       toast((err as Error).message || 'A apărut o eroare temporară. Te rugăm să încerci din nou.', { kind: 'warning' });
@@ -189,6 +250,65 @@ export function CheckoutPage() {
               ))}
             </div>
             {errors.payment && <p className="mt-2 text-xs text-danger">{errors.payment}</p>}
+
+            {payment === 'ramburs' && (
+              <div className="mt-5 rounded-xl border border-line bg-surface/60 p-5" data-error={!!errors.courier}>
+                <h3 className="font-semibold">Firma de curierat</h3>
+                <p className="mt-1 text-sm text-muted">Plătești curierului la livrare. Costul transportului se comunică la confirmarea comenzii.</p>
+                <div className="mt-3 grid gap-3 sm:grid-cols-3" role="radiogroup" aria-label="Firma de curierat">
+                  {COURIERS.map((c) => (
+                    <button
+                      key={c.id}
+                      type="button"
+                      role="radio"
+                      aria-checked={courier === c.id}
+                      onClick={() => setCourier(c.id)}
+                      className={cls('flex flex-col items-start gap-1 rounded-xl border bg-white p-4 text-left transition', courier === c.id ? 'border-brand-gold ring-2 ring-brand-gold/30' : 'border-line hover:border-ink/40')}
+                    >
+                      <span className="flex items-center gap-2 font-semibold">
+                        <Truck className="h-4 w-4 text-brand-gold-dark" /> {c.label}
+                      </span>
+                      <span className="text-xs text-muted">{c.text}</span>
+                    </button>
+                  ))}
+                </div>
+                {errors.courier && <p className="mt-2 text-xs text-danger">{errors.courier}</p>}
+              </div>
+            )}
+
+            {payment === 'card' && (
+              <div className="mt-5 rounded-xl border border-[#1c3f95]/25 bg-[#f4f7fc] p-5" data-error={!!(errors.cardNumber || errors.cardExpiry || errors.cardCvv || errors.cardName)}>
+                <div className="flex flex-wrap items-center justify-between gap-3">
+                  <div>
+                    <h3 className="font-semibold">Plată cu cardul</h3>
+                    <p className="mt-0.5 flex items-center gap-1.5 text-xs text-muted">
+                      <Lock className="h-3.5 w-3.5" /> Procesată securizat de NETOPIA Payments. Datele cardului nu sunt salvate în webshop.
+                    </p>
+                  </div>
+                  <PaymentBadges />
+                </div>
+                <div className="mt-4 grid gap-4 sm:grid-cols-2">
+                  <div className="sm:col-span-2">
+                    <Input
+                      label="Număr card"
+                      inputMode="numeric"
+                      autoComplete="cc-number"
+                      placeholder="1234 5678 9012 3456"
+                      value={card.number}
+                      onChange={(e) => setCard({ ...card, number: formatCard(e.target.value) })}
+                      error={errors.cardNumber}
+                      hint={cardBrand(onlyDigits(card.number)) ?? undefined}
+                    />
+                  </div>
+                  <Input label="Data expirării (LL/AA)" inputMode="numeric" autoComplete="cc-exp" placeholder="LL/AA" value={card.expiry} onChange={(e) => setCard({ ...card, expiry: formatExpiry(e.target.value) })} error={errors.cardExpiry} />
+                  <Input label="CVV" inputMode="numeric" autoComplete="cc-csc" type="password" placeholder="•••" maxLength={4} value={card.cvv} onChange={(e) => setCard({ ...card, cvv: onlyDigits(e.target.value).slice(0, 4) })} error={errors.cardCvv} />
+                  <div className="sm:col-span-2">
+                    <Input label="Nume pe card" autoComplete="cc-name" placeholder="NUME PRENUME" value={card.name} onChange={(e) => setCard({ ...card, name: e.target.value.toUpperCase() })} error={errors.cardName} />
+                  </div>
+                </div>
+                <p className="mt-3 text-[11px] text-muted">Suma de {money(totals.grossRon)} va fi debitată de pe card la trimiterea comenzii. Prototip: plata este simulată, fără procesator real.</p>
+              </div>
+            )}
 
             {payment === 'transfer' && (
               <div className="mt-5 rounded-xl border border-brand-gold/40 bg-brand-gold-light/40 p-5">
@@ -316,7 +436,7 @@ export function CheckoutPage() {
               <SummaryRow label="Total cu TVA" value={money(totals.grossRon)} strong className="pt-3 text-base" />
             </div>
             <Button type="submit" size="lg" full className="mt-5" loading={busy}>
-              Trimite comanda
+              {payment === 'card' ? `Plătește ${money(totals.grossRon)}` : 'Trimite comanda'}
             </Button>
             <p className="mt-3 text-[11px] leading-5 text-muted">Comanda va fi procesată după confirmarea plății. Prețurile afișate pot fi actualizate până la finalizarea comenzii.</p>
             <Link to="/cos" className="mt-3 block text-center text-sm text-muted hover:text-ink">

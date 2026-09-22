@@ -113,9 +113,9 @@ tools/         prepare-images.mjs – pipeline-ul de imagini folosit pentru asse
   estompate și neclicabile (`Opțiunea nu este disponibilă pentru dimensiunea selectată.`); combinațiile provin din
   `variants` (catalogul real al webshopului actual). Lungimea: slider + input sincronizate, pas 1 mm, minim 50 mm
   (profile/țevi/plăci) și 25 mm (bare), maxim configurabil per formă (`ranges` în `shapes.ts`); la plăci/table lățimea se alege din formatele de stoc, iar lungimea maximă depinde de format.
-- **Toleranțe**: profile și țevi -0/+3 mm; bare -0/+5 mm (afișate în configurator și în T&C). Toleranța plăcilor/tablelor este informație internă și nu se afișează.
+- **Toleranțe**: nu se afișează în webshop (informație internă Color Metal).
 - **Cantitate**: peste 100 buc butonul „Adaugă în coș” este dezactivat și apar telefon / email / WhatsApp.
-- **Plată**: proforma se generează exclusiv la „Transfer bancar”, în checkout (sumar, cumpărător, produse, cantități,
+- **Plată**: card online prin formular NETOPIA Payments (simulat, cu validare Luhn; datele cardului nu se salvează), ramburs cu alegerea curierului (FAN Courier / Cargus / Sameday), transfer bancar. Proforma se generează exclusiv la „Transfer bancar”, în checkout (sumar, cumpărător, produse, cantități,
   prețuri, TVA, total) și se poate tipări / salva PDF / descărca HTML.
 
 ## Limitări cunoscute

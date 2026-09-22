@@ -23,27 +23,21 @@ export function TermsPage() {
       <p>
         Produsele din webshop sunt semifabricate metalice debitate la dimensiunile indicate de client în configurator. Fiind realizate conform specificațiilor clientului, acestea nu beneficiază de dreptul de retragere prevăzut de OUG 34/2014 (art. 16 lit. c).
       </p>
-      <h2>3. Dimensiuni și toleranțe</h2>
-      <ul>
-        <li>Profile și țevi: toleranță la lungime -0 / +3 mm.</li>
-        <li>Bare late, pătrate, hexagonale și rotunde: toleranță la lungime -0 / +5 mm.</li>
-      </ul>
-      <p>Lungimea livrată nu este niciodată mai mică decât cea comandată.</p>
-      <h2>4. Prețuri și plată</h2>
+      <h2>3. Prețuri și plată</h2>
       <p>
-        Prețurile sunt afișate în lei și includ TVA (21%), cu excepția cazurilor în care se menționează explicit „fără TVA”. Prețul se calculează din greutatea teoretică a piesei (densitate × volum) și prețul pe kilogram al materialului. Prețurile pot fi actualizate până la finalizarea comenzii. Metode de plată: transfer bancar (pe baza facturii proforme), card online și ramburs la livrare.
+        Prețurile sunt afișate în lei și includ TVA (21%), cu excepția cazurilor în care se menționează explicit „fără TVA”. Prețul se calculează din greutatea teoretică a piesei (densitate × volum) și prețul pe kilogram al materialului. Prețurile pot fi actualizate până la finalizarea comenzii. Metode de plată: transfer bancar (pe baza facturii proforme), card online prin NETOPIA Payments și ramburs la livrare (FAN Courier, Cargus sau Sameday).
       </p>
-      <h2>5. Comenzi și cantități</h2>
+      <h2>4. Comenzi și cantități</h2>
       <p>
         Comenzile online sunt limitate la 100 de bucăți per configurație. Pentru cantități mai mari, dimensiuni speciale sau materiale care nu apar în configurator, vă rugăm să contactați un consultant Color Metal.
       </p>
-      <h2>6. Livrare</h2>
+      <h2>5. Livrare</h2>
       <p>Costul transportului este calculat în funcție de greutate și destinație și este comunicat la confirmarea comenzii. Termenul de livrare se comunică la confirmarea comenzii.</p>
-      <h2>7. Garanție și reclamații</h2>
+      <h2>6. Garanție și reclamații</h2>
       <p>
         Produsele sunt însoțite, la cerere, de certificate de calitate ale producătorului. Reclamațiile privind conformitatea se transmit la {SITE.emails.direct} în termen de 48 de ore de la recepție, cu fotografii și numărul comenzii.
       </p>
-      <h2>8. Soluționarea litigiilor</h2>
+      <h2>7. Soluționarea litigiilor</h2>
       <p>Consumatorii pot apela la ANPC, la platforma SOL (soluționarea online a litigiilor) sau la procedura SAL, conform legislației în vigoare.</p>
     </LegalShell>
   );
@@ -87,7 +81,7 @@ export function ReturnsPage() {
       </p>
       <h2>Produse neconforme</h2>
       <p>
-        Dacă produsul livrat nu corespunde configurației comandate (material, dimensiuni în afara toleranțelor, defecte de material), vă rugăm să ne anunțați în 48 de ore de la recepție la {SITE.emails.direct}, cu numărul comenzii și fotografii. Produsul neconform se înlocuiește sau se rambursează integral, inclusiv costul transportului.
+        Dacă produsul livrat nu corespunde configurației comandate (material, dimensiuni, defecte de material), vă rugăm să ne anunțați în 48 de ore de la recepție la {SITE.emails.direct}, cu numărul comenzii și fotografii. Produsul neconform se înlocuiește sau se rambursează integral, inclusiv costul transportului.
       </p>
       <h2>Livrare deteriorată</h2>
       <p>Verificați coletul la primire; deteriorările vizibile se consemnează în procesul-verbal al curierului.</p>

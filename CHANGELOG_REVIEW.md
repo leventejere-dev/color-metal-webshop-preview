@@ -136,3 +136,11 @@ fotografii reale + ilustrațiile tehnice oficiale pentru fiecare formă.
 - Banner: doar „WEBSHOP COLOR METAL” (bold, un singur stil); secțiunea „Cantități mari…” eliminată de pe prima pagină.
 - **AluShop** preluat din webshopul actual (`/alushop`, meniu „AluShop”, promo pe prima pagină): promoția de plăci debitate cu filtre (aliaj, grosime, lungime, lățime), tabel (aliaj, grosime, lungime, lățime, greutate, preț în lei fără TVA, cheltuieli de transport orientative) și „Pune în coș”; fiecare placă este bucată unică (cantitate 1, nu se duplică în coș). Datele: `/api/catalog/fixed-stock/alushop` din webshopul actual, prețurile EUR convertite prin `EUR_TO_RON`.
 - Pagina de material: secțiunea „Culoare” apare doar la finisajul Eloxat. Configurator: aceeași previzualizare cu miniaturi ca pe pagina de material; fără butonul „Cere ofertă”. Produse: fără filtrul de material și fără căutarea din pagină. Logo mai mic.
+
+# Revizia 4 (2026-09-22)
+- Banner: fotografia nouă (textură aurie), titlul „WEBSHOP COLOR METAL” subțire, alb.
+- Toleranțele nu se mai afișează nicăieri (configurator, T&C, Despre noi) – informație internă.
+- Marcajul „RO” eliminat din antet/footer (nu există selector de limbă).
+- Checkout: la „Ramburs la livrare” se alege curierul (FAN Courier, Cargus, Sameday); la „Card online” apare secțiunea NETOPIA Payments cu formular de card (număr cu formatare și validare Luhn, expirare LL/AA, CVV, nume) – simulare, datele cardului nu se salvează, în comandă rămân doar ultimele 4 cifre. Butonul devine „Plătește <sumă>”.
+- Footer: siglele NETOPIA Payments / Visa / Mastercard cu „Plăți online securizate prin NETOPIA Payments” (ca în webshopul actual).
+- Corecție: la deschiderea directă a paginii de checkout, datele contului se preiau automat.

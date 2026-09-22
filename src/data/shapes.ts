@@ -16,7 +16,6 @@ export type ShapeId =
   | 'coil';
 
 export type ShapeCategory = 'placa' | 'profil' | 'teava' | 'bara' | 'rulou';
-export type ToleranceGroup = 'profil' | 'bara' | 'placa';
 
 export interface DimensionField {
   key: string;
@@ -57,7 +56,6 @@ export interface Shape {
   variants: Record<string, number>[];
   /** câmpuri continue (slider + input) */
   ranges: RangeSpec[];
-  tolerance: ToleranceGroup;
   unitLabel: string;
   images: ShapeImages;
 }
@@ -125,7 +123,6 @@ export const SHAPES: Shape[] = [
       { width: 1500, height: 3000, thickness: 50 },
     ],
     ranges: [plateLength],
-    tolerance: 'placa',
     unitLabel: 'buc',
     images: img('thick_plate'),
   },
@@ -159,7 +156,6 @@ export const SHAPES: Shape[] = [
       { width: 1500, height: 3000, thickness: 6 },
     ],
     ranges: [plateLength],
-    tolerance: 'placa',
     unitLabel: 'buc',
     images: img('sheet'),
   },
@@ -203,7 +199,6 @@ export const SHAPES: Shape[] = [
       { width: 100, height: 50, thickness: 8 },
     ],
     ranges: [lengthProfile],
-    tolerance: 'profil',
     unitLabel: 'buc',
     images: img('profile_u'),
   },
@@ -240,7 +235,6 @@ export const SHAPES: Shape[] = [
       { width: 100, height: 100, thickness: 10 },
     ],
     ranges: [lengthProfile],
-    tolerance: 'profil',
     unitLabel: 'buc',
     images: img('profile_l'),
   },
@@ -272,7 +266,6 @@ export const SHAPES: Shape[] = [
       { width: 80, height: 80, thickness: 8 },
     ],
     ranges: [lengthProfile],
-    tolerance: 'profil',
     unitLabel: 'buc',
     images: img('profile_t'),
   },
@@ -311,7 +304,6 @@ export const SHAPES: Shape[] = [
       { width: 100, height: 50, thickness: 6 },
     ],
     ranges: [lengthProfile],
-    tolerance: 'profil',
     unitLabel: 'buc',
     images: img('rect_tube'),
   },
@@ -348,7 +340,6 @@ export const SHAPES: Shape[] = [
       { side: 100, thickness: 8 },
     ],
     ranges: [lengthProfile],
-    tolerance: 'profil',
     unitLabel: 'buc',
     images: img('square_tube'),
   },
@@ -380,7 +371,6 @@ export const SHAPES: Shape[] = [
       { outer_diameter: 100, thickness: 6 },
     ],
     ranges: [lengthProfile],
-    tolerance: 'profil',
     unitLabel: 'buc',
     images: img('round_tube'),
   },
@@ -424,7 +414,6 @@ export const SHAPES: Shape[] = [
       { width: 80, thickness: 10 },
     ],
     ranges: [lengthBar],
-    tolerance: 'bara',
     unitLabel: 'buc',
     images: img('flat_bar'),
   },
@@ -441,7 +430,6 @@ export const SHAPES: Shape[] = [
     fields: [F.side],
     variants: [{ side: 10 }, { side: 15 }, { side: 20 }, { side: 25 }, { side: 30 }, { side: 40 }, { side: 50 }, { side: 60 }],
     ranges: [lengthBar],
-    tolerance: 'bara',
     unitLabel: 'buc',
     images: img('square_bar'),
   },
@@ -458,7 +446,6 @@ export const SHAPES: Shape[] = [
     fields: [F.sw],
     variants: [{ side: 10 }, { side: 15 }, { side: 20 }, { side: 25 }, { side: 30 }, { side: 40 }, { side: 50 }],
     ranges: [lengthBar],
-    tolerance: 'bara',
     unitLabel: 'buc',
     images: img('hex_bar'),
   },
@@ -486,7 +473,6 @@ export const SHAPES: Shape[] = [
       { outer_diameter: 60 },
     ],
     ranges: [lengthBar],
-    tolerance: 'bara',
     unitLabel: 'buc',
     images: img('round_bar'),
   },
@@ -522,7 +508,6 @@ export const SHAPES: Shape[] = [
       { width: 1250, thickness: 2 },
     ],
     ranges: [lengthCoil],
-    tolerance: 'placa',
     unitLabel: 'buc',
     images: img('coil'),
   },
@@ -538,21 +523,3 @@ export const CATEGORIES: { id: ShapeCategory; label: string }[] = [
   { id: 'bara', label: 'Bare' },
   { id: 'rulou', label: 'Bandă rulou' },
 ];
-
-export const TOLERANCES: Record<ToleranceGroup, { value: string; title: string; text: string }> = {
-  profil: {
-    value: '-0 / +3 mm',
-    title: 'Toleranță la lungime pentru profile și țevi: -0 / +3 mm',
-    text: 'Debitarea se face cu adaos pozitiv: piesa nu este niciodată mai scurtă decât lungimea comandată, dar poate fi cu până la 3 mm mai lungă.',
-  },
-  bara: {
-    value: '-0 / +5 mm',
-    title: 'Toleranță la lungime pentru bare: -0 / +5 mm',
-    text: 'Barele late și rotunde se debitează cu adaos pozitiv: lungimea livrată este cel puțin cea comandată și cel mult cu 5 mm mai mare.',
-  },
-  placa: {
-    value: '-0 / +3 mm',
-    title: 'Toleranță la debitare: -0 / +3 mm pe fiecare dimensiune',
-    text: 'Dimensiunile comandate reprezintă minimul garantat; adaosul de debitare este de cel mult 3 mm.',
-  },
-};
