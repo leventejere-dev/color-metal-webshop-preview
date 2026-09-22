@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
-import { Link, Navigate, useNavigate, useParams, useSearchParams } from 'react-router-dom';
-import { ArrowLeft, Info, RotateCcw, ShoppingCart, FileText, Ruler } from 'lucide-react';
+import { Link, Navigate, useParams, useSearchParams } from 'react-router-dom';
+import { ArrowLeft, Info, RotateCcw, ShoppingCart, Ruler } from 'lucide-react';
 import { SHAPE_BY_SLUG, TOLERANCES, type Shape } from '@/data/shapes';
 import { ELOX_COLORS, FINISHES, MATERIALS, type EloxColorId, type FinishId, type MaterialId } from '@/data/materials';
 import { OptionGroup } from '@/components/configurator/OptionGroup';
@@ -10,7 +10,6 @@ import { QuantityField } from '@/components/ui/QuantityField';
 import { ProductPreview } from '@/components/product/ProductPreview';
 import { FavoriteButton } from '@/components/product/ProductCard';
 import { Button } from '@/components/ui/Button';
-import { Modal } from '@/components/ui/Modal';
 import { Breadcrumbs, Notice, SummaryRow } from '@/components/ui/misc';
 import { effectiveDims, fieldValues, isAvailable, isComplete, isPlate, rangeBounds, type RangeValues, type Selection } from '@/lib/configurator';
 import { dimsLabel, pieceWeightKg } from '@/lib/geometry';
@@ -33,7 +32,6 @@ export function ConfiguratorPage() {
 
 function Configurator({ shape, materialId }: { shape: Shape; materialId: MaterialId }) {
   const [params] = useSearchParams();
-  const navigate = useNavigate();
   const material = MATERIALS[materialId];
   const finish = (material.finishes.length ? ((params.get('finisaj') as FinishId) || 'natur') : undefined) as FinishId | undefined;
   const eloxColor = finish === 'eloxat' ? ((params.get('culoare') as EloxColorId) || 'natur') : undefined;
@@ -45,7 +43,6 @@ function Configurator({ shape, materialId }: { shape: Shape; materialId: Materia
   const [ranges, setRanges] = useState<RangeValues>({});
   const [qty, setQty] = useState(1);
   const [notices, setNotices] = useState<Record<string, string>>({});
-  const [offerOpen, setOfferOpen] = useState(false);
 
   const resetAll = useCallback(() => {
     setSel({});
@@ -243,12 +240,9 @@ function Configurator({ shape, materialId }: { shape: Shape; materialId: Materia
               <SummaryRow label="Total cu TVA" value={complete ? money(price.grossRon) : '—'} strong className="pt-3 text-base" />
             </div>
 
-            <div className="mt-5 space-y-2">
+            <div className="mt-5">
               <Button size="lg" full onClick={addToCart} disabled={!canAdd}>
                 <ShoppingCart className="h-4 w-4" /> Adaugă în coș
-              </Button>
-              <Button size="lg" full variant="secondary" onClick={() => setOfferOpen(true)}>
-                <FileText className="h-4 w-4" /> Cere ofertă
               </Button>
             </div>
             {!complete && (
@@ -262,27 +256,6 @@ function Configurator({ shape, materialId }: { shape: Shape; materialId: Materia
         </aside>
       </div>
 
-      <Modal open={offerOpen} onClose={() => setOfferOpen(false)} title="Cere ofertă">
-        <p className="text-sm text-ink-soft">Trimite configurația către echipa de vânzări Color Metal.</p>
-        <div className="mt-4 rounded-lg bg-surface p-4 text-sm">
-          <p className="font-semibold">
-            {shape.name} · {material.label}
-          </p>
-          <p className="mt-1 text-muted">{complete ? dimsLabel(shape, dims, { length: lengthMm }) : 'Dimensiuni: neselectate încă'}</p>
-          <p className="mt-1 text-muted">
-            Cantitate: {qty} {shape.unitLabel}
-          </p>
-        </div>
-        <div className="mt-4">
-          <ContactConsultant subject={`Cerere ofertă – ${shape.name} ${material.label}`} message={offerMessage} />
-        </div>
-        <div className="mt-5 flex justify-end gap-2">
-          <Button variant="secondary" onClick={() => setOfferOpen(false)}>
-            Închide
-          </Button>
-          <Button onClick={() => navigate('/contact')}>Formular de contact</Button>
-        </div>
-      </Modal>
     </div>
   );
 }
