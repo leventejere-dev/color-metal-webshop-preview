@@ -3,7 +3,7 @@ import { Link, useParams } from 'react-router-dom';
 import { ArrowLeft, Download, Printer } from 'lucide-react';
 import { ordersApi } from '@/lib/api';
 import type { Order } from '@/lib/types';
-import { COURIERS, PAYMENT_LABEL } from '@/lib/types';
+import { PAYMENT_LABEL } from '@/lib/types';
 import { SHAPE_BY_ID } from '@/data/shapes';
 import { SITE } from '@/config/site';
 import { Button, ButtonLink } from '@/components/ui/Button';
@@ -94,7 +94,6 @@ export function DocumentPage({ kind }: { kind: 'proforma' | 'factura' }) {
             <p className="text-sm">Comanda: {order.number}</p>
             <p className="mt-1 text-xs text-muted">
               Plată: {PAYMENT_LABEL[order.payment]}
-              {order.courier ? ` · ${COURIERS.find((c) => c.id === order.courier)?.label}` : ''}
               {order.cardLast4 ? ` · card •••• ${order.cardLast4}` : ''}
             </p>
           </div>

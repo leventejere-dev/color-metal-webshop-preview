@@ -5,7 +5,7 @@ import { useCart } from '@/context/CartContext';
 import { useAuth } from '@/context/AuthContext';
 import { useToast } from '@/context/ToastContext';
 import { ordersApi } from '@/lib/api';
-import { COURIERS, type Address, type CourierId, type PaymentMethod } from '@/lib/types';
+import type { Address, PaymentMethod } from '@/lib/types';
 import { PaymentBadges } from '@/components/ui/PaymentBadges';
 import { Input, Textarea, Checkbox } from '@/components/ui/Field';
 import { Button } from '@/components/ui/Button';
@@ -21,7 +21,6 @@ const emptyAddress = (): Address => ({ name: '', company: '', cui: '', street: '
 const PAYMENTS: { id: PaymentMethod; label: string; text: string; icon: typeof Landmark }[] = [
   { id: 'transfer', label: 'Transfer bancar', text: 'Primești o factură proformă; comanda intră în producție după confirmarea plății.', icon: Landmark },
   { id: 'card', label: 'Card online', text: 'Plată securizată cu cardul prin NETOPIA Payments (Visa / Mastercard).', icon: CreditCard },
-  { id: 'ramburs', label: 'Ramburs la livrare', text: 'Plătești curierului la primirea coletului (FAN Courier, Cargus, Sameday).', icon: Truck },
 ];
 
 /* ---- card: formatare + validare (Luhn) – datele cardului nu sunt salvate nicăieri ---- */
@@ -72,7 +71,6 @@ export function CheckoutPage() {
   const [sameDelivery, setSameDelivery] = useState(!user?.delivery);
   const [delivery, setDelivery] = useState<Address>(() => ({ ...emptyAddress(), ...(user?.delivery ?? {}) }));
   const [payment, setPayment] = useState<PaymentMethod | null>(null);
-  const [courier, setCourier] = useState<CourierId | null>(null);
   const [card, setCard] = useState({ number: '', expiry: '', cvv: '', name: '' });
   const [notes, setNotes] = useState('');
   const [terms, setTerms] = useState({ custom: false, tc: false, gdpr: false });
@@ -116,7 +114,6 @@ export function CheckoutPage() {
       if (!delivery.county.trim()) e.dcounty = 'Introdu județul.';
     }
     if (!payment) e.payment = 'Alege o metodă de plată.';
-    if (payment === 'ramburs' && !courier) e.courier = 'Alege firma de curierat.';
     if (payment === 'card') {
       const num = onlyDigits(card.number);
       if (!luhn(num)) e.cardNumber = 'Numărul cardului nu este valid.';
@@ -141,7 +138,6 @@ export function CheckoutPage() {
         userId: user?.id ?? null,
         items,
         payment,
-        courier: courier ?? undefined,
         cardLast4: payment === 'card' ? onlyDigits(card.number).slice(-4) : undefined,
         billing: { ...billing, company: legal === 'pj' ? billing.company : undefined, cui: legal === 'pj' ? billing.cui : undefined },
         delivery: effectiveDelivery,
@@ -234,7 +230,8 @@ export function CheckoutPage() {
             <h2 className="flex items-center gap-2 text-lg font-semibold">
               <CreditCard className="h-5 w-5 text-brand-gold-dark" /> 3. Metodă de plată
             </h2>
-            <div className="mt-4 grid gap-3 sm:grid-cols-3">
+            <p className="mt-1 text-sm text-muted">Plata se face în avans – card online sau transfer bancar. Nu se acceptă plata ramburs.</p>
+            <div className="mt-4 grid gap-3 sm:grid-cols-2">
               {PAYMENTS.map((p) => (
                 <button
                   key={p.id}
@@ -250,31 +247,6 @@ export function CheckoutPage() {
               ))}
             </div>
             {errors.payment && <p className="mt-2 text-xs text-danger">{errors.payment}</p>}
-
-            {payment === 'ramburs' && (
-              <div className="mt-5 rounded-xl border border-line bg-surface/60 p-5" data-error={!!errors.courier}>
-                <h3 className="font-semibold">Firma de curierat</h3>
-                <p className="mt-1 text-sm text-muted">Plătești curierului la livrare. Costul transportului se comunică la confirmarea comenzii.</p>
-                <div className="mt-3 grid gap-3 sm:grid-cols-3" role="radiogroup" aria-label="Firma de curierat">
-                  {COURIERS.map((c) => (
-                    <button
-                      key={c.id}
-                      type="button"
-                      role="radio"
-                      aria-checked={courier === c.id}
-                      onClick={() => setCourier(c.id)}
-                      className={cls('flex flex-col items-start gap-1 rounded-xl border bg-white p-4 text-left transition', courier === c.id ? 'border-brand-gold ring-2 ring-brand-gold/30' : 'border-line hover:border-ink/40')}
-                    >
-                      <span className="flex items-center gap-2 font-semibold">
-                        <Truck className="h-4 w-4 text-brand-gold-dark" /> {c.label}
-                      </span>
-                      <span className="text-xs text-muted">{c.text}</span>
-                    </button>
-                  ))}
-                </div>
-                {errors.courier && <p className="mt-2 text-xs text-danger">{errors.courier}</p>}
-              </div>
-            )}
 
             {payment === 'card' && (
               <div className="mt-5 rounded-xl border border-[#1c3f95]/25 bg-[#f4f7fc] p-5" data-error={!!(errors.cardNumber || errors.cardExpiry || errors.cardCvv || errors.cardName)}>

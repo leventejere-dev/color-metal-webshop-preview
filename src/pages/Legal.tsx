@@ -25,7 +25,7 @@ export function TermsPage() {
       </p>
       <h2>3. Prețuri și plată</h2>
       <p>
-        Prețurile sunt afișate în lei și includ TVA (21%), cu excepția cazurilor în care se menționează explicit „fără TVA”. Prețul se calculează din greutatea teoretică a piesei (densitate × volum) și prețul pe kilogram al materialului. Prețurile pot fi actualizate până la finalizarea comenzii. Metode de plată: transfer bancar (pe baza facturii proforme), card online prin NETOPIA Payments și ramburs la livrare (FAN Courier, Cargus sau Sameday).
+        Prețurile sunt afișate în lei și includ TVA (21%), cu excepția cazurilor în care se menționează explicit „fără TVA”. Prețul se calculează din greutatea teoretică a piesei (densitate × volum) și prețul pe kilogram al materialului. Prețurile pot fi actualizate până la finalizarea comenzii. Plata se face în avans: card online prin NETOPIA Payments sau transfer bancar (pe baza facturii proforme). Nu se acceptă plata ramburs.
       </p>
       <h2>4. Comenzi și cantități</h2>
       <p>

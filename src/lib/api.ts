@@ -4,7 +4,7 @@
  * (fetch către /api/auth, /api/orders, /api/favorites, /api/cart) – restul aplicației rămâne neschimbat.
  */
 import { hashPassword, read, remove, uid, write } from './storage';
-import type { Address, CartItem, CourierId, Order, PaymentMethod, PublicUser, User, UserSettings } from './types';
+import type { Address, CartItem, Order, PaymentMethod, PublicUser, User, UserSettings } from './types';
 import { totalsFromLines } from './pricing';
 import { SEED_ORDERS, DEMO_USER } from '@/data/demo';
 
@@ -153,7 +153,6 @@ export interface CreateOrderInput {
   userId: string | null;
   items: CartItem[];
   payment: PaymentMethod;
-  courier?: CourierId;
   cardLast4?: string;
   billing: Address;
   delivery: Address;
@@ -190,7 +189,6 @@ export const ordersApi = {
       ...totals,
       totalWeightKg: Math.round(input.items.reduce((s, i) => s + i.unitWeightKg * i.quantity, 0) * 1000) / 1000,
       payment: input.payment,
-      courier: input.payment === 'ramburs' ? input.courier : undefined,
       cardLast4: input.payment === 'card' ? input.cardLast4 : undefined,
       status: input.payment === 'transfer' ? 'asteapta_plata' : 'confirmata',
       billing: input.billing,

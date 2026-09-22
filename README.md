@@ -115,7 +115,7 @@ tools/         prepare-images.mjs – pipeline-ul de imagini folosit pentru asse
   (profile/țevi/plăci) și 25 mm (bare), maxim configurabil per formă (`ranges` în `shapes.ts`); la plăci/table lățimea se alege din formatele de stoc, iar lungimea maximă depinde de format.
 - **Toleranțe**: nu se afișează în webshop (informație internă Color Metal).
 - **Cantitate**: peste 100 buc butonul „Adaugă în coș” este dezactivat și apar telefon / email / WhatsApp.
-- **Plată**: card online prin formular NETOPIA Payments (simulat, cu validare Luhn; datele cardului nu se salvează), ramburs cu alegerea curierului (FAN Courier / Cargus / Sameday), transfer bancar. Proforma se generează exclusiv la „Transfer bancar”, în checkout (sumar, cumpărător, produse, cantități,
+- **Plată** (exclusiv în avans): card online prin formular NETOPIA Payments (simulat, cu validare Luhn; datele cardului nu se salvează) sau transfer bancar. Fără ramburs. Proforma se generează exclusiv la „Transfer bancar”, în checkout (sumar, cumpărător, produse, cantități,
   prețuri, TVA, total) și se poate tipări / salva PDF / descărca HTML.
 
 ## Limitări cunoscute

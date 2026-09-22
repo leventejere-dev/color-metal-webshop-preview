@@ -141,6 +141,6 @@ fotografii reale + ilustrațiile tehnice oficiale pentru fiecare formă.
 - Banner: fotografia nouă (textură aurie), titlul „WEBSHOP COLOR METAL” subțire, alb.
 - Toleranțele nu se mai afișează nicăieri (configurator, T&C, Despre noi) – informație internă.
 - Marcajul „RO” eliminat din antet/footer (nu există selector de limbă).
-- Checkout: la „Ramburs la livrare” se alege curierul (FAN Courier, Cargus, Sameday); la „Card online” apare secțiunea NETOPIA Payments cu formular de card (număr cu formatare și validare Luhn, expirare LL/AA, CVV, nume) – simulare, datele cardului nu se salvează, în comandă rămân doar ultimele 4 cifre. Butonul devine „Plătește <sumă>”.
+- Checkout: plata exclusiv în avans – doar card online sau transfer bancar (opțiunea „Ramburs la livrare” a fost eliminată); la „Card online” apare secțiunea NETOPIA Payments cu formular de card (număr cu formatare și validare Luhn, expirare LL/AA, CVV, nume) – simulare, datele cardului nu se salvează, în comandă rămân doar ultimele 4 cifre. Butonul devine „Plătește <sumă>”.
 - Footer: siglele NETOPIA Payments / Visa / Mastercard cu „Plăți online securizate prin NETOPIA Payments” (ca în webshopul actual).
 - Corecție: la deschiderea directă a paginii de checkout, datele contului se preiau automat.

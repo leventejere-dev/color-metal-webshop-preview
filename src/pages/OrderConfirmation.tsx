@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { CheckCircle2, FileText, Landmark } from 'lucide-react';
 import { ordersApi } from '@/lib/api';
-import { COURIERS, ORDER_STATUS_LABEL, PAYMENT_LABEL, type Order } from '@/lib/types';
+import { ORDER_STATUS_LABEL, PAYMENT_LABEL, type Order } from '@/lib/types';
 import { SHAPE_BY_ID } from '@/data/shapes';
 import { ButtonLink } from '@/components/ui/Button';
 import { Badge, EmptyState, SummaryRow } from '@/components/ui/misc';
@@ -60,7 +60,7 @@ export function OrderConfirmationPage() {
           </div>
         ) : (
           <p className="mt-6 rounded-xl bg-surface p-4 text-sm text-ink-soft">
-            Metodă de plată: <strong>{PAYMENT_LABEL[order.payment]}{order.courier ? ` · ${COURIERS.find((c) => c.id === order.courier)?.label}` : ''}{order.cardLast4 ? ` · card •••• ${order.cardLast4} (NETOPIA Payments)` : ''}</strong>. Confirmarea și factura <strong>{order.invoiceNumber}</strong> au fost trimise pe email la {order.customerEmail}.
+            Metodă de plată: <strong>{PAYMENT_LABEL[order.payment]}{order.cardLast4 ? ` · card •••• ${order.cardLast4} (NETOPIA Payments)` : ''}</strong>. Confirmarea și factura <strong>{order.invoiceNumber}</strong> au fost trimise pe email la {order.customerEmail}.
           </p>
         )}
 
