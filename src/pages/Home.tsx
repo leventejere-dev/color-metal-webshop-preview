@@ -16,8 +16,8 @@ export function HomePage() {
         </picture>
         <div className="absolute inset-0 -z-10 bg-gradient-to-r from-ink/80 via-ink/45 to-ink/10" />
         <div className="container-cm flex min-h-[120px] items-center py-6 sm:min-h-[150px] lg:min-h-[168px]">
-          <h1 className="text-2xl font-light tracking-tight sm:text-3xl lg:text-4xl">
-            Semifabricate metalice <span className="block text-base font-normal text-white/80 sm:inline sm:text-lg lg:text-xl">· debitate la dimensiune</span>
+          <h1 className="text-2xl font-bold uppercase tracking-[0.18em] sm:text-3xl lg:text-4xl">
+            Webshop <span className="text-brand-gold">Color Metal</span>
           </h1>
         </div>
       </section>
