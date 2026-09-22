@@ -67,7 +67,7 @@ export function Header() {
         {/* Logo (mic) + Acasă */}
         <div className="flex shrink-0 items-center gap-2 lg:gap-3">
           <Link to="/" className="flex shrink-0 items-center" aria-label="Color Metal – Acasă">
-            <img src={asset('/assets/brand/color-metal-logo.png')} alt="Color Metal – Partner in engineering" className="h-[18px] w-auto sm:h-5 lg:h-6" width={1200} height={158} />
+            <img src={asset('/assets/brand/color-metal-logo.png')} alt="Color Metal – Partner in engineering" className="h-3.5 w-auto sm:h-4 lg:h-[18px]" width={1200} height={158} />
           </Link>
           <NavLink to="/" end className={({ isActive }) => cls('hidden whitespace-nowrap rounded-md px-2 py-1.5 text-[13px] font-semibold transition hover:text-brand-bronze md:block', isActive ? 'text-brand-bronze' : 'text-ink')}>
             Acasă
