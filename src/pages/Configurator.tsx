@@ -7,7 +7,7 @@ import { OptionGroup } from '@/components/configurator/OptionGroup';
 import { ContactConsultant } from '@/components/configurator/ContactConsultant';
 import { RangeField } from '@/components/ui/RangeField';
 import { QuantityField } from '@/components/ui/QuantityField';
-import { ShapeIcon } from '@/components/product/ShapeIcon';
+import { ProductPreview } from '@/components/product/ProductPreview';
 import { FavoriteButton } from '@/components/product/ProductCard';
 import { Button } from '@/components/ui/Button';
 import { Modal } from '@/components/ui/Modal';
@@ -16,7 +16,7 @@ import { effectiveDims, fieldValues, isAvailable, isComplete, isPlate, rangeBoun
 import { dimsLabel, pieceWeightKg } from '@/lib/geometry';
 import { computePrice } from '@/lib/pricing';
 import { MAX_ONLINE_QTY } from '@/config/pricing';
-import { asset, kg, money, n } from '@/lib/format';
+import { kg, money, n } from '@/lib/format';
 import { useCart } from '@/context/CartContext';
 import { useToast } from '@/context/ToastContext';
 
@@ -171,19 +171,8 @@ function Configurator({ shape, materialId }: { shape: Shape; materialId: Materia
       <div className="mt-5 grid gap-6 lg:grid-cols-[minmax(0,7fr)_minmax(0,4fr)] lg:gap-8">
         {/* ---------------- stânga */}
         <div className="space-y-4">
-          <div className="card grid grid-cols-2 gap-3 p-3 sm:p-4">
-            <figure className="flex flex-col items-center">
-              <div className="flex aspect-[4/3] w-full items-center justify-center rounded-lg bg-surface p-2">
-                <ShapeIcon type={shape.id} material={materialId} dims={dims} large className="max-h-full w-auto max-w-full" label={`Previzualizare ${shape.name}`} />
-              </div>
-              <figcaption className="mt-1.5 text-[11px] text-muted">Previzualizare live</figcaption>
-            </figure>
-            <figure className="flex flex-col items-center">
-              <div className="flex aspect-[4/3] w-full items-center justify-center rounded-lg border border-line bg-white p-2">
-                <img src={asset(shape.images.guide)} alt={`Ghid pentru alegerea dimensiunilor – ${shape.name}`} className="max-h-full w-full object-contain" />
-              </div>
-              <figcaption className="mt-1.5 text-[11px] text-muted">Ghid pentru alegerea dimensiunilor</figcaption>
-            </figure>
+          <div className="max-w-sm">
+            <ProductPreview shape={shape} material={materialId} dims={dims} />
           </div>
 
           <div className="flex items-center justify-between">
