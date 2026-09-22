@@ -15,10 +15,10 @@ export function HomePage() {
           <img src={asset('/assets/banner/hero.jpg')} alt="" className="absolute inset-0 -z-10 h-full w-full object-cover object-center" fetchPriority="high" width={1920} height={480} />
         </picture>
         <div className="absolute inset-0 -z-10 bg-gradient-to-r from-ink/80 via-ink/45 to-ink/10" />
-        <div className="container-cm flex min-h-[132px] flex-col justify-center py-6 sm:min-h-[160px] lg:min-h-[176px]">
-          <p className="eyebrow !text-brand-gold">Color Metal · Webshop</p>
-          <h1 className="mt-1 text-2xl font-light tracking-tight sm:text-3xl lg:text-4xl">Semifabricate metalice</h1>
-          <p className="mt-1 max-w-lg text-sm text-white/80">Plăci, table, profile, țevi și bare din aluminiu, cupru, alamă și bronz – debitate la dimensiune.</p>
+        <div className="container-cm flex min-h-[120px] items-center py-6 sm:min-h-[150px] lg:min-h-[168px]">
+          <h1 className="text-2xl font-light tracking-tight sm:text-3xl lg:text-4xl">
+            Semifabricate metalice <span className="block text-base font-normal text-white/80 sm:inline sm:text-lg lg:text-xl">· debitate la dimensiune</span>
+          </h1>
         </div>
       </section>
 
