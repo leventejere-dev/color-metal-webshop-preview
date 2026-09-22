@@ -1,0 +1,86 @@
+@import "tailwindcss";
+
+/* ---- Color Metal design tokens (brand: Montserrat, gold #CBA349, greys) ---- */
+@theme {
+  --font-sans: "Montserrat Variable", "Montserrat", ui-sans-serif, system-ui, "Segoe UI", Roboto, sans-serif;
+
+  --color-brand-gold: #cba349;
+  --color-brand-gold-dark: #b38b34;
+  --color-brand-gold-light: #f3ead2;
+  --color-brand-bronze: #b07a2e;
+  --color-brand-bronze-dark: #935f1f;
+  --color-brand-grey: #8e9095;
+  --color-ink: #1a1a1a;
+  --color-ink-soft: #404040;
+  --color-muted: #6b6b6b;
+  --color-line: #e3e3e0;
+  --color-surface: #f6f6f4;
+  --color-surface-2: #eeeeeb;
+  --color-success: #2f7d4a;
+  --color-danger: #b3261e;
+  --color-warning-bg: #fff6e8;
+  --color-warning-ink: #8a5a12;
+
+  --radius-card: 14px;
+  --shadow-card: 0 1px 2px rgba(20, 20, 20, 0.04), 0 8px 24px -12px rgba(20, 20, 20, 0.16);
+}
+
+@layer base {
+  html { scroll-behavior: smooth; }
+  body {
+    @apply bg-white text-ink antialiased;
+    font-feature-settings: "ss01", "cv11";
+  }
+  h1, h2, h3, h4 { @apply tracking-tight; }
+  input[type="number"]::-webkit-inner-spin-button,
+  input[type="number"]::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
+  input[type="number"] { -moz-appearance: textfield; appearance: textfield; }
+  :focus-visible { outline: 2px solid var(--color-brand-gold); outline-offset: 2px; }
+}
+
+@layer components {
+  .container-cm { @apply mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8; }
+  .card { @apply rounded-[var(--radius-card)] border border-line bg-white shadow-[var(--shadow-card)]; }
+  .eyebrow { @apply text-[11px] font-semibold uppercase tracking-[0.18em] text-brand-gold-dark; }
+  .label { @apply text-sm font-semibold text-ink; }
+  .input {
+    @apply w-full rounded-lg border border-line bg-white px-3.5 py-2.5 text-sm text-ink placeholder:text-muted/70 transition
+      focus:border-brand-gold focus:ring-2 focus:ring-brand-gold/25 focus:outline-none disabled:bg-surface disabled:text-muted;
+  }
+  .prose-cm { @apply text-[15px] leading-7 text-ink-soft; }
+  .prose-cm h2 { @apply mt-8 mb-3 text-xl font-semibold text-ink; }
+  .prose-cm h3 { @apply mt-6 mb-2 text-base font-semibold text-ink; }
+  .prose-cm p { @apply mb-4; }
+  .prose-cm ul { @apply mb-4 list-disc space-y-1 pl-5; }
+  .prose-cm a { @apply text-brand-bronze underline underline-offset-2; }
+}
+
+/* ---- Range slider (length) ---- */
+.cm-range {
+  -webkit-appearance: none; appearance: none;
+  width: 100%; height: 6px; border-radius: 999px;
+  background: linear-gradient(to right, var(--color-brand-gold) 0%, var(--color-brand-gold) var(--pct, 0%), var(--color-surface-2) var(--pct, 0%), var(--color-surface-2) 100%);
+  outline: none;
+}
+.cm-range::-webkit-slider-thumb {
+  -webkit-appearance: none; appearance: none;
+  width: 22px; height: 22px; border-radius: 50%;
+  background: #fff; border: 2px solid var(--color-brand-gold-dark);
+  box-shadow: 0 2px 6px rgba(0,0,0,.18); cursor: pointer; transition: transform .12s ease;
+}
+.cm-range::-webkit-slider-thumb:hover { transform: scale(1.08); }
+.cm-range::-moz-range-thumb {
+  width: 22px; height: 22px; border-radius: 50%;
+  background: #fff; border: 2px solid var(--color-brand-gold-dark);
+  box-shadow: 0 2px 6px rgba(0,0,0,.18); cursor: pointer;
+}
+.cm-range::-moz-range-track { height: 6px; border-radius: 999px; background: transparent; }
+.cm-range.is-empty::-webkit-slider-thumb { border-color: var(--color-brand-grey); background: #f3f3f1; }
+.cm-range.is-empty::-moz-range-thumb { border-color: var(--color-brand-grey); background: #f3f3f1; }
+
+/* ---- Print (proforma / invoice) ---- */
+@media print {
+  .no-print { display: none !important; }
+  body { background: #fff; }
+  .print-page { box-shadow: none !important; border: 0 !important; margin: 0 !important; max-width: none !important; }
+}
