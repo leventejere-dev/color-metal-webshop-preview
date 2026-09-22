@@ -66,7 +66,8 @@ Pe pagina de autentificare există butonul „Completează datele demo”.
 | Rută | Pagină |
 |---|---|
 | `/` | Acasă – banner compact + toate cele 13 forme de produs |
-| `/produse` | Lista produselor, filtre după categorie și material, căutare |
+| `/produse` | Lista produselor, filtre după categorie |
+| `/alushop` | AluShop – promoție plăci debitate (stoc fix, bucăți unice, preluat din webshopul actual) |
 | `/produse/:slug` | Pagina produsului – alegerea materialului și finisajului, previzualizare (desen 2D + ghid dimensiuni) |
 | `/configurator/:slug/:material` | Configurator dimensiuni (opțiuni, slider+input lungime, cantitate, calcul preț) |
 | `/cautare?q=` | Rezultate căutare |

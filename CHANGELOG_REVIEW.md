@@ -131,3 +131,8 @@ fotografii reale + ilustrațiile tehnice oficiale pentru fiecare formă.
 9. Egyéb: `Despre noi` a bannerfotót használja fejlécként; kosár, kedvencek és keresési javaslatok a 2D rajzokkal; a demo-rendelések a lemez új adatmodelljével (lățime diszkrét).
 
 **RO:** antet pe un singur rând cu logo mai mic (fără telefon, fără Cariere), banner mai subțire cu fotografia Color Metal, carduri cu desenele 2D din webshopul actual, fotografiile stock eliminate (casete gri rezervate), pagina de material ca în original (previzualizare mică în dreapta, opțiuni vizibile de la început, fără descrieri), configurator cu un singur „Deselectează”, slider doar la lungime, lățimea plăcilor cu butoane, toleranța plăcilor neafișată, footer fără coloana Produse, un singur număr de call center.
+
+# Revizia 3 (2026-09-22)
+- Banner: doar „WEBSHOP COLOR METAL” (bold, un singur stil); secțiunea „Cantități mari…” eliminată de pe prima pagină.
+- **AluShop** preluat din webshopul actual (`/alushop`, meniu „AluShop”, promo pe prima pagină): promoția de plăci debitate cu filtre (aliaj, grosime, lungime, lățime), tabel (aliaj, grosime, lungime, lățime, greutate, preț în lei fără TVA, cheltuieli de transport orientative) și „Pune în coș”; fiecare placă este bucată unică (cantitate 1, nu se duplică în coș). Datele: `/api/catalog/fixed-stock/alushop` din webshopul actual, prețurile EUR convertite prin `EUR_TO_RON`.
+- Pagina de material: secțiunea „Culoare” apare doar la finisajul Eloxat. Configurator: aceeași previzualizare cu miniaturi ca pe pagina de material; fără butonul „Cere ofertă”. Produse: fără filtrul de material și fără căutarea din pagină. Logo mai mic.

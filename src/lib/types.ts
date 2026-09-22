@@ -51,6 +51,11 @@ export interface CartItem {
   unitNetRon: number;
   label: string;
   addedAt: string;
+  /** AluShop (stoc fix): bucată unică, cu cod, aliaj și cost de transport orientativ */
+  sku?: string;
+  alloy?: string;
+  source?: 'configurator' | 'alushop';
+  transportRon?: number;
 }
 
 export type PaymentMethod = 'transfer' | 'card' | 'ramburs';

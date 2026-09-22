@@ -14,6 +14,7 @@ import type { CartItem } from '@/lib/types';
 
 export function itemDescription(item: CartItem): string {
   const parts: string[] = [MATERIALS[item.materialId].label];
+  if (item.alloy) parts.push(item.alloy);
   if (item.finish) parts.push(FINISHES[item.finish].label + (item.eloxColor ? ` ${ELOX_COLORS.find((c) => c.id === item.eloxColor)?.label ?? ''}` : ''));
   return parts.join(' · ');
 }
@@ -66,10 +67,16 @@ export function CartPage() {
                       </div>
                     </div>
                     <div className="mt-3 flex flex-wrap items-center justify-between gap-3">
-                      <div className="flex items-center gap-3">
-                        <QuantityField value={item.quantity} onChange={(q) => updateQuantity(item.id, q)} min={1} max={MAX_ONLINE_QTY} size="sm" label={`Cantitate ${shape.name}`} />
-                        <span className="text-xs text-muted">max. {MAX_ONLINE_QTY} buc online</span>
-                      </div>
+                      {item.sku ? (
+                        <span className="text-xs text-muted">
+                          1 buc · bucată unică AluShop{item.transportRon != null ? ` · transport orientativ ${money(item.transportRon)}` : ''}
+                        </span>
+                      ) : (
+                        <div className="flex items-center gap-3">
+                          <QuantityField value={item.quantity} onChange={(q) => updateQuantity(item.id, q)} min={1} max={MAX_ONLINE_QTY} size="sm" label={`Cantitate ${shape.name}`} />
+                          <span className="text-xs text-muted">max. {MAX_ONLINE_QTY} buc online</span>
+                        </div>
+                      )}
                       <button onClick={() => removeItem(item.id)} className="inline-flex items-center gap-1.5 rounded-lg px-2 py-1.5 text-sm text-danger hover:bg-danger/5">
                         <Trash2 className="h-4 w-4" /> Șterge
                       </button>

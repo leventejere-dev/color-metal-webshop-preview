@@ -6,6 +6,7 @@ import { ToastProvider } from '@/context/ToastContext';
 import { BareLayout, Layout } from '@/components/layout/Layout';
 import { HomePage } from '@/pages/Home';
 import { ProductsPage } from '@/pages/Products';
+import { AluShopPage } from '@/pages/AluShop';
 import { ProductDetailPage } from '@/pages/ProductDetail';
 import { ConfiguratorPage } from '@/pages/Configurator';
 import { CartPage } from '@/pages/Cart';
@@ -32,6 +33,7 @@ export default function App() {
                 <Route element={<Layout />}>
                   <Route index element={<HomePage />} />
                   <Route path="produse" element={<ProductsPage />} />
+                  <Route path="alushop" element={<AluShopPage />} />
                   <Route path="produse/:slug" element={<ProductDetailPage />} />
                   <Route path="configurator/:slug/:material" element={<ConfiguratorPage />} />
                   <Route path="cautare" element={<SearchPage />} />

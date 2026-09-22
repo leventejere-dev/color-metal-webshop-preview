@@ -3,7 +3,6 @@ import { ArrowRight } from 'lucide-react';
 import { SHAPES } from '@/data/shapes';
 import { ProductCard } from '@/components/product/ProductCard';
 import { asset } from '@/lib/format';
-import { SITE, telHref } from '@/config/site';
 
 export function HomePage() {
   return (
@@ -42,23 +41,17 @@ export function HomePage() {
         <p className="mt-4 text-xs text-muted">Produsele configurate se realizează conform specificațiilor clientului și nu beneficiază de drept de retur (OUG 34/2014).</p>
       </section>
 
-      {/* Consultant */}
+      {/* AluShop */}
       <section className="container-cm mt-12">
         <div className="card flex flex-col gap-4 bg-surface p-5 sm:flex-row sm:items-center sm:justify-between sm:p-6">
           <div>
-            <h2 className="text-lg font-semibold">Cantități mari sau dimensiuni speciale?</h2>
-            <p className="mt-0.5 text-sm text-muted">
-              Call center {SITE.phones.callCenter} · {SITE.emails.direct}
-            </p>
+            <p className="eyebrow">AluShop</p>
+            <h2 className="mt-1 text-lg font-semibold">Promoție plăci debitate</h2>
+            <p className="mt-0.5 text-sm text-muted">Plăci groase din aluminiu, dimensiuni unice, disponibile în limita stocului – preț redus.</p>
           </div>
-          <div className="flex flex-wrap gap-2">
-            <a href={telHref(SITE.phones.callCenter)} className="inline-flex h-10 items-center rounded-lg bg-ink px-4 text-sm font-semibold text-white hover:bg-ink-soft">
-              Sună acum
-            </a>
-            <Link to="/contact" className="inline-flex h-10 items-center rounded-lg border border-line bg-white px-4 text-sm font-semibold hover:border-ink/40">
-              Contact
-            </Link>
-          </div>
+          <Link to="/alushop" className="inline-flex h-10 shrink-0 items-center gap-2 rounded-lg bg-ink px-4 text-sm font-semibold text-white hover:bg-ink-soft">
+            Vezi AluShop <ArrowRight className="h-4 w-4" />
+          </Link>
         </div>
       </section>
     </>
