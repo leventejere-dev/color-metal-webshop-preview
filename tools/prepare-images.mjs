@@ -1,7 +1,7 @@
 // Pipeline de imagini: bannerul (fotografie Color Metal, decupaj din zona clară), ilustrațiile
 // oficiale ale calculatorului de greutate (ghid dimensiuni + pictograme) și logo-ul.
 // Utilizare: node tools/prepare-images.mjs <folder-sursă>
-//   <folder-sursă>/banner-colormetal.jpg      fotografia originală (2000×1332)
+//   <folder-sursă>/banner-gold.webp           fotografia de banner (2000×667)
 //   <folder-sursă>/calc_img/*                 fișierele descărcate de pe color-metal.ro/ro/calculator-greutate
 //   <folder-sursă>/logo_official.png          CM_Singular_Logo_color_print_1.png
 import sharp from 'sharp';
@@ -15,10 +15,10 @@ fs.mkdirSync(path.join(out, 'banner'), { recursive: true });
 fs.mkdirSync(path.join(out, 'tech'), { recursive: true });
 fs.mkdirSync(path.join(out, 'brand'), { recursive: true });
 
-// Banner: zona clară (bare de cupru + profile de aluminiu) din fotografia Color Metal
-const banner = path.join(src, 'banner-colormetal.jpg');
-await sharp(banner).extract({ left: 560, top: 600, width: 1440, height: 360 }).resize(1920, 480).jpeg({ quality: 80, mozjpeg: true }).toFile(path.join(out, 'banner', 'hero.jpg'));
-await sharp(banner).extract({ left: 1100, top: 500, width: 900, height: 450 }).resize(960, 480).jpeg({ quality: 80, mozjpeg: true }).toFile(path.join(out, 'banner', 'hero-mobile.jpg'));
+// Banner: fotografia Color Metal (textură metalică aurie) – decupaj 4:1 pentru desktop, 2:1 pentru mobil
+const banner = path.join(src, 'banner-gold.webp');
+await sharp(banner).resize(1920, 480, { fit: 'cover', position: 'centre' }).jpeg({ quality: 82, mozjpeg: true }).toFile(path.join(out, 'banner', 'hero.jpg'));
+await sharp(banner).resize(960, 480, { fit: 'cover', position: 'centre' }).jpeg({ quality: 82, mozjpeg: true }).toFile(path.join(out, 'banner', 'hero-mobile.jpg'));
 
 // Ghid dimensiuni: ilustrațiile oficiale (notațiile dimensiunilor), dimensiune uniformă, fundal alb
 const techMap = {

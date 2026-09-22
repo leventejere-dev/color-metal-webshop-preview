@@ -7,17 +7,15 @@ import { asset } from '@/lib/format';
 export function HomePage() {
   return (
     <>
-      {/* Banner subțire – fotografie Color Metal (zona clară: bare de cupru și profile de aluminiu) */}
+      {/* Banner subțire – fotografie Color Metal (textură metalică aurie) */}
       <section className="relative isolate overflow-hidden bg-ink text-white">
         <picture>
           <source media="(max-width: 640px)" srcSet={asset('/assets/banner/hero-mobile.jpg')} />
           <img src={asset('/assets/banner/hero.jpg')} alt="" className="absolute inset-0 -z-10 h-full w-full object-cover object-center" fetchPriority="high" width={1920} height={480} />
         </picture>
-        <div className="absolute inset-0 -z-10 bg-gradient-to-r from-ink/80 via-ink/45 to-ink/10" />
+        <div className="absolute inset-0 -z-10 bg-gradient-to-r from-ink/60 via-ink/30 to-transparent" />
         <div className="container-cm flex min-h-[120px] items-center py-6 sm:min-h-[150px] lg:min-h-[168px]">
-          <h1 className="text-2xl font-bold uppercase tracking-[0.18em] sm:text-3xl lg:text-4xl">
-            Webshop <span className="text-brand-gold">Color Metal</span>
-          </h1>
+          <h1 className="text-2xl font-light uppercase tracking-[0.2em] text-white sm:text-3xl lg:text-4xl">Webshop Color Metal</h1>
         </div>
       </section>
 

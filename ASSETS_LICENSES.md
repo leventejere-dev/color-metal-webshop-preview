@@ -9,7 +9,7 @@ calculatorului de greutate Color Metal.
 
 | Fișier(e) | Sursă | Observații |
 |---|---|---|
-| `banner/hero.jpg`, `banner/hero-mobile.jpg` | Fotografie Color Metal furnizată de client (bare de alamă, platbandă de cupru, profile de aluminiu); decupaj din zona clară a imaginii | Drept de utilizare: Color Metal SRL. |
+| `banner/hero.jpg`, `banner/hero-mobile.jpg` | Fotografie Color Metal furnizată de client (textură metalică aurie, 2000×667) | Drept de utilizare: Color Metal SRL. |
 | `brand/color-metal-logo.png`, `brand/color-metal-logo-sm.png` | https://color-metal.ro/sites/default/files/CM_Singular_Logo_color_print_1.png (logo oficial) | Marcă înregistrată Color Metal SRL. |
 | `tech/<forma>.png` (13 ilustrații „ghid dimensiuni”) | https://color-metal.ro/ro/calculator-greutate → `/modules/custom/calculator_de_greutate/calculator/images/calculator-de-greutate/*` | Ilustrațiile calculatorului oficial de greutate. `flat_bar` folosește ilustrația plăcii dreptunghiulare (aceeași geometrie). |
 | `tech/<forma>-icon.png` (13 pictograme) | https://color-metal.ro/ro/calculator-greutate → `/modules/custom/calculator_de_greutate/img/*.png` | Pictogramele selectorului de produs din calculator (păstrate pentru utilizare ulterioară). |
