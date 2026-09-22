@@ -117,26 +117,25 @@ export function ProductDetailPage() {
                   ))}
                 </div>
               </div>
-              <div className={cls(!colorEnabled && 'opacity-50')}>
-                <p className="label">
-                  Culoare {finishEnabled && !colorEnabled && <span className="text-xs font-normal text-muted">– doar la eloxat</span>}
-                </p>
+              {colorEnabled && (
+              <div>
+                <p className="label">Culoare</p>
                 <div className="mt-2 flex flex-wrap gap-3" role="group" aria-label="Culoare eloxare">
                   {ELOX_COLORS.map((c) => (
                     <button
                       key={c.id}
                       type="button"
-                      disabled={!colorEnabled}
                       onClick={() => setColor(c.id)}
-                      aria-pressed={colorEnabled && color === c.id}
-                      className="flex flex-col items-center gap-1 text-xs disabled:cursor-not-allowed"
+                      aria-pressed={color === c.id}
+                      className="flex flex-col items-center gap-1 text-xs"
                     >
-                      <span className={cls('h-9 w-9 rounded-full border-2 shadow-inner', colorEnabled && color === c.id ? 'border-ink' : 'border-line')} style={{ background: c.swatch }} />
-                      <span className={cls(colorEnabled && color === c.id ? 'font-semibold text-ink' : 'text-muted')}>{c.label}</span>
+                      <span className={cls('h-9 w-9 rounded-full border-2 shadow-inner', color === c.id ? 'border-ink' : 'border-line')} style={{ background: c.swatch }} />
+                      <span className={cls(color === c.id ? 'font-semibold text-ink' : 'text-muted')}>{c.label}</span>
                     </button>
                   ))}
                 </div>
               </div>
+              )}
             </div>
           )}
 
