@@ -49,10 +49,10 @@ export function pieceWeightKg(shapeId: ShapeId, dims: Dims, lengthMm: number, de
 }
 
 /** Etichetă compactă a dimensiunilor, ex. "40 × 20 × 2 mm, L 1000 mm" */
-export function dimsLabel(shape: Shape, dims: Dims, ranges: Partial<Record<'length' | 'width', number>>): string {
+export function dimsLabel(shape: Shape, dims: Dims, ranges: Partial<Record<'length', number>>): string {
   const parts: string[] = [];
   if (shape.id === 'thick_plate' || shape.id === 'sheet') {
-    parts.push(`${fmtNum(ranges.width ?? 0)} × ${fmtNum(ranges.length ?? 0)} × ${fmtNum(dims.thickness ?? 0)} mm`);
+    parts.push(`${fmtNum(dims.width ?? 0)} × ${fmtNum(ranges.length ?? 0)} × ${fmtNum(dims.thickness ?? 0)} mm`);
     return parts.join(', ');
   }
   const section = shape.fields.map((f) => fmtNum(dims[f.key] ?? 0)).join(' × ');

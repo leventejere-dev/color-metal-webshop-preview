@@ -43,9 +43,8 @@ export interface CartItem {
   finish?: FinishId;
   eloxColor?: EloxColorId;
   dims: Dims;
-  /** valori continue: lungime (și lățime la plăci/table) */
+  /** lungimea debitată (mm) */
   length: number;
-  width?: number;
   quantity: number;
   unitWeightKg: number;
   pricePerKgRon: number;

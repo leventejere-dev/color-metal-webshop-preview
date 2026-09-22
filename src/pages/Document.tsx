@@ -80,9 +80,9 @@ export function DocumentPage({ kind }: { kind: 'proforma' | 'factura' }) {
           <div>
             <img src={asset('/assets/brand/color-metal-logo.png')} alt="Color Metal" className="h-9 w-auto" />
             <p className="mt-3 text-sm font-semibold">{SITE.legalName}</p>
-            <p className="text-xs text-muted">{SITE.locations[0].address}</p>
+            <p className="text-xs text-muted">{SITE.headquarters.address}</p>
             <p className="text-xs text-muted">
-              {SITE.emails.direct} · {SITE.phones.callCenter1}
+              {SITE.emails.direct} · {SITE.phones.callCenter}
             </p>
           </div>
           <div className="sm:text-right">

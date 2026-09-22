@@ -37,10 +37,9 @@ export const DEMO_USER = {
   } satisfies Omit<User, 'passwordHash'>,
 };
 
-function item(shapeId: ShapeId, materialId: MaterialId, dims: Dims, length: number, quantity: number, width?: number, addedAt = '2026-05-10T10:00:00.000Z'): CartItem {
+function item(shapeId: ShapeId, materialId: MaterialId, dims: Dims, length: number, quantity: number, addedAt = '2026-05-10T10:00:00.000Z'): CartItem {
   const shape = SHAPE_BY_ID[shapeId];
-  const fullDims = width != null ? { ...dims, width } : dims;
-  const unitWeightKg = Math.round(pieceWeightKg(shapeId, fullDims, length, MATERIALS[materialId].density) * 1000) / 1000;
+  const unitWeightKg = Math.round(pieceWeightKg(shapeId, dims, length, MATERIALS[materialId].density) * 1000) / 1000;
   const p = computePrice(materialId, unitWeightKg, quantity);
   return {
     id: `ci_${shapeId}_${materialId}_${length}_${quantity}`,
@@ -49,12 +48,11 @@ function item(shapeId: ShapeId, materialId: MaterialId, dims: Dims, length: numb
     finish: materialId === 'AL' ? 'natur' : undefined,
     dims,
     length,
-    width,
     quantity,
     unitWeightKg,
     pricePerKgRon: p.pricePerKgRon,
     unitNetRon: p.unitNetRon,
-    label: `${shape.name} ${MATERIALS[materialId].label} – ${dimsLabel(shape, fullDims, { length, width })}`,
+    label: `${shape.name} ${MATERIALS[materialId].label} – ${dimsLabel(shape, dims, { length })}`,
     addedAt,
   };
 }
@@ -75,8 +73,8 @@ export const SEED_ORDERS: Order[] = [
     userId: 'u_demo',
     createdAt: '2026-05-12T08:40:00.000Z',
     items: [
-      item('square_tube', 'AL', { side: 40, thickness: 2 }, 2000, 12, undefined, '2026-05-12T08:30:00.000Z'),
-      item('profile_l', 'AL', { width: 40, height: 40, thickness: 3 }, 3000, 6, undefined, '2026-05-12T08:32:00.000Z'),
+      item('square_tube', 'AL', { side: 40, thickness: 2 }, 2000, 12, '2026-05-12T08:30:00.000Z'),
+      item('profile_l', 'AL', { width: 40, height: 40, thickness: 3 }, 3000, 6, '2026-05-12T08:32:00.000Z'),
     ],
     payment: 'card',
     status: 'livrata',
@@ -92,8 +90,8 @@ export const SEED_ORDERS: Order[] = [
     userId: 'u_demo',
     createdAt: '2026-08-21T13:10:00.000Z',
     items: [
-      item('round_bar', 'BRASS', { outer_diameter: 20 }, 1000, 4, undefined, '2026-08-21T13:00:00.000Z'),
-      item('thick_plate', 'AL', { thickness: 10 }, 500, 2, 300, '2026-08-21T13:02:00.000Z'),
+      item('round_bar', 'BRASS', { outer_diameter: 20 }, 1000, 4, '2026-08-21T13:00:00.000Z'),
+      item('thick_plate', 'AL', { width: 1000, thickness: 10 }, 500, 2, '2026-08-21T13:02:00.000Z'),
     ],
     payment: 'transfer',
     status: 'asteapta_plata',
@@ -107,7 +105,7 @@ export const SEED_ORDERS: Order[] = [
     number: 'CM-2026-001040',
     userId: 'u_demo',
     createdAt: '2026-09-15T15:25:00.000Z',
-    items: [item('flat_bar', 'CU', { width: 30, thickness: 5 }, 1500, 10, undefined, '2026-09-15T15:20:00.000Z')],
+    items: [item('flat_bar', 'CU', { width: 30, thickness: 5 }, 1500, 10, '2026-09-15T15:20:00.000Z')],
     payment: 'ramburs',
     status: 'in_procesare',
     billing: address,

@@ -17,7 +17,6 @@ import { AccountLayout } from '@/pages/account/AccountLayout';
 import { AccountOverviewPage, ChangePasswordPage, ContactDataPage, DeliveryAddressPage, InvoicesPage, OrdersPage, SettingsPage } from '@/pages/account/AccountPages';
 import { FavoritesList, FavoritesPage } from '@/pages/Favorites';
 import { AboutPage } from '@/pages/About';
-import { CareersPage } from '@/pages/Careers';
 import { ContactPage } from '@/pages/Contact';
 import { PrivacyPage, ReturnsPage, TermsPage } from '@/pages/Legal';
 import { NotFoundPage, SearchPage } from '@/pages/Search';
@@ -53,7 +52,7 @@ export default function App() {
                     <Route path="schimbare-parola" element={<ChangePasswordPage />} />
                   </Route>
                   <Route path="despre-noi" element={<AboutPage />} />
-                  <Route path="cariere" element={<CareersPage />} />
+                  <Route path="cariere" element={<Navigate to="/contact" replace />} />
                   <Route path="contact" element={<ContactPage />} />
                   <Route path="termeni-si-conditii" element={<TermsPage />} />
                   <Route path="politica-de-confidentialitate" element={<PrivacyPage />} />

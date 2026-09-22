@@ -44,7 +44,6 @@ export function CartProvider({ children }: { children: ReactNode }) {
           x.finish === item.finish &&
           x.eloxColor === item.eloxColor &&
           x.length === item.length &&
-          x.width === item.width &&
           JSON.stringify(x.dims) === JSON.stringify(item.dims),
       );
       if (same) {

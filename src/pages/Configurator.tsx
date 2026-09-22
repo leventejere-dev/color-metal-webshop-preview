@@ -1,13 +1,13 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { Link, Navigate, useNavigate, useParams, useSearchParams } from 'react-router-dom';
-import { ArrowLeft, Info, ShoppingCart, FileText, Ruler } from 'lucide-react';
+import { ArrowLeft, Info, RotateCcw, ShoppingCart, FileText, Ruler } from 'lucide-react';
 import { SHAPE_BY_SLUG, TOLERANCES, type Shape } from '@/data/shapes';
 import { ELOX_COLORS, FINISHES, MATERIALS, type EloxColorId, type FinishId, type MaterialId } from '@/data/materials';
 import { OptionGroup } from '@/components/configurator/OptionGroup';
 import { ContactConsultant } from '@/components/configurator/ContactConsultant';
 import { RangeField } from '@/components/ui/RangeField';
 import { QuantityField } from '@/components/ui/QuantityField';
-import { TechPreview } from '@/components/product/TechPreview';
+import { ShapeIcon } from '@/components/product/ShapeIcon';
 import { FavoriteButton } from '@/components/product/ProductCard';
 import { Button } from '@/components/ui/Button';
 import { Modal } from '@/components/ui/Modal';
@@ -47,37 +47,32 @@ function Configurator({ shape, materialId }: { shape: Shape; materialId: Materia
   const [notices, setNotices] = useState<Record<string, string>>({});
   const [offerOpen, setOfferOpen] = useState(false);
 
-  // reset când se schimbă produsul
-  useEffect(() => {
+  const resetAll = useCallback(() => {
     setSel({});
     setRanges({});
-    setQty(1);
     setNotices({});
-  }, [shape.id, materialId]);
+  }, []);
 
-  const bounds = useMemo(() => Object.fromEntries(shape.ranges.map((r) => [r.key, rangeBounds(shape, r, sel)])) as Record<'length' | 'width', { min: number; max: number }>, [shape, sel]);
+  // reset când se schimbă produsul
+  useEffect(() => {
+    resetAll();
+    setQty(1);
+  }, [shape.id, materialId, resetAll]);
 
-  // Dacă o selecție discretă (ex. grosimea plăcii) restrânge intervalul, valoarea continuă se ajustează automat + mesaj.
+  const bounds = useMemo(() => Object.fromEntries(shape.ranges.map((r) => [r.key, rangeBounds(shape, r, sel)])) as Record<'length', { min: number; max: number }>, [shape, sel]);
+
+  // La plăci: dacă formatul ales (lățime/grosime) restrânge lungimea maximă, lungimea se ajustează automat + mesaj.
   useEffect(() => {
     setRanges((prev) => {
-      let changed = false;
-      const next = { ...prev };
-      const msgs: Record<string, string> = {};
-      for (const r of shape.ranges) {
-        const v = prev[r.key];
-        const b = bounds[r.key];
-        if (v != null && v > b.max) {
-          next[r.key] = b.max;
-          msgs[r.key] = `Valoarea a fost ajustată la maximul disponibil (${n(b.max)} mm) pentru grosimea selectată.`;
-          changed = true;
-        }
-      }
-      if (changed) setNotices((m) => ({ ...m, ...msgs }));
-      return changed ? next : prev;
+      const v = prev.length;
+      const b = bounds.length;
+      if (!b || v == null || v <= b.max) return prev;
+      setNotices((m) => ({ ...m, length: `Lungimea a fost ajustată la maximul disponibil (${n(b.max)} mm) pentru formatul selectat.` }));
+      return { ...prev, length: b.max };
     });
-  }, [bounds, shape.ranges]);
+  }, [bounds]);
 
-  // Dacă o valoare continuă (lățime/lungime la plăci) face incompatibilă grosimea selectată → se deselectează + mesaj.
+  // La plăci: dacă lungimea aleasă face incompatibilă o selecție discretă → se deselectează + mesaj.
   useEffect(() => {
     if (!isPlate(shape)) return;
     setSel((prev) => {
@@ -100,22 +95,24 @@ function Configurator({ shape, materialId }: { shape: Shape; materialId: Materia
     setNotices((m) => ({ ...m, [key]: '' }));
   }, []);
 
-  const setRange = useCallback((key: 'length' | 'width', value: number | null) => {
-    setRanges((r) => ({ ...r, [key]: value }));
-    setNotices((m) => ({ ...m, [key]: '' }));
+  const setLength = useCallback((value: number | null) => {
+    setRanges((r) => ({ ...r, length: value }));
+    setNotices((m) => ({ ...m, length: '' }));
   }, []);
 
   const complete = isComplete(shape, sel, ranges);
-  const dims = effectiveDims(shape, sel, ranges);
+  const dims = effectiveDims(shape, sel);
   const lengthMm = ranges.length ?? 0;
   const unitWeight = complete ? Math.round(pieceWeightKg(shape.id, dims, lengthMm, material.density) * 1000) / 1000 : 0;
   const price = computePrice(materialId, unitWeight, qty);
   const overLimit = qty > MAX_ONLINE_QTY;
   const canAdd = complete && !overLimit && unitWeight > 0;
-  const tol = TOLERANCES[shape.tolerance];
+  const anySelection = Object.values(sel).some((v) => v != null) || ranges.length != null;
+  // toleranța se afișează doar la profile/țevi și bare (la plăci este informație internă)
+  const tol = shape.tolerance === 'placa' ? null : TOLERANCES[shape.tolerance];
 
   const configLabel = complete
-    ? `${shape.name} ${material.label}${finish ? ` (${FINISHES[finish].label}${eloxColor ? ` ${ELOX_COLORS.find((c) => c.id === eloxColor)?.label}` : ''})` : ''} – ${dimsLabel(shape, dims, { length: lengthMm, width: ranges.width ?? undefined })}`
+    ? `${shape.name} ${material.label}${finish ? ` (${FINISHES[finish].label}${eloxColor ? ` ${ELOX_COLORS.find((c) => c.id === eloxColor)?.label}` : ''})` : ''} – ${dimsLabel(shape, dims, { length: lengthMm })}`
     : `${shape.name} ${material.label}`;
 
   const addToCart = () => {
@@ -125,9 +122,8 @@ function Configurator({ shape, materialId }: { shape: Shape; materialId: Materia
       materialId,
       finish,
       eloxColor,
-      dims: Object.fromEntries(shape.fields.map((f) => [f.key, sel[f.key] as number])),
+      dims,
       length: lengthMm,
-      width: isPlate(shape) ? (ranges.width as number) : undefined,
       quantity: qty,
       unitWeightKg: unitWeight,
       pricePerKgRon: price.pricePerKgRon,
@@ -140,24 +136,24 @@ function Configurator({ shape, materialId }: { shape: Shape; materialId: Materia
   const offerMessage = `Solicit ofertă pentru: ${configLabel}, cantitate: ${qty} buc.`;
 
   return (
-    <div className="container-cm py-8">
-      <Breadcrumbs items={[{ label: 'Produse', to: '/produse' }, { label: shape.name, to: `/produse/${shape.slug}` }, { label: 'Configurator' }]} />
+    <div className="container-cm py-6 sm:py-8">
+      <Breadcrumbs items={[{ label: 'Produse', to: '/produse' }, { label: shape.name, to: `/produse/${shape.slug}` }, { label: 'Dimensiuni' }]} />
       <Link to={`/produse/${shape.slug}`} className="mb-4 inline-flex items-center gap-1 text-sm text-muted hover:text-ink">
         <ArrowLeft className="h-4 w-4" /> Înapoi la material
       </Link>
 
-      <div className="flex flex-wrap items-start justify-between gap-4">
-        <div className="min-w-0 flex-1">
-          <p className="eyebrow">Pasul 2 din 2 · Dimensiuni</p>
-          <div className="mt-1 flex items-start justify-between gap-3">
-            <h1 className="text-2xl font-semibold sm:text-3xl">
-              {shape.name} <span className="text-muted">· {material.label}</span>
-            </h1>
-            <FavoriteButton slug={shape.slug} name={shape.name} className="shrink-0" />
-          </div>
+      <div className="flex items-start justify-between gap-3">
+        <div className="min-w-0">
+          <h1 className="text-2xl font-semibold sm:text-3xl">
+            {shape.name} <span className="text-muted">· {material.label}</span>
+          </h1>
           <div className="mt-2 flex flex-wrap gap-2 text-xs">
-            <span className="rounded-full border border-line bg-white px-3 py-1">Formă: <strong>{shape.name}</strong></span>
-            <span className="rounded-full border border-line bg-white px-3 py-1">Material: <strong>{material.label}</strong></span>
+            <span className="rounded-full border border-line bg-white px-3 py-1">
+              Formă: <strong>{shape.name}</strong>
+            </span>
+            <span className="rounded-full border border-line bg-white px-3 py-1">
+              Material: <strong>{material.label}</strong>
+            </span>
             {finish && (
               <span className="rounded-full border border-line bg-white px-3 py-1">
                 Finisaj: <strong>{FINISHES[finish].label}{eloxColor ? ` · ${ELOX_COLORS.find((c) => c.id === eloxColor)?.label}` : ''}</strong>
@@ -168,33 +164,38 @@ function Configurator({ shape, materialId }: { shape: Shape; materialId: Materia
             </Link>
           </div>
         </div>
+        <FavoriteButton slug={shape.slug} name={shape.name} className="shrink-0" />
       </div>
-      <p className="mt-3 text-sm text-muted">Sistemul permite doar combinații reale din baza de produse. Opțiunile incompatibile cu selecția curentă rămân vizibile, dar estompate.</p>
+      <p className="mt-3 text-sm text-muted">Sistemul permite doar combinații reale din baza de produse.</p>
 
-      <div className="mt-6 grid gap-8 lg:grid-cols-[minmax(0,7fr)_minmax(0,4fr)]">
+      <div className="mt-5 grid gap-6 lg:grid-cols-[minmax(0,7fr)_minmax(0,4fr)] lg:gap-8">
         {/* ---------------- stânga */}
         <div className="space-y-4">
-          <div className="card grid gap-4 p-4 sm:grid-cols-2 sm:p-5">
-            <TechPreview shape={shape} dims={dims} width={ranges.width ?? null} />
-            <figure className="flex flex-col">
-              <div className="flex min-h-[200px] flex-1 items-center justify-center rounded-xl bg-white p-3">
-                <img src={asset(shape.images.tech)} alt={`Ilustrație tehnică oficială – ${shape.name}`} className="max-h-52 w-full object-contain" />
+          <div className="card grid grid-cols-2 gap-3 p-3 sm:p-4">
+            <figure className="flex flex-col items-center">
+              <div className="flex aspect-[4/3] w-full items-center justify-center rounded-lg bg-surface p-2">
+                <ShapeIcon type={shape.id} material={materialId} dims={dims} large className="max-h-full w-auto max-w-full" label={`Previzualizare ${shape.name}`} />
               </div>
-              <figcaption className="mt-2 text-center text-xs text-muted">Ilustrație tehnică – notațiile dimensiunilor (calculatorul de greutate Color Metal)</figcaption>
+              <figcaption className="mt-1.5 text-[11px] text-muted">Previzualizare live</figcaption>
             </figure>
-            <p className="text-xs text-muted sm:col-span-2">Previzualizare tehnică live – forma urmărește dimensiunile principale. Fotografiile produsului aparțin formei și nu se schimbă cu dimensiunile.</p>
+            <figure className="flex flex-col items-center">
+              <div className="flex aspect-[4/3] w-full items-center justify-center rounded-lg border border-line bg-white p-2">
+                <img src={asset(shape.images.guide)} alt={`Ghid pentru alegerea dimensiunilor – ${shape.name}`} className="max-h-full w-full object-contain" />
+              </div>
+              <figcaption className="mt-1.5 text-[11px] text-muted">Ghid pentru alegerea dimensiunilor</figcaption>
+            </figure>
+          </div>
+
+          <div className="flex items-center justify-between">
+            <p className="label">Dimensiuni</p>
+            <button type="button" onClick={resetAll} disabled={!anySelection} className="inline-flex items-center gap-1.5 rounded-md px-2 py-1 text-xs font-semibold text-muted hover:bg-surface hover:text-ink disabled:opacity-40">
+              <RotateCcw className="h-3.5 w-3.5" /> Deselectează
+            </button>
           </div>
 
           {shape.fields.map((f) => (
             <div key={f.key}>
-              <OptionGroup
-                label={f.label}
-                hint={f.hint}
-                values={fieldValues(shape, f.key)}
-                selected={sel[f.key]}
-                isAvailable={(v) => isAvailable(shape, f.key, v, sel, ranges)}
-                onSelect={(v) => select(f.key, v)}
-              />
+              <OptionGroup label={f.label} hint={f.hint} values={fieldValues(shape, f.key)} selected={sel[f.key]} isAvailable={(v) => isAvailable(shape, f.key, v, sel, ranges)} onSelect={(v) => select(f.key, v)} />
               {notices[f.key] && (
                 <p className="mt-2 flex items-start gap-1.5 text-xs font-medium text-warning-ink">
                   <Info className="mt-0.5 h-3.5 w-3.5 shrink-0" /> {notices[f.key]}
@@ -204,44 +205,30 @@ function Configurator({ shape, materialId }: { shape: Shape; materialId: Materia
           ))}
 
           {shape.ranges.map((r) => (
-            <RangeField
-              key={r.key}
-              label={r.label}
-              value={ranges[r.key] ?? null}
-              min={bounds[r.key].min}
-              max={bounds[r.key].max}
-              step={r.step}
-              presets={r.presets}
-              hint={r.key === 'length' ? 'Introdu lungimea la milimetru sau folosește slider-ul / valorile uzuale.' : 'Lățimea se debitează din formatul de stoc.'}
-              notice={notices[r.key] || null}
-              onChange={(v) => setRange(r.key, v)}
-            />
+            <RangeField key={r.key} label={r.label} value={ranges.length ?? null} min={bounds.length.min} max={bounds.length.max} step={r.step} presets={r.presets} notice={notices.length || null} onChange={setLength} />
           ))}
 
-          {/* Toleranță */}
-          <div className="flex gap-3 rounded-xl border border-brand-gold/40 bg-brand-gold-light/60 p-4 text-sm">
-            <Ruler className="mt-0.5 h-5 w-5 shrink-0 text-brand-gold-dark" />
-            <div>
-              <p className="font-semibold text-ink">{tol.title}</p>
-              <p className="mt-0.5 text-ink-soft">{tol.text}</p>
+          {tol && (
+            <div className="flex gap-3 rounded-xl border border-brand-gold/40 bg-brand-gold-light/60 p-4 text-sm">
+              <Ruler className="mt-0.5 h-5 w-5 shrink-0 text-brand-gold-dark" />
+              <div>
+                <p className="font-semibold text-ink">{tol.title}</p>
+                <p className="mt-0.5 text-ink-soft">{tol.text}</p>
+              </div>
             </div>
-          </div>
+          )}
 
           {/* Cantitate */}
           <div className="rounded-xl border border-line bg-white p-4 sm:p-5">
             <div className="flex flex-wrap items-center justify-between gap-3">
-              <div>
-                <p className="label">
-                  Cantitate <span className="font-normal text-muted">({shape.unitLabel})</span>
-                </p>
-                <p className="mt-0.5 text-xs text-muted">Introdu numărul de bucăți solicitate. Comandă online: maximum {MAX_ONLINE_QTY} buc.</p>
-              </div>
+              <p className="label">
+                Cantitate <span className="font-normal text-muted">({shape.unitLabel})</span>
+              </p>
               <QuantityField value={qty} onChange={setQty} min={1} max={9999} />
             </div>
             {overLimit && (
               <div className="mt-4 rounded-lg border border-brand-gold/50 bg-warning-bg p-4">
                 <p className="text-sm font-semibold text-warning-ink">Pentru cantități mai mari de {MAX_ONLINE_QTY} bucăți, vă rugăm să contactați un consultant.</p>
-                <p className="mt-1 text-xs text-warning-ink/90">Un consultant Color Metal vă pregătește o ofertă personalizată, cu preț și termen de livrare.</p>
                 <div className="mt-3">
                   <ContactConsultant subject={`Ofertă cantitate mare – ${shape.name} ${material.label}`} message={offerMessage} />
                 </div>
@@ -249,7 +236,7 @@ function Configurator({ shape, materialId }: { shape: Shape; materialId: Materia
             )}
           </div>
 
-          <Notice>Produsele personalizate nu beneficiază de drept de retur conform OUG 34/2014.</Notice>
+          <Notice className="text-xs">Produsele personalizate nu beneficiază de drept de retur conform OUG 34/2014.</Notice>
         </div>
 
         {/* ---------------- dreapta: Calcul */}
@@ -287,11 +274,15 @@ function Configurator({ shape, materialId }: { shape: Shape; materialId: Materia
       </div>
 
       <Modal open={offerOpen} onClose={() => setOfferOpen(false)} title="Cere ofertă">
-        <p className="text-sm text-ink-soft">Trimite configurația către echipa de vânzări Color Metal. Un consultant îți răspunde cu o ofertă personalizată.</p>
+        <p className="text-sm text-ink-soft">Trimite configurația către echipa de vânzări Color Metal.</p>
         <div className="mt-4 rounded-lg bg-surface p-4 text-sm">
-          <p className="font-semibold">{shape.name} · {material.label}</p>
-          <p className="mt-1 text-muted">{complete ? dimsLabel(shape, dims, { length: lengthMm, width: ranges.width ?? undefined }) : 'Dimensiuni: neselectate încă'}</p>
-          <p className="mt-1 text-muted">Cantitate: {qty} {shape.unitLabel}</p>
+          <p className="font-semibold">
+            {shape.name} · {material.label}
+          </p>
+          <p className="mt-1 text-muted">{complete ? dimsLabel(shape, dims, { length: lengthMm }) : 'Dimensiuni: neselectate încă'}</p>
+          <p className="mt-1 text-muted">
+            Cantitate: {qty} {shape.unitLabel}
+          </p>
         </div>
         <div className="mt-4">
           <ContactConsultant subject={`Cerere ofertă – ${shape.name} ${material.label}`} message={offerMessage} />

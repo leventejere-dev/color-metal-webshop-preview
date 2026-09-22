@@ -17,7 +17,7 @@ export function TermsPage() {
     <LegalShell title="Termeni și condiții" updated="septembrie 2026">
       <h2>1. Informații generale</h2>
       <p>
-        Webshopul este operat de {SITE.legalName}, cu sediul în {SITE.locations[0].address}. Utilizarea site-ului și plasarea unei comenzi implică acceptarea prezentelor termeni și condiții.
+        Webshopul este operat de {SITE.legalName}, cu sediul în {SITE.headquarters.address}. Utilizarea site-ului și plasarea unei comenzi implică acceptarea prezentelor termeni și condiții.
       </p>
       <h2>2. Produse configurate</h2>
       <p>
@@ -27,7 +27,6 @@ export function TermsPage() {
       <ul>
         <li>Profile și țevi: toleranță la lungime -0 / +3 mm.</li>
         <li>Bare late, pătrate, hexagonale și rotunde: toleranță la lungime -0 / +5 mm.</li>
-        <li>Plăci, table și bandă: toleranță la debitare -0 / +3 mm pe fiecare dimensiune.</li>
       </ul>
       <p>Lungimea livrată nu este niciodată mai mică decât cea comandată.</p>
       <h2>4. Prețuri și plată</h2>
@@ -55,7 +54,7 @@ export function PrivacyPage() {
     <LegalShell title="Politica de confidențialitate" updated="septembrie 2026">
       <h2>1. Operatorul de date</h2>
       <p>
-        {SITE.legalName}, {SITE.locations[0].address}, email {SITE.emails.direct}.
+        {SITE.legalName}, {SITE.headquarters.address}, email {SITE.emails.direct}.
       </p>
       <h2>2. Ce date prelucrăm</h2>
       <ul>

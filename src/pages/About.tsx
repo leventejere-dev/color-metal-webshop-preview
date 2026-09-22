@@ -9,7 +9,7 @@ export function AboutPage() {
   return (
     <div>
       <section className="relative isolate overflow-hidden bg-ink text-white">
-        <img src={asset('/assets/products/sheet-context.jpg')} alt="" className="absolute inset-0 -z-10 h-full w-full object-cover opacity-60" />
+        <img src={asset('/assets/banner/hero.jpg')} alt="" className="absolute inset-0 -z-10 h-full w-full object-cover opacity-70" />
         <div className="absolute inset-0 -z-10 bg-gradient-to-r from-ink/90 via-ink/70 to-ink/30" />
         <div className="container-cm flex min-h-[220px] flex-col justify-center py-10">
           <p className="eyebrow !text-brand-gold">Despre noi</p>
@@ -36,7 +36,7 @@ export function AboutPage() {
             <h2>Webshopul Color Metal</h2>
             <p>
               Webshopul aduce online exact logica din depozit: alegi forma, apoi materialul, apoi dimensiunile. Prețul se calculează automat din greutatea piesei, iar debitarea la lungime se face cu toleranțele afișate în configurator. Pentru cantități mari sau dimensiuni speciale, echipa de vânzări răspunde la{' '}
-              <a href={`mailto:${SITE.emails.direct}`}>{SITE.emails.direct}</a> sau la call center {SITE.phones.callCenter1}.
+              <a href={`mailto:${SITE.emails.direct}`}>{SITE.emails.direct}</a> sau la call center {SITE.phones.callCenter}.
             </p>
           </article>
 
@@ -58,13 +58,10 @@ export function AboutPage() {
               </div>
             ))}
             <div className="card bg-surface p-5 text-sm">
-              <p className="font-semibold">Vrei să lucrezi cu noi?</p>
-              <p className="mt-1 text-muted">Vezi oportunitățile de carieră sau contactează echipa.</p>
-              <div className="mt-3 flex gap-2">
-                <Link to="/cariere" className="rounded-lg bg-ink px-4 py-2 text-sm font-semibold text-white hover:bg-ink-soft">
-                  Cariere
-                </Link>
-                <Link to="/contact" className="rounded-lg border border-line bg-white px-4 py-2 text-sm font-semibold hover:border-ink/40">
+              <p className="font-semibold">Ai întrebări despre produse?</p>
+              <p className="mt-1 text-muted">Echipa Color Metal răspunde la call center {SITE.phones.callCenter}.</p>
+              <div className="mt-3">
+                <Link to="/contact" className="inline-block rounded-lg bg-ink px-4 py-2 text-sm font-semibold text-white hover:bg-ink-soft">
                   Contact
                 </Link>
               </div>

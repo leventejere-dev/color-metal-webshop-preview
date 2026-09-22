@@ -116,7 +116,7 @@ export function OrderConfirmationPage() {
           </ButtonLink>
         </div>
         <p className="mt-6 text-xs text-muted">
-          Întrebări despre comandă? Call center {SITE.phones.callCenter1} · {SITE.emails.direct}. Folosește numărul comenzii {order.number}.
+          Întrebări despre comandă? Call center {SITE.phones.callCenter} · {SITE.emails.direct}. Folosește numărul comenzii {order.number}.
         </p>
       </div>
       <p className="mt-4 text-center text-xs text-muted">

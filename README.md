@@ -67,7 +67,7 @@ Pe pagina de autentificare există butonul „Completează datele demo”.
 |---|---|
 | `/` | Acasă – banner compact + toate cele 13 forme de produs |
 | `/produse` | Lista produselor, filtre după categorie și material, căutare |
-| `/produse/:slug` | Pagina produsului – galerie (detaliu, context, desen tehnic), alegerea materialului și finisajului |
+| `/produse/:slug` | Pagina produsului – alegerea materialului și finisajului, previzualizare (desen 2D + ghid dimensiuni) |
 | `/configurator/:slug/:material` | Configurator dimensiuni (opțiuni, slider+input lungime, cantitate, calcul preț) |
 | `/cautare?q=` | Rezultate căutare |
 | `/cos` | Coș |
@@ -77,7 +77,7 @@ Pe pagina de autentificare există butonul „Completează datele demo”.
 | `/autentificare`, `/inregistrare` | Cont |
 | `/favorite` | Favorite (și pentru vizitatori; se unesc cu contul la autentificare) |
 | `/cont`, `/cont/comenzi`, `/cont/facturi`, `/cont/favorite`, `/cont/date-contact`, `/cont/adresa-livrare`, `/cont/setari`, `/cont/schimbare-parola` | Zona de cont |
-| `/despre-noi`, `/cariere`, `/contact` | Pagini de prezentare |
+| `/despre-noi`, `/contact` | Pagini de prezentare |
 | `/termeni-si-conditii`, `/politica-de-confidentialitate`, `/politica-de-retur` | Pagini legale (conținut demonstrativ) |
 
 Sluguri produse: `placa-groasa`, `tabla`, `profil-u`, `profil-l`, `profil-t`, `teava-rectangulara`, `teava-patrata`,
@@ -94,9 +94,9 @@ src/
                api.ts (strat de persistență – singurul fișier de înlocuit la integrarea cu backend), storage.ts, types.ts
   context/     Auth, Cart, Favorites, Toast
   components/  layout (Header, Footer, WhatsApp), ui (Button, Field, RangeField, QuantityField, Modal…),
-               product (ProductCard, ProductGallery, TechPreview), configurator (OptionGroup, ContactConsultant)
+               product (ShapeIcon – desenele 2D, ProductCard, ProductPreview), configurator (OptionGroup, ContactConsultant)
   pages/       toate paginile + pages/account/*
-public/assets/ brand/, banner/, products/ (fotografii), tech/ (ilustrații tehnice oficiale)
+public/assets/ brand/, banner/ (fotografie Color Metal), tech/ (ilustrațiile oficiale „ghid dimensiuni”)
 tools/         prepare-images.mjs – pipeline-ul de imagini folosit pentru asset-uri
 ```
 
@@ -111,8 +111,8 @@ tools/         prepare-images.mjs – pipeline-ul de imagini folosit pentru asse
 - **Configurator**: nimic preselectat; clic pe opțiunea activă o deselectează; opțiunile incompatibile rămân vizibile,
   estompate și neclicabile (`Opțiunea nu este disponibilă pentru dimensiunea selectată.`); combinațiile provin din
   `variants` (catalogul real al webshopului actual). Lungimea: slider + input sincronizate, pas 1 mm, minim 50 mm
-  (profile/țevi/plăci) și 25 mm (bare), maxim configurabil per formă (`ranges` în `shapes.ts`).
-- **Toleranțe**: profile și țevi -0/+3 mm; bare -0/+5 mm; plăci/table/bandă -0/+3 mm (afișate în configurator și în T&C).
+  (profile/țevi/plăci) și 25 mm (bare), maxim configurabil per formă (`ranges` în `shapes.ts`); la plăci/table lățimea se alege din formatele de stoc, iar lungimea maximă depinde de format.
+- **Toleranțe**: profile și țevi -0/+3 mm; bare -0/+5 mm (afișate în configurator și în T&C). Toleranța plăcilor/tablelor este informație internă și nu se afișează.
 - **Cantitate**: peste 100 buc butonul „Adaugă în coș” este dezactivat și apar telefon / email / WhatsApp.
 - **Plată**: proforma se generează exclusiv la „Transfer bancar”, în checkout (sumar, cumpărător, produse, cantități,
   prețuri, TVA, total) și se poate tipări / salva PDF / descărca HTML.
@@ -122,7 +122,7 @@ tools/         prepare-images.mjs – pipeline-ul de imagini folosit pentru asse
 - Nu există backend: datele trăiesc în `localStorage` (per browser); plata cu cardul este simulată; emailurile nu se trimit.
 - Formularele de contact/carieră deschid clientul de email (`mailto:`) sau doar confirmă vizual.
 - Costul transportului nu este calculat (mesaj: se comunică la confirmare).
-- Fotografiile stock ilustrează forma produsului; pentru producție se recomandă fotografii proprii (vezi ASSETS_LICENSES.md).
+- Fără fotografii de produs (casete gri rezervate); formele sunt redate cu desenele 2D din webshopul actual (vezi ASSETS_LICENSES.md).
 - Textele legale sunt demonstrative.
 
 ## Integrare ulterioară cu backend

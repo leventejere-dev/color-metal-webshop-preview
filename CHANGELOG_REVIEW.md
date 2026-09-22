@@ -1,6 +1,6 @@
 # CHANGELOG_REVIEW – módosítások a jelenlegi webshophoz (cmwebshop.odocs.ro) képest
 
-*(Rezumat RO la final. A tételek a brief számozását követik.)*
+*(Rezumat RO la final. A tételek a brief számozását követik. **A „Revizia 2” szakasz a fájl végén felülírja az itt leírt pontokat, ahol eltérés van.**)*
 
 ## 1. Technológia
 - Új, önálló frontend: React 19 + Vite 8 + TypeScript + Tailwind CSS 4 + React Router 7 (a jelenlegi Laravel/Inertia-Vue oldal helyett).
@@ -115,3 +115,19 @@ prețurile în EUR și butonul „Generează proformă” din coș. Adăugate: b
 preselecții cu opțiuni incompatibile estompate, slider+input pentru lungime (pas 1 mm), toleranțe afișate, limită 100 buc cu contact consultant,
 prețuri exclusiv în lei, proformă doar la transfer bancar (în checkout), cont complet funcțional (localStorage), favorite, căutare, WhatsApp fix,
 fotografii reale + ilustrațiile tehnice oficiale pentru fiecare formă.
+
+---
+
+# Revizia 2 (2026-09-22) – a második egyeztetés utáni módosítások
+
+1. **Fejléc:** a telefonszámos felső sáv megszűnt; egyetlen sor: kisebb logó (bal sarok) · Acasă · Produse · Despre noi · Contact · kereső · Autentificare · Înregistrare · RO · kedvencek · kosár. Az „Oportunități / Cariere” menüpont és oldal törölve (a `/cariere` útvonal a Contact oldalra irányít).
+2. **Főoldal:** vékonyabb banner (≈130–176 px) a Color Metal saját fotójával (a kép éles része: réz platbandák + alumínium profilok; mobilon a jobb oldali kivágás). A három USP-kártyás szekció törölve. Az „Alege forma produsului” kártyákon a jelenlegi webshop egyszerű 2D rajzai (a `ShapeIcon` komponens portolása: azonos geometria, színek, anyag szerinti kitöltés).
+3. **Stockfotók teljesen eltávolítva** (félrevezetőek voltak). A termékoldalon a jobb oldali kis előnézeti kártyán: a 2D rajz nagyban, alatta kis miniatűrök – rajz, „Ghid pentru alegerea dimensiunilor” (a súlykalkulátor hivatalos ábrája) és két szürke helyettesítő kocka a későbbi saját termékfotóknak. `ASSETS_LICENSES.md` frissítve.
+4. **Termékoldal (anyagválasztás):** elrendezés az eredeti szerint – bal oldalon az anyagok (csak név + sűrűség, leírások nélkül), jobb oldalon a kis kép; a Finisaj és a Culoare sor mindig látható (nem lépésenként jelenik meg; a nem alkalmazható opciók halványak), az alumínium alapból kiválasztva; „Pasul 1 din 2” és a tolerancia-sor eltávolítva.
+5. **Konfigurátor:** „Pasul 2 din 2” eltávolítva; egyetlen, közös „Deselectează” gomb az összes méretre; a magyarázó szövegek a mezők alatt törölve („Introdu lungimea…”, „Lățimea se debitează…”); csúszka + input csak a **Lungime** mezőnél; a **Lățime** (lemez/tábla) diszkrét gombokkal (1.000 / 1.250 / 1.500) – a hossz maximuma a választott formátumból adódik; „Desen tehnic” helyett „Ghid pentru alegerea dimensiunilor”; az élő előnézet a 2D rajz, amely követi a méreteket.
+6. **Tolerancia:** a lemez/tábla/bandă toleranciája („-0/+3 mm pe fiecare dimensiune… minimul garantat…”) belső információ, sehol nem jelenik meg (konfigurátor, termékoldal, T&C). A profilok (-0/+3) és rudak (-0/+5) toleranciadoboza a konfigurátorban maradt.
+7. **Lábléc:** a „Produse” oszlop törölve; Contact blokk: csak call center **+40 266 206 050**, direct@color-metal.ro és a székhely címe (a 051-es szám és a „București: +40 751 125 290” sor törölve).
+8. **Contact oldal:** egyszerűsítve – call center (+40 266 206 050), e-mail, WhatsApp, székhely, üzenetküldő űrlap. A többi telephely felsorolása és a 051-es szám kikerült. A WhatsApp gomb változatlanul a +40 751 125 290-es számra mutat.
+9. Egyéb: `Despre noi` a bannerfotót használja fejlécként; kosár, kedvencek és keresési javaslatok a 2D rajzokkal; a demo-rendelések a lemez új adatmodelljével (lățime diszkrét).
+
+**RO:** antet pe un singur rând cu logo mai mic (fără telefon, fără Cariere), banner mai subțire cu fotografia Color Metal, carduri cu desenele 2D din webshopul actual, fotografiile stock eliminate (casete gri rezervate), pagina de material ca în original (previzualizare mică în dreapta, opțiuni vizibile de la început, fără descrieri), configurator cu un singur „Deselectează”, slider doar la lungime, lățimea plăcilor cu butoane, toleranța plăcilor neafișată, footer fără coloana Produse, un singur număr de call center.

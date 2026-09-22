@@ -32,19 +32,10 @@ export function OptionGroup({ label, unit = 'mm', hint, values, selected, isAvai
 
   return (
     <div className="rounded-xl border border-line bg-white p-4 sm:p-5">
-      <div className="flex flex-wrap items-baseline justify-between gap-2">
-        <p className="label">
-          {label} <span className="font-normal text-muted">({unit})</span>
-        </p>
-        {selected != null ? (
-          <button type="button" onClick={() => onSelect(undefined)} className="text-xs font-medium text-muted underline-offset-2 hover:text-ink hover:underline">
-            Deselectează
-          </button>
-        ) : (
-          <span className="text-xs text-muted">Alege o valoare</span>
-        )}
-      </div>
-      {hint && <p className="mt-0.5 text-xs text-muted">{hint}</p>}
+      <p className="label">
+        {label} <span className="font-normal text-muted">({unit})</span>
+        {hint && <span className="ml-2 text-xs font-normal text-muted">{hint}</span>}
+      </p>
 
       <div className="mt-3 flex flex-wrap gap-2" role="group" aria-label={label}>
         {values.map((v) => {

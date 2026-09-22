@@ -4,20 +4,15 @@ import { WhatsAppIcon } from '@/components/layout/WhatsAppButton';
 import { cls } from '@/lib/format';
 
 /** Opțiuni de contact funcționale (telefon, e-mail, WhatsApp) – folosite la cantități > 100 buc și la „Cere ofertă”. */
-export function ContactConsultant({ subject, message, compact }: { subject?: string; message?: string; compact?: boolean }) {
+export function ContactConsultant({ subject, message }: { subject?: string; message?: string }) {
   const mail = `mailto:${SITE.emails.direct}?subject=${encodeURIComponent(subject ?? 'Solicitare ofertă – Color Metal Webshop')}${message ? `&body=${encodeURIComponent(message)}` : ''}`;
   const wa = whatsappUrl(message ? `${SITE.whatsapp.message}\n\n${message}` : SITE.whatsapp.message);
   const item = 'flex items-center gap-2 rounded-lg border border-line bg-white px-3 py-2 text-sm font-semibold text-ink hover:border-ink/40';
   return (
-    <div className={cls('grid gap-2', compact ? 'sm:grid-cols-3' : 'sm:grid-cols-2')}>
-      <a href={telHref(SITE.phones.callCenter1)} className={item}>
-        <Phone className="h-4 w-4 text-brand-gold-dark" /> {SITE.phones.callCenter1}
+    <div className="grid gap-2 sm:grid-cols-3">
+      <a href={telHref(SITE.phones.callCenter)} className={item}>
+        <Phone className="h-4 w-4 text-brand-gold-dark" /> {SITE.phones.callCenter}
       </a>
-      {!compact && (
-        <a href={telHref(SITE.phones.bucharest)} className={item}>
-          <Phone className="h-4 w-4 text-brand-gold-dark" /> {SITE.phones.bucharest}
-        </a>
-      )}
       <a href={mail} className={item}>
         <Mail className="h-4 w-4 text-brand-gold-dark" /> {SITE.emails.direct}
       </a>

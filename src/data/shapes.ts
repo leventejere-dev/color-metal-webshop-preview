@@ -27,7 +27,7 @@ export interface DimensionField {
 }
 
 export interface RangeSpec {
-  key: 'length' | 'width';
+  key: 'length';
   label: string;
   min: number;
   max: number;
@@ -36,13 +36,10 @@ export interface RangeSpec {
 }
 
 export interface ShapeImages {
-  close: string;
-  context: string;
-  card: string;
-  tech: string;
+  /** ilustrația oficială cu notațiile dimensiunilor (calculatorul de greutate Color Metal) */
+  guide: string;
+  /** pictograma din calculatorul oficial */
   icon: string;
-  closeAlt: string;
-  contextAlt: string;
 }
 
 export interface Shape {
@@ -65,14 +62,9 @@ export interface Shape {
   images: ShapeImages;
 }
 
-const img = (id: ShapeId, closeAlt: string, contextAlt: string): ShapeImages => ({
-  close: `/assets/products/${id}-close.jpg`,
-  context: `/assets/products/${id}-context.jpg`,
-  card: `/assets/products/${id}-card.jpg`,
-  tech: `/assets/tech/${id}.png`,
+const img = (id: ShapeId): ShapeImages => ({
+  guide: `/assets/tech/${id}.png`,
   icon: `/assets/tech/${id}-icon.png`,
-  closeAlt,
-  contextAlt,
 });
 
 const LENGTHS = [500, 1000, 1500, 2000, 2500, 3000, 4000, 6000];
@@ -87,8 +79,7 @@ const lengthCoil: RangeSpec = {
   step: 1,
   presets: [1000, 2000, 5000, 10000, 20000, 50000],
 };
-const plateWidth: RangeSpec = { key: 'width', label: 'Lățime', min: 50, max: 1500, step: 1, presets: [100, 250, 500, 1000, 1250, 1500] };
-const plateLength: RangeSpec = { key: 'length', label: 'Lungime', min: 50, max: 3000, step: 1, presets: [100, 250, 500, 1000, 2000, 3000] };
+const plateLength: RangeSpec = { key: 'length', label: 'Lungime', min: 50, max: 3000, step: 1, presets: [250, 500, 1000, 1500, 2000, 2500, 3000] };
 
 const F = {
   width: { key: 'width', label: 'Lățime', symbol: 'b' },
@@ -113,7 +104,7 @@ export const SHAPES: Shape[] = [
     keywords: ['placa', 'placă', 'plate', 'laminat', 'frezare', 'grosime'],
     category: 'placa',
     materials: CU_BRASS_AL,
-    fields: [F.thickness],
+    fields: [F.width, F.thickness],
     variants: [
       { width: 1000, height: 2000, thickness: 8 },
       { width: 1000, height: 2000, thickness: 10 },
@@ -133,10 +124,10 @@ export const SHAPES: Shape[] = [
       { width: 1500, height: 3000, thickness: 40 },
       { width: 1500, height: 3000, thickness: 50 },
     ],
-    ranges: [plateWidth, plateLength],
+    ranges: [plateLength],
     tolerance: 'placa',
     unitLabel: 'buc',
-    images: img('thick_plate', 'Măsurarea grosimii unei plăci metalice cu micrometrul', 'Depozit cu plăci și profile din aluminiu'),
+    images: img('thick_plate'),
   },
   {
     id: 'sheet',
@@ -148,7 +139,7 @@ export const SHAPES: Shape[] = [
     keywords: ['tabla', 'tablă', 'sheet', 'foaie', 'panou', 'subțire'],
     category: 'placa',
     materials: CU_BRASS_AL,
-    fields: [F.thickness],
+    fields: [F.width, F.thickness],
     variants: [
       { width: 500, height: 1000, thickness: 1.5 },
       { width: 500, height: 1000, thickness: 2 },
@@ -167,10 +158,10 @@ export const SHAPES: Shape[] = [
       { width: 1500, height: 3000, thickness: 5 },
       { width: 1500, height: 3000, thickness: 6 },
     ],
-    ranges: [plateWidth, plateLength],
+    ranges: [plateLength],
     tolerance: 'placa',
     unitLabel: 'buc',
-    images: img('sheet', 'Măsurarea unei table metalice cu șublerul', 'Depozit cu table și semifabricate din aluminiu'),
+    images: img('sheet'),
   },
   {
     id: 'profile_u',
@@ -214,7 +205,7 @@ export const SHAPES: Shape[] = [
     ranges: [lengthProfile],
     tolerance: 'profil',
     unitLabel: 'buc',
-    images: img('profile_u', 'Profile U stivuite – detaliu', 'Profile U pregătite pentru livrare'),
+    images: img('profile_u'),
   },
   {
     id: 'profile_l',
@@ -251,7 +242,7 @@ export const SHAPES: Shape[] = [
     ranges: [lengthProfile],
     tolerance: 'profil',
     unitLabel: 'buc',
-    images: img('profile_l', 'Profile L din aluminiu stivuite – detaliu', 'Corniere stivuite în depozit'),
+    images: img('profile_l'),
   },
   {
     id: 'profile_t',
@@ -283,7 +274,7 @@ export const SHAPES: Shape[] = [
     ranges: [lengthProfile],
     tolerance: 'profil',
     unitLabel: 'buc',
-    images: img('profile_t', 'Raft cu profile metalice (T, L, platbandă)', 'Profile și bare metalice expuse în depozit'),
+    images: img('profile_t'),
   },
   {
     id: 'rect_tube',
@@ -322,7 +313,7 @@ export const SHAPES: Shape[] = [
     ranges: [lengthProfile],
     tolerance: 'profil',
     unitLabel: 'buc',
-    images: img('rect_tube', 'Țevi rectangulare și pătrate stivuite – detaliu', 'Perete cu țevi și tuburi metalice de diverse secțiuni'),
+    images: img('rect_tube'),
   },
   {
     id: 'square_tube',
@@ -359,7 +350,7 @@ export const SHAPES: Shape[] = [
     ranges: [lengthProfile],
     tolerance: 'profil',
     unitLabel: 'buc',
-    images: img('square_tube', 'Țevi pătrate stivuite – detaliu', 'Pachete de țevi cu secțiune pătrată în depozit'),
+    images: img('square_tube'),
   },
   {
     id: 'round_tube',
@@ -391,7 +382,7 @@ export const SHAPES: Shape[] = [
     ranges: [lengthProfile],
     tolerance: 'profil',
     unitLabel: 'buc',
-    images: img('round_tube', 'Țevi rotunde stivuite – detaliu', 'Rafturi cu țevi rotunde în depozit'),
+    images: img('round_tube'),
   },
   {
     id: 'flat_bar',
@@ -435,7 +426,7 @@ export const SHAPES: Shape[] = [
     ranges: [lengthBar],
     tolerance: 'bara',
     unitLabel: 'buc',
-    images: img('flat_bar', 'Pachete de bare late (platbandă) în depozit', 'Stive de platbandă în hala de depozitare'),
+    images: img('flat_bar'),
   },
   {
     id: 'square_bar',
@@ -452,7 +443,7 @@ export const SHAPES: Shape[] = [
     ranges: [lengthBar],
     tolerance: 'bara',
     unitLabel: 'buc',
-    images: img('square_bar', 'Bare pline pătrate stivuite – detaliu', 'Stive de bare metalice în hala de depozitare'),
+    images: img('square_bar'),
   },
   {
     id: 'hex_bar',
@@ -469,7 +460,7 @@ export const SHAPES: Shape[] = [
     ranges: [lengthBar],
     tolerance: 'bara',
     unitLabel: 'buc',
-    images: img('hex_bar', 'Bare hexagonale și rotunde pe rafturi – detaliu', 'Rafturi cu bare hexagonale, rotunde și late'),
+    images: img('hex_bar'),
   },
   {
     id: 'round_bar',
@@ -497,7 +488,7 @@ export const SHAPES: Shape[] = [
     ranges: [lengthBar],
     tolerance: 'bara',
     unitLabel: 'buc',
-    images: img('round_bar', 'Bare rotunde din aluminiu – detaliu', 'Rafturi cu bare rotunde în depozit'),
+    images: img('round_bar'),
   },
   {
     id: 'coil',
@@ -533,7 +524,7 @@ export const SHAPES: Shape[] = [
     ranges: [lengthCoil],
     tolerance: 'placa',
     unitLabel: 'buc',
-    images: img('coil', 'Rulou de bandă metalică – detaliu', 'Rulouri de bandă metalică în depozit'),
+    images: img('coil'),
   },
 ];
 
