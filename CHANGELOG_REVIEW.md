@@ -163,3 +163,13 @@ fotografii reale + ilustrațiile tehnice oficiale pentru fiecare formă.
   clar ce se setează.
 - **Lungime maximă 3.000 mm** la toate formele (limita de transport prin curier); valorile uzuale merg până la 3.000 mm
   (înainte: 6.000 mm la profile/bare, 50.000 mm la bandă).
+
+# Revizia 6 (2026-09-24)
+- **Ghid scurt pe prima pagină** („Cum cumperi de aici”), imediat sub banner, ca bandă închisă cu accente aurii:
+  trei repere care explică vizitatorului unde ce găsește – **Produse** (alegi forma, materialul și dimensiunile,
+  prețul se calculează automat din greutate, debitare la măsură până la 3.000 mm), **AluShop** (plăci groase din
+  aluminiu rămase din debitare, dimensiuni fixe, fiecare bucată unică, o singură comandă, preț promoțional) și
+  **„Nu găsești ce cauți?”** (căutarea din antet, cu exemple, plus call center pentru cantități mari sau dimensiuni
+  speciale). Fiecare reper duce direct la secțiunea respectivă.
+- Linkul „Vezi lista completă” a fost eliminat din titlul secțiunii de produse: lista completă a formelor este oricum
+  afișată dedesubt.
