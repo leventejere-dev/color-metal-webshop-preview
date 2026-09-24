@@ -12,8 +12,8 @@ export function TechDrawing({ shape, className }: { shape: Shape; className?: st
       src={asset(shape.images.guide)}
       alt={`${shape.name} – desen tehnic cu notațiile dimensiunilor`}
       className={cls('h-full w-full object-contain', className)}
-      width={1300}
-      height={600}
+      width={1200}
+      height={690}
       draggable={false}
     />
   );

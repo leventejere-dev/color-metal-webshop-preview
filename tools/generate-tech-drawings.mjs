@@ -224,7 +224,7 @@ function shadow(center, rx, ry) {
 }
 
 /* ---------------------------------------------------------------- compunere SVG */
-const CANVAS = [1300, 600];
+const CANVAS = [1200, 690];
 const PAD = 34;
 
 /** Încadrează conținutul în pânza fixă 1300×600 și normalizează grosimile/textele. */
@@ -244,7 +244,7 @@ function svgDoc(body, name) {
 }
 
 /* ------------------------------------------------------------------- desenele */
-const LEN = 620;
+const LEN = 480;
 const drawings = {};
 
 /** Cote standard pentru o secțiune dreptunghiulară (b = grosime/înălțime, d = lățime). */
@@ -287,8 +287,8 @@ drawings.sheet = slab(210, 13, 'Tablă');
 }
 
 {
-  const a = 104;
-  const g = 13;
+  const a = 96;
+  const g = 12;
   const section = [
     [0, 0],
     [a, 0],
@@ -309,8 +309,8 @@ drawings.sheet = slab(210, 13, 'Tablă');
 }
 
 {
-  const d = 150;
-  const b = 88;
+  const d = 128;
+  const b = 84;
   const g = 13;
   const section = [
     [0, 0],

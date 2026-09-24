@@ -151,8 +151,10 @@ fotografii reale + ilustrațiile tehnice oficiale pentru fiecare formă.
   la orice rezoluție (proiecție paralelă, umbrire metalică, cote cu săgeți).
 - Desenul tehnic apare **peste tot unde era o imagine de produs**: carduri (prima pagină, Produse, căutare),
   pagina de material, configurator, coș, favorite, sugestiile din antet.
-- Machetele („casetele gri” rezervate fotografiilor) și miniaturile au fost eliminate: pe pagina produsului se vede
-  direct desenul secțiunii, fără alte variante de imagine. Desenele 2D simple (`ShapeIcon`) au fost scoase din proiect.
+- Miniaturile de sub imagine au fost eliminate: la deschiderea produsului se vede direct desenul secțiunii. Pe pagina
+  produsului rămân **două locuri rezervate** („Fotografie produs”) pentru fotografiile Color Metal de mai târziu.
+  Desenele 2D simple (`ShapeIcon`) au fost scoase din proiect.
+- Proporțiile desenelor au fost ajustate (piese mai scurte, cadru 16:9) ca să nu pară întinse pe lățime.
 - Lângă fiecare câmp de dimensiune apare litera din desen (ex. „Lățime `d`”, „Grosime `b`”, „Lungime `L`”), ca să fie
   clar ce se setează.
 - **Lungime maximă 3.000 mm** la toate formele (limita de transport prin curier); valorile uzuale merg până la 3.000 mm
