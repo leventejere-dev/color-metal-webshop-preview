@@ -9,7 +9,7 @@ import { SITE } from '@/config/site';
 const GUIDE = [
   { to: '/produse', icon: Ruler, title: 'Produse', anim: 'cm-anim-tilt', text: 'Configurezi, vezi prețul și adaugi în coș – tăiat pe măsura ta, livrat direct la tine acasă.' },
   { to: '/alushop', icon: Tag, title: 'AluShop', anim: 'cm-anim-swing', text: 'Plăci groase de aluminiu din stoc, la preț redus – fiecare bucată, unicat.' },
-  { to: '/contact', icon: Headphones, title: 'Nu găsești în Produse?', anim: 'cm-anim-beat', text: `Dimensiuni speciale, alte materiale sau cantități mari – scrie-ne sau sună la ${SITE.phones.callCenter}.` },
+  { to: '/contact', icon: Headphones, title: 'Comenzi speciale', anim: 'cm-anim-beat', text: `Alte dimensiuni, alte materiale sau cantități mari – scrie-ne sau sună la ${SITE.phones.callCenter}.` },
 ];
 
 export function HomePage() {

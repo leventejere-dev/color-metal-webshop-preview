@@ -177,6 +177,6 @@ fotografii reale + ilustrațiile tehnice oficiale pentru fiecare formă.
   doar un titlu scurt („Produse”, „AluShop”, „Cauți altceva?”) și câte o propoziție, cu linii subțiri de separare.
 - Textele din bandă, mai comerciale și fără titlu de secțiune („Cum cumperi de aici” a fost scos): „Produse” –
   configurare, preț pe loc, adăugare în coș, tăiere pe măsură și livrare direct la client; „AluShop” – plăci groase din
-  stoc la preț redus, fiecare bucată unicat; „Nu găsești în Produse?” – dimensiuni speciale, alte materiale sau cantități mari, prin contact/call center.
+  stoc la preț redus, fiecare bucată unicat; „Comenzi speciale” – alte dimensiuni, alte materiale sau cantități mari, prin contact/call center.
 - Pictogramele din bandă se mișcă continuu, discret: rigla se înclină, eticheta se leagănă, căștile pulsează
   (`src/index.css`). Dacă sistemul cere mișcare redusă, nu se deplasează nimic – rămâne doar o pulsație de opacitate.
