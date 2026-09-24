@@ -224,23 +224,22 @@ function shadow(center, rx, ry) {
 }
 
 /* ---------------------------------------------------------------- compunere SVG */
-const CANVAS = [1200, 690];
-const PAD = 34;
+const PAD = 18;
+// înălțimea de referință: textele și grosimile se normalizează după ea, astfel încât toate
+// desenele să arate identic când sunt afișate la aceeași înălțime (fără cadre goale în jur)
+const H_REF = 430;
 
-/** Încadrează conținutul în pânza fixă 1300×600 și normalizează grosimile/textele. */
+/** viewBox strâns pe conținut (fără spații goale) + normalizarea textelor/grosimilor. */
 function svgDoc(body, name) {
   const [x0, y0, x1, y1] = BOX;
-  const w = x1 - x0;
-  const h = y1 - y0;
-  const k = Math.min((CANVAS[0] - 2 * PAD) / w, (CANVAS[1] - 2 * PAD) / h);
-  const tx = (CANVAS[0] - w * k) / 2 - x0 * k;
-  const ty = (CANVAS[1] - h * k) / 2 - y0 * k;
-  // grosimile de linie și mărimea textului rămân constante pe ecran, indiferent de scară
+  const w = x1 - x0 + 2 * PAD;
+  const h = y1 - y0 + 2 * PAD;
+  const k = h / H_REF; // desen mai înalt → text/linii proporțional mai mari
   const fixed = body
-    .replace(/stroke-width="([\d.]+)"/g, (_m, v) => `stroke-width="${f(Number(v) / k)}"`)
-    .replace(/font-size="([\d.]+)"/g, (_m, v) => `font-size="${f(Number(v) / k)}"`);
+    .replace(/stroke-width="([d.]+)"/g, (_m, v) => `stroke-width="${f(Number(v) * k)}"`)
+    .replace(/font-size="([d.]+)"/g, (_m, v) => `font-size="${f(Number(v) * k)}"`);
   BOX = null;
-  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${CANVAS[0]} ${CANVAS[1]}" role="img" aria-label="Ghid dimensiuni – ${name}"><g transform="translate(${f(tx)} ${f(ty)}) scale(${f(k)})">${fixed}</g></svg>`;
+  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="${f(x0 - PAD)} ${f(y0 - PAD)} ${f(w)} ${f(h)}" role="img" aria-label="Ghid dimensiuni – ${name}">${fixed}</svg>`;
 }
 
 /* ------------------------------------------------------------------- desenele */

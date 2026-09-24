@@ -11,9 +11,7 @@ export function TechDrawing({ shape, className }: { shape: Shape; className?: st
     <img
       src={asset(shape.images.guide)}
       alt={`${shape.name} – desen tehnic cu notațiile dimensiunilor`}
-      className={cls('h-full w-full object-contain', className)}
-      width={1200}
-      height={690}
+      className={cls('h-full w-auto max-w-full object-contain', className)}
       draggable={false}
     />
   );

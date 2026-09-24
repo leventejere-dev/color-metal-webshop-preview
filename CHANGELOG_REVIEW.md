@@ -154,7 +154,9 @@ fotografii reale + ilustrațiile tehnice oficiale pentru fiecare formă.
 - Miniaturile de sub imagine au fost eliminate: la deschiderea produsului se vede direct desenul secțiunii. Pe pagina
   produsului rămân **două locuri rezervate** („Fotografie produs”) pentru fotografiile Color Metal de mai târziu.
   Desenele 2D simple (`ShapeIcon`) au fost scoase din proiect.
-- Proporțiile desenelor au fost ajustate (piese mai scurte, cadru 16:9) ca să nu pară întinse pe lățime.
+- Proporțiile desenelor au fost ajustate (piese mai scurte) și fiecare desen are acum un viewBox strâns pe conținut:
+  se afișează la înălțime fixă, cu lățimea naturală, deci nu mai apar cadre late și goale în jurul desenului.
+  Cele două locuri rezervate pentru fotografii apar atât pe pagina produsului, cât și în configurator.
 - Lângă fiecare câmp de dimensiune apare litera din desen (ex. „Lățime `d`”, „Grosime `b`”, „Lungime `L`”), ca să fie
   clar ce se setează.
 - **Lungime maximă 3.000 mm** la toate formele (limita de transport prin curier); valorile uzuale merg până la 3.000 mm

@@ -44,7 +44,7 @@ export function FavoritesList({ embedded }: { embedded?: boolean }) {
           {shapes.map((s) => (
             <li key={s.id} className="card flex items-center gap-4 p-3 sm:p-4">
               <Link to={`/produse/${s.slug}`} className="shrink-0">
-                <span className="flex h-16 w-28 items-center justify-center overflow-hidden rounded-lg bg-surface px-1">
+                <span className="flex h-16 w-24 items-center justify-center overflow-hidden rounded-lg bg-surface px-1.5">
                   <TechDrawing shape={s} />
                 </span>
               </Link>

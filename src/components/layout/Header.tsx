@@ -102,7 +102,7 @@ export function Header() {
               {suggestions.map((s) => (
                 <li key={s.id}>
                   <Link to={`/produse/${s.slug}`} className="flex items-center gap-3 px-3 py-2 text-sm hover:bg-surface" onMouseDown={(e) => e.preventDefault()} onClick={() => setQuery('')}>
-                    <span className="flex h-9 w-16 shrink-0 items-center justify-center overflow-hidden rounded bg-surface">
+                    <span className="flex h-9 w-14 shrink-0 items-center justify-center overflow-hidden rounded bg-surface">
                       <TechDrawing shape={s} />
                     </span>
                     <span>

@@ -10,7 +10,7 @@ import { TechDrawing } from './TechDrawing';
 export function ProductPreview({ shape, title, subtitle, photoSlots, children }: { shape: Shape; title?: string; subtitle?: string; photoSlots?: boolean; children?: ReactNode }) {
   return (
     <div className="card p-4">
-      <div className="flex aspect-[16/9] items-center justify-center overflow-hidden rounded-xl bg-surface px-2">
+      <div className="flex h-44 items-center justify-center overflow-hidden rounded-xl bg-surface px-3 sm:h-52">
         <TechDrawing shape={shape} />
       </div>
 
