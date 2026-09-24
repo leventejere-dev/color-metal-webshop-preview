@@ -176,5 +176,5 @@ fotografii reale + ilustrațiile tehnice oficiale pentru fiecare formă.
 - Ajustare: banda cu ghidul este discretă – înălțime cât jumătate din banner (84 px față de 168 px), fără casete,
   doar un titlu scurt („Produse”, „AluShop”, „Cauți altceva?”) și câte o propoziție, cu linii subțiri de separare.
 - Textele din bandă, mai comerciale și fără titlu de secțiune („Cum cumperi de aici” a fost scos): „Produse” –
-  formă, material, dimensiune alese de client, debitare la milimetru până la 3.000 mm; „AluShop” – plăci groase din
+  configurare, preț pe loc, adăugare în coș, tăiere pe măsură; „AluShop” – plăci groase din
   stoc la preț redus, fiecare bucată unicat; „Cauți altceva?” – căutarea din antet sau call center.
