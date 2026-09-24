@@ -7,7 +7,7 @@ import { SITE } from '@/config/site';
 
 /** Bandă scurtă sub banner: un titlu și o propoziție despre fiecare secțiune a webshopului. */
 const GUIDE = [
-  { to: '/produse', icon: Ruler, title: 'Produse', text: 'Configurezi, vezi prețul pe loc și adaugi în coș – tăiat exact pe măsura ta.' },
+  { to: '/produse', icon: Ruler, title: 'Produse', text: 'Configurezi, vezi prețul și adaugi în coș – tăiat pe măsura ta, livrat direct la tine acasă.' },
   { to: '/alushop', icon: Tag, title: 'AluShop', text: 'Plăci groase de aluminiu din stoc, la preț redus – fiecare bucată, unicat.' },
   { to: '/contact', icon: Headphones, title: 'Cauți altceva?', text: `Scrie în câmpul de căutare din antet sau sună-ne la ${SITE.phones.callCenter}.` },
 ];
