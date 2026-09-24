@@ -84,3 +84,29 @@
   body { background: #fff; }
   .print-page { box-shadow: none !important; border: 0 !important; margin: 0 !important; max-width: none !important; }
 }
+
+/* ---- Pictogramele din banda de sub banner: mișcare continuă, discretă ---- */
+@keyframes cm-tilt {
+  0%, 100% { transform: rotate(-9deg); }
+  50% { transform: rotate(9deg); }
+}
+@keyframes cm-swing {
+  0%, 100% { transform: rotate(-12deg); }
+  50% { transform: rotate(12deg); }
+}
+@keyframes cm-beat {
+  0%, 100% { transform: scale(1); }
+  35% { transform: scale(1.16); }
+  70% { transform: scale(0.97); }
+}
+.cm-anim-tilt { animation: cm-tilt 3.2s ease-in-out infinite; }
+.cm-anim-swing { animation: cm-swing 2.6s ease-in-out infinite; transform-origin: 30% 20%; }
+.cm-anim-beat { animation: cm-beat 2.2s ease-in-out infinite; }
+@keyframes cm-glow {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+/* Mișcare redusă (setare de sistem): fără deplasare, doar o pulsație discretă. */
+@media (prefers-reduced-motion: reduce) {
+  .cm-anim-tilt, .cm-anim-swing, .cm-anim-beat { animation: cm-glow 3.4s ease-in-out infinite; }
+}

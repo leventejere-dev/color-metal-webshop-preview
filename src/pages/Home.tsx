@@ -2,14 +2,14 @@ import { Link } from 'react-router-dom';
 import { ArrowRight, Headphones, Ruler, Tag } from 'lucide-react';
 import { SHAPES } from '@/data/shapes';
 import { ProductCard } from '@/components/product/ProductCard';
-import { asset } from '@/lib/format';
+import { asset, cls } from '@/lib/format';
 import { SITE } from '@/config/site';
 
 /** Bandă scurtă sub banner: un titlu și o propoziție despre fiecare secțiune a webshopului. */
 const GUIDE = [
-  { to: '/produse', icon: Ruler, title: 'Produse', text: 'Configurezi, vezi prețul și adaugi în coș – tăiat pe măsura ta, livrat direct la tine acasă.' },
-  { to: '/alushop', icon: Tag, title: 'AluShop', text: 'Plăci groase de aluminiu din stoc, la preț redus – fiecare bucată, unicat.' },
-  { to: '/contact', icon: Headphones, title: 'Nu găsești în Produse?', text: `Dimensiuni speciale, alte materiale sau cantități mari – scrie-ne sau sună la ${SITE.phones.callCenter}.` },
+  { to: '/produse', icon: Ruler, title: 'Produse', anim: 'cm-anim-tilt', text: 'Configurezi, vezi prețul și adaugi în coș – tăiat pe măsura ta, livrat direct la tine acasă.' },
+  { to: '/alushop', icon: Tag, title: 'AluShop', anim: 'cm-anim-swing', text: 'Plăci groase de aluminiu din stoc, la preț redus – fiecare bucată, unicat.' },
+  { to: '/contact', icon: Headphones, title: 'Nu găsești în Produse?', anim: 'cm-anim-beat', text: `Dimensiuni speciale, alte materiale sau cantități mari – scrie-ne sau sună la ${SITE.phones.callCenter}.` },
 ];
 
 export function HomePage() {
@@ -31,10 +31,10 @@ export function HomePage() {
       <section className="relative bg-ink text-white">
         <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-brand-gold/50 to-transparent" />
         <div className="container-cm grid gap-x-6 gap-y-2.5 py-3 lg:grid-cols-3 lg:divide-x lg:divide-white/10">
-          {GUIDE.map(({ to, icon: Icon, title, text }) => (
+          {GUIDE.map(({ to, icon: Icon, title, text, anim }) => (
             <Link key={to} to={to} className="group lg:px-6 lg:first:pl-0 lg:last:pr-0">
               <span className="flex items-center gap-2 text-sm font-semibold">
-                <Icon className="h-4 w-4 shrink-0 text-brand-gold" />
+                <Icon className={cls('h-4 w-4 shrink-0 text-brand-gold', anim)} />
                 <span className="group-hover:underline">{title}</span>
                 <ArrowRight className="h-3.5 w-3.5 text-brand-gold transition-transform duration-200 group-hover:translate-x-1" />
               </span>
