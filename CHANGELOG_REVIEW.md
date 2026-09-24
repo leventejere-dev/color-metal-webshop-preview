@@ -173,3 +173,5 @@ fotografii reale + ilustrațiile tehnice oficiale pentru fiecare formă.
   speciale). Fiecare reper duce direct la secțiunea respectivă.
 - Linkul „Vezi lista completă” a fost eliminat din titlul secțiunii de produse: lista completă a formelor este oricum
   afișată dedesubt.
+- Ajustare: banda cu ghidul este discretă – înălțime cât jumătate din banner (84 px față de 168 px), fără casete,
+  doar un titlu scurt („Produse”, „AluShop”, „Cauți altceva?”) și câte o propoziție, cu linii subțiri de separare.
