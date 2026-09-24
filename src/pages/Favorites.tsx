@@ -6,7 +6,7 @@ import { SHAPE_BY_SLUG } from '@/data/shapes';
 import { MATERIALS } from '@/data/materials';
 import { ButtonLink } from '@/components/ui/Button';
 import { Breadcrumbs, EmptyState, Notice, PageHeader } from '@/components/ui/misc';
-import { ShapeIcon } from '@/components/product/ShapeIcon';
+import { TechDrawing } from '@/components/product/TechDrawing';
 
 /** Listă de favorite – folosită atât la /favorite (public) cât și în cont (/cont/favorite). */
 export function FavoritesList({ embedded }: { embedded?: boolean }) {
@@ -44,7 +44,9 @@ export function FavoritesList({ embedded }: { embedded?: boolean }) {
           {shapes.map((s) => (
             <li key={s.id} className="card flex items-center gap-4 p-3 sm:p-4">
               <Link to={`/produse/${s.slug}`} className="shrink-0">
-                <ShapeIcon type={s.id} className="!h-16 !w-[88px] rounded-lg" label={s.name} />
+                <span className="flex h-16 w-28 items-center justify-center overflow-hidden rounded-lg bg-surface px-1">
+                  <TechDrawing shape={s} />
+                </span>
               </Link>
               <div className="min-w-0 flex-1">
                 <h3 className="font-semibold">

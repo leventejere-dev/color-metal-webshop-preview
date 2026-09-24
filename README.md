@@ -68,7 +68,7 @@ Pe pagina de autentificare există butonul „Completează datele demo”.
 | `/` | Acasă – banner compact + toate cele 13 forme de produs |
 | `/produse` | Lista produselor, filtre după categorie |
 | `/alushop` | AluShop – promoție plăci debitate (stoc fix, bucăți unice, preluat din webshopul actual) |
-| `/produse/:slug` | Pagina produsului – alegerea materialului și finisajului, previzualizare (desen 2D + ghid dimensiuni) |
+| `/produse/:slug` | Pagina produsului – alegerea materialului și finisajului, desenul tehnic al formei |
 | `/configurator/:slug/:material` | Configurator dimensiuni (opțiuni, slider+input lungime, cantitate, calcul preț) |
 | `/cautare?q=` | Rezultate căutare |
 | `/cos` | Coș |
@@ -95,9 +95,9 @@ src/
                api.ts (strat de persistență – singurul fișier de înlocuit la integrarea cu backend), storage.ts, types.ts
   context/     Auth, Cart, Favorites, Toast
   components/  layout (Header, Footer, WhatsApp), ui (Button, Field, RangeField, QuantityField, Modal…),
-               product (ShapeIcon – desenele 2D, ProductCard, ProductPreview), configurator (OptionGroup, ContactConsultant)
+               product (TechDrawing – desenele tehnice, ProductCard, ProductPreview), configurator (OptionGroup, ContactConsultant)
   pages/       toate paginile + pages/account/*
-public/assets/ brand/, banner/ (fotografie Color Metal), tech/ (ilustrațiile oficiale „ghid dimensiuni”)
+public/assets/ brand/, banner/ (fotografie Color Metal), tech/ (desenele tehnice SVG, generate cu tools/generate-tech-drawings.mjs)
 tools/         prepare-images.mjs – pipeline-ul de imagini folosit pentru asset-uri
 ```
 
@@ -112,7 +112,7 @@ tools/         prepare-images.mjs – pipeline-ul de imagini folosit pentru asse
 - **Configurator**: nimic preselectat; clic pe opțiunea activă o deselectează; opțiunile incompatibile rămân vizibile,
   estompate și neclicabile (`Opțiunea nu este disponibilă pentru dimensiunea selectată.`); combinațiile provin din
   `variants` (catalogul real al webshopului actual). Lungimea: slider + input sincronizate, pas 1 mm, minim 50 mm
-  (profile/țevi/plăci) și 25 mm (bare), maxim configurabil per formă (`ranges` în `shapes.ts`); la plăci/table lățimea se alege din formatele de stoc, iar lungimea maximă depinde de format.
+  (profile/țevi/plăci) și 25 mm (bare), maximum 3.000 mm la toate formele (limita de transport prin curier); la plăci/table lățimea se alege din formatele de stoc, iar lungimea maximă depinde și de format.
 - **Toleranțe**: nu se afișează în webshop (informație internă Color Metal).
 - **Cantitate**: peste 100 buc butonul „Adaugă în coș” este dezactivat și apar telefon / email / WhatsApp.
 - **Plată** (exclusiv în avans): card online prin formular NETOPIA Payments (simulat, cu validare Luhn; datele cardului nu se salvează) sau transfer bancar. Fără ramburs. Proforma se generează exclusiv la „Transfer bancar”, în checkout (sumar, cumpărător, produse, cantități,
@@ -123,7 +123,7 @@ tools/         prepare-images.mjs – pipeline-ul de imagini folosit pentru asse
 - Nu există backend: datele trăiesc în `localStorage` (per browser); plata cu cardul este simulată; emailurile nu se trimit.
 - Formularele de contact/carieră deschid clientul de email (`mailto:`) sau doar confirmă vizual.
 - Costul transportului nu este calculat (mesaj: se comunică la confirmare).
-- Fără fotografii de produs (casete gri rezervate); formele sunt redate cu desenele 2D din webshopul actual (vezi ASSETS_LICENSES.md).
+- Fără fotografii de produs: formele sunt redate cu desenele tehnice vectoriale (vezi ASSETS_LICENSES.md).
 - Textele legale sunt demonstrative.
 
 ## Integrare ulterioară cu backend

@@ -35,10 +35,8 @@ export interface RangeSpec {
 }
 
 export interface ShapeImages {
-  /** ilustrația oficială cu notațiile dimensiunilor (calculatorul de greutate Color Metal) */
+  /** desenul tehnic cu notațiile dimensiunilor (SVG vectorial, vezi tools/generate-tech-drawings.mjs) */
   guide: string;
-  /** pictograma din calculatorul oficial */
-  icon: string;
 }
 
 export interface Shape {
@@ -60,32 +58,27 @@ export interface Shape {
   images: ShapeImages;
 }
 
-const img = (id: ShapeId): ShapeImages => ({
-  guide: `/assets/tech/${id}.png`,
-  icon: `/assets/tech/${id}-icon.png`,
-});
+const img = (id: ShapeId): ShapeImages => ({ guide: `/assets/tech/${id}.svg` });
 
-const LENGTHS = [500, 1000, 1500, 2000, 2500, 3000, 4000, 6000];
+// limita de transport prin curier: 3.000 mm
+const LENGTHS = [500, 1000, 1500, 2000, 2500, 3000];
 
-const lengthProfile: RangeSpec = { key: 'length', label: 'Lungime', min: 50, max: 6000, step: 1, presets: LENGTHS };
-const lengthBar: RangeSpec = { key: 'length', label: 'Lungime', min: 25, max: 6000, step: 1, presets: LENGTHS };
-const lengthCoil: RangeSpec = {
-  key: 'length',
-  label: 'Lungime (la metraj)',
-  min: 1000,
-  max: 50000,
-  step: 1,
-  presets: [1000, 2000, 5000, 10000, 20000, 50000],
-};
+const lengthProfile: RangeSpec = { key: 'length', label: 'Lungime', min: 50, max: 3000, step: 1, presets: LENGTHS };
+const lengthBar: RangeSpec = { key: 'length', label: 'Lungime', min: 25, max: 3000, step: 1, presets: LENGTHS };
+const lengthCoil: RangeSpec = { key: 'length', label: 'Lungime (la metraj)', min: 500, max: 3000, step: 1, presets: [500, 1000, 1500, 2000, 2500, 3000] };
 const plateLength: RangeSpec = { key: 'length', label: 'Lungime', min: 50, max: 3000, step: 1, presets: [250, 500, 1000, 1500, 2000, 2500, 3000] };
 
+// simbolurile corespund literelor din desenele tehnice
 const F = {
-  width: { key: 'width', label: 'Lățime', symbol: 'b' },
-  height: { key: 'height', label: 'Înălțime', symbol: 'h' },
-  thickness: { key: 'thickness', label: 'Grosime', symbol: 't' },
-  side: { key: 'side', label: 'Latură', symbol: 'a' },
-  sw: { key: 'side', label: 'Deschidere cheie (SW)', symbol: 's', hint: 'Distanța între două fețe paralele' },
-  od: { key: 'outer_diameter', label: 'Diametru exterior', symbol: 'D' },
+  width: { key: 'width', label: 'Lățime', symbol: 'd' },
+  height: { key: 'height', label: 'Înălțime', symbol: 'b' },
+  /** grosimea peretelui la profile și țevi rectangulare/pătrate */
+  wall: { key: 'thickness', label: 'Grosime perete', symbol: 'g' },
+  /** grosimea materialului la plăci, table, bare late, bandă și țeavă rotundă */
+  thickness: { key: 'thickness', label: 'Grosime', symbol: 'b' },
+  side: { key: 'side', label: 'Latură', symbol: 'd' },
+  sw: { key: 'side', label: 'Deschidere cheie', symbol: 'd', hint: 'Distanța între două fețe paralele' },
+  od: { key: 'outer_diameter', label: 'Diametru exterior', symbol: 'd' },
   d: { key: 'outer_diameter', label: 'Diametru', symbol: 'd' },
 } satisfies Record<string, DimensionField>;
 
@@ -169,7 +162,7 @@ export const SHAPES: Shape[] = [
     keywords: ['profil u', 'canal', 'u', 'channel', 'extrudat', 'profil'],
     category: 'profil',
     materials: ['AL'],
-    fields: [F.width, F.height, F.thickness],
+    fields: [F.width, F.height, F.wall],
     variants: [
       { width: 20, height: 20, thickness: 2 },
       { width: 20, height: 20, thickness: 3 },
@@ -212,7 +205,7 @@ export const SHAPES: Shape[] = [
     keywords: ['profil l', 'cornier', 'colțar', 'coltar', 'angle', 'l'],
     category: 'profil',
     materials: ['AL'],
-    fields: [F.width, F.height, F.thickness],
+    fields: [F.width, F.height, F.wall],
     variants: [
       { width: 20, height: 20, thickness: 2 },
       { width: 20, height: 20, thickness: 3 },
@@ -248,7 +241,7 @@ export const SHAPES: Shape[] = [
     keywords: ['profil t', 't', 'tee', 'rigidizare', 'profil'],
     category: 'profil',
     materials: ['AL'],
-    fields: [F.width, F.height, F.thickness],
+    fields: [F.width, F.height, F.wall],
     variants: [
       { width: 20, height: 20, thickness: 2 },
       { width: 20, height: 20, thickness: 3 },
@@ -279,7 +272,7 @@ export const SHAPES: Shape[] = [
     keywords: ['teava', 'țeavă', 'rectangular', 'tub', 'dreptunghiular', 'tube'],
     category: 'teava',
     materials: ['AL'],
-    fields: [F.width, F.height, F.thickness],
+    fields: [F.width, F.height, F.wall],
     variants: [
       { width: 20, height: 10, thickness: 1.5 },
       { width: 20, height: 10, thickness: 2 },
@@ -317,7 +310,7 @@ export const SHAPES: Shape[] = [
     keywords: ['teava', 'țeavă', 'patrata', 'pătrată', 'tub', 'square', 'tube'],
     category: 'teava',
     materials: ['AL'],
-    fields: [F.side, F.thickness],
+    fields: [F.side, F.wall],
     variants: [
       { side: 20, thickness: 1.5 },
       { side: 20, thickness: 2 },

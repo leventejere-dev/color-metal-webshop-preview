@@ -6,6 +6,8 @@ export const UNAVAILABLE_MSG = 'Opțiunea nu este disponibilă pentru dimensiune
 
 export interface OptionGroupProps {
   label: string;
+  /** litera corespunzătoare din desenul tehnic (b, d, g) */
+  symbol?: string;
   unit?: string;
   hint?: string;
   values: number[];
@@ -21,7 +23,7 @@ export interface OptionGroupProps {
  *  – opțiunile incompatibile rămân vizibile, estompate și nu pot fi selectate
  *    (un clic pe ele afișează doar explicația).
  */
-export function OptionGroup({ label, unit = 'mm', hint, values, selected, isAvailable, onSelect }: OptionGroupProps) {
+export function OptionGroup({ label, symbol, unit = 'mm', hint, values, selected, isAvailable, onSelect }: OptionGroupProps) {
   const [msg, setMsg] = useState<string | null>(null);
 
   useEffect(() => {
@@ -33,7 +35,9 @@ export function OptionGroup({ label, unit = 'mm', hint, values, selected, isAvai
   return (
     <div className="rounded-xl border border-line bg-white p-4 sm:p-5">
       <p className="label">
-        {label} <span className="font-normal text-muted">({unit})</span>
+        {label}
+        {symbol && <span className="ml-1.5 rounded bg-surface-2 px-1.5 py-0.5 font-mono text-[11px] font-semibold text-ink-soft" title="Notația din desen">{symbol}</span>}{' '}
+        <span className="font-normal text-muted">({unit})</span>
         {hint && <span className="ml-2 text-xs font-normal text-muted">{hint}</span>}
       </p>
 

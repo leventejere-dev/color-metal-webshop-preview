@@ -1,28 +1,35 @@
 # Surse și licențe pentru imagini / Képforrások és licencek
 
-Toate fișierele din `public/assets/` sunt stocate local (fără hotlink) și sunt generate cu `tools/prepare-images.mjs`.
-Webshopul nu mai folosește fotografii stock: formele de produs sunt redate cu desenele 2D simple din webshopul actual
-(componenta `ShapeIcon`, SVG inline), iar „ghidul pentru alegerea dimensiunilor” folosește ilustrațiile oficiale ale
-calculatorului de greutate Color Metal.
+Toate fișierele din `public/assets/` sunt stocate local (fără hotlink).
+Formele de produs sunt ilustrate **exclusiv** cu desenele tehnice vectoriale (SVG) – nu se folosesc
+fotografii stock.
 
-## 1. Materiale oficiale Color Metal
+## 1. Desenele tehnice (ghid pentru alegerea dimensiunilor)
+
+| Fișier(e) | Sursă | Observații |
+|---|---|---|
+| `tech/<forma>.svg` (13 desene) | redesenate în proiect: `tools/generate-tech-drawings.mjs` | Desene 3D vectoriale, generate programatic (proiecție paralelă, umbrire metalică, cote). Reproduc ilustrațiile calculatorului oficial de greutate Color Metal (https://color-metal.ro/ro/calculator-greutate), cu **aceleași notații**: `b` = grosime/înălțime, `d` = lățime/diametru/latură/deschidere de cheie, `g` = grosimea peretelui, `l` (`L` la profile) = lungime. Originalele erau imagini de 325×150 px; versiunea vectorială este clară la orice rezoluție. |
+
+Regenerare: `node tools/generate-tech-drawings.mjs`.
+
+## 2. Materiale oficiale Color Metal
 
 | Fișier(e) | Sursă | Observații |
 |---|---|---|
 | `banner/hero.jpg`, `banner/hero-mobile.jpg` | Fotografie Color Metal furnizată de client (textură metalică aurie, 2000×667) | Drept de utilizare: Color Metal SRL. |
 | `brand/color-metal-logo.png`, `brand/color-metal-logo-sm.png` | https://color-metal.ro/sites/default/files/CM_Singular_Logo_color_print_1.png (logo oficial) | Marcă înregistrată Color Metal SRL. |
-| `tech/<forma>.png` (13 ilustrații „ghid dimensiuni”) | https://color-metal.ro/ro/calculator-greutate → `/modules/custom/calculator_de_greutate/calculator/images/calculator-de-greutate/*` | Ilustrațiile calculatorului oficial de greutate. `flat_bar` folosește ilustrația plăcii dreptunghiulare (aceeași geometrie). |
-| `tech/<forma>-icon.png` (13 pictograme) | https://color-metal.ro/ro/calculator-greutate → `/modules/custom/calculator_de_greutate/img/*.png` | Pictogramele selectorului de produs din calculator (păstrate pentru utilizare ulterioară). |
 | `brand/favicon.png` | generat în proiect (inițialele „CM” pe fundal auriu #CBA349) | – |
-| `src/components/product/ShapeIcon.tsx` | portare a componentei `ShapeIcon` din webshopul actual (cmwebshop.odocs.ro) | aceeași geometrie și aceleași culori. |
 
-## 2. Alte resurse
+## 3. Alte resurse
 
 - Fonturi: **Montserrat** (SIL Open Font License 1.1), pachet npm `@fontsource-variable/montserrat`, servit local.
 - Pictograme UI: **lucide-react** (licență ISC).
+- Siglele de plată (NETOPIA Payments, Visa, Mastercard) din footer și din checkout sunt desenate în CSS/SVG
+  în `src/components/ui/PaymentBadges.tsx` (nu sunt fișiere de marcă originale; se pot înlocui cu siglele oficiale).
 
-## 3. Istoric
+## 4. Istoric
 
-Versiunea 1 a prototipului folosea fotografii stock (Pexels / Unsplash) pentru fiecare formă; au fost eliminate la cererea
-clientului (nu corespundeau produselor reale). Casetele gri de sub desenul produsului sunt rezervate fotografiilor proprii
-Color Metal.
+Versiunea 1 a prototipului folosea fotografii stock (Pexels / Unsplash) pentru fiecare formă; au fost eliminate la
+cererea clientului (nu corespundeau produselor reale). Versiunea 2 folosea desene 2D simple (portarea componentei
+`ShapeIcon` din webshopul actual) plus imaginile PNG ale calculatorului; ambele au fost înlocuite cu desenele
+vectoriale de la punctul 1.

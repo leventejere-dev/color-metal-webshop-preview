@@ -167,7 +167,7 @@ function Configurator({ shape, materialId }: { shape: Shape; materialId: Materia
         {/* ---------------- stânga */}
         <div className="space-y-4">
           <div className="max-w-sm">
-            <ProductPreview shape={shape} material={materialId} dims={dims} />
+            <ProductPreview shape={shape} />
           </div>
 
           <div className="flex items-center justify-between">
@@ -179,7 +179,7 @@ function Configurator({ shape, materialId }: { shape: Shape; materialId: Materia
 
           {shape.fields.map((f) => (
             <div key={f.key}>
-              <OptionGroup label={f.label} hint={f.hint} values={fieldValues(shape, f.key)} selected={sel[f.key]} isAvailable={(v) => isAvailable(shape, f.key, v, sel, ranges)} onSelect={(v) => select(f.key, v)} />
+              <OptionGroup label={f.label} symbol={f.symbol} hint={f.hint} values={fieldValues(shape, f.key)} selected={sel[f.key]} isAvailable={(v) => isAvailable(shape, f.key, v, sel, ranges)} onSelect={(v) => select(f.key, v)} />
               {notices[f.key] && (
                 <p className="mt-2 flex items-start gap-1.5 text-xs font-medium text-warning-ink">
                   <Info className="mt-0.5 h-3.5 w-3.5 shrink-0" /> {notices[f.key]}
@@ -189,7 +189,7 @@ function Configurator({ shape, materialId }: { shape: Shape; materialId: Materia
           ))}
 
           {shape.ranges.map((r) => (
-            <RangeField key={r.key} label={r.label} value={ranges.length ?? null} min={bounds.length.min} max={bounds.length.max} step={r.step} presets={r.presets} notice={notices.length || null} onChange={setLength} />
+            <RangeField key={r.key} label={r.label} symbol={shape.category === 'profil' ? 'L' : 'l'} value={ranges.length ?? null} min={bounds.length.min} max={bounds.length.max} step={r.step} presets={r.presets} notice={notices.length || null} onChange={setLength} />
           ))}
 
           {/* Cantitate */}

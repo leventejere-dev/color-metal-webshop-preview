@@ -6,7 +6,7 @@ import { useCart } from '@/context/CartContext';
 import { useFavorites } from '@/context/FavoritesContext';
 import { searchShapes } from '@/lib/search';
 import { asset, cls } from '@/lib/format';
-import { ShapeIcon } from '@/components/product/ShapeIcon';
+import { TechDrawing } from '@/components/product/TechDrawing';
 
 const NAV = [
   { to: '/produse', label: 'Produse' },
@@ -102,7 +102,9 @@ export function Header() {
               {suggestions.map((s) => (
                 <li key={s.id}>
                   <Link to={`/produse/${s.slug}`} className="flex items-center gap-3 px-3 py-2 text-sm hover:bg-surface" onMouseDown={(e) => e.preventDefault()} onClick={() => setQuery('')}>
-                    <ShapeIcon type={s.id} className="!h-9 !w-12 shrink-0 rounded" />
+                    <span className="flex h-9 w-14 shrink-0 items-center justify-center overflow-hidden rounded bg-surface">
+                      <TechDrawing shape={s} />
+                    </span>
                     <span>
                       <span className="block font-medium">{s.name}</span>
                       <span className="block text-xs text-muted">{s.short}</span>

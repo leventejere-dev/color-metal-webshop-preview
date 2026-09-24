@@ -4,7 +4,7 @@ import type { Shape } from '@/data/shapes';
 import { useFavorites } from '@/context/FavoritesContext';
 import { useToast } from '@/context/ToastContext';
 import { cls } from '@/lib/format';
-import { ShapeIcon } from './ShapeIcon';
+import { TechDrawing } from './TechDrawing';
 
 export function FavoriteButton({ slug, name, size = 'md', className }: { slug: string; name: string; size?: 'sm' | 'md'; className?: string }) {
   const { has, toggle } = useFavorites();
@@ -42,7 +42,9 @@ export function ProductCard({ shape }: { shape: Shape }) {
   return (
     <article className="card group relative flex flex-col p-4 transition hover:-translate-y-0.5 hover:shadow-[0_2px_4px_rgba(20,20,20,.05),0_16px_32px_-12px_rgba(20,20,20,.22)] sm:p-5">
       <FavoriteButton slug={shape.slug} name={shape.name} size="sm" className="absolute right-3 top-3 z-10" />
-      <ShapeIcon type={shape.id} large className="mx-auto w-full max-w-[150px]" label={shape.name} />
+      <div className="flex aspect-[13/6] items-center justify-center overflow-hidden rounded-lg bg-surface px-1">
+        <TechDrawing shape={shape} />
+      </div>
       <h3 className="mt-3 text-center text-[15px] font-semibold text-ink">
         <Link to={`/produse/${shape.slug}`} className="after:absolute after:inset-0 after:content-['']">
           {shape.name}

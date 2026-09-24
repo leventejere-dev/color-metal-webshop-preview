@@ -6,7 +6,7 @@ import { ELOX_COLORS, FINISHES, MATERIALS } from '@/data/materials';
 import { QuantityField } from '@/components/ui/QuantityField';
 import { Button, ButtonLink } from '@/components/ui/Button';
 import { Breadcrumbs, EmptyState, Notice, PageHeader, SummaryRow } from '@/components/ui/misc';
-import { ShapeIcon } from '@/components/product/ShapeIcon';
+import { TechDrawing } from '@/components/product/TechDrawing';
 import { MAX_ONLINE_QTY } from '@/config/pricing';
 import { kg, money } from '@/lib/format';
 import { round2 } from '@/lib/pricing';
@@ -45,7 +45,9 @@ export function CartPage() {
               return (
                 <article key={item.id} className="card flex gap-4 p-4">
                   <Link to={`/produse/${shape.slug}`} className="hidden shrink-0 sm:block">
-                    <ShapeIcon type={shape.id} material={item.materialId} dims={item.dims} className="!h-20 !w-28 rounded-lg" label={shape.name} />
+                    <span className="flex h-20 w-32 items-center justify-center overflow-hidden rounded-lg bg-surface px-1">
+                      <TechDrawing shape={shape} />
+                    </span>
                   </Link>
                   <div className="min-w-0 flex-1">
                     <div className="flex flex-wrap items-start justify-between gap-2">

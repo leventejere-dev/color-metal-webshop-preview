@@ -171,7 +171,7 @@ export function ProductDetailPage() {
 
         {/* ---- dreapta: previzualizare mică, ca în webshopul actual */}
         <aside className="lg:sticky lg:top-24 lg:self-start">
-          <ProductPreview shape={shape} material={material} title={`${shape.name} · ${mat.label}`} subtitle={subtitle} />
+          <ProductPreview shape={shape} title={`${shape.name} · ${mat.label}`} subtitle={subtitle} />
           <Notice className="mt-4 text-xs">Produsele configurate se realizează conform specificațiilor clientului și nu beneficiază de drept de retur (OUG 34/2014).</Notice>
         </aside>
       </div>

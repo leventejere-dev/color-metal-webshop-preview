@@ -3,6 +3,8 @@ import { cls, n } from '@/lib/format';
 
 export interface RangeFieldProps {
   label: string;
+  /** litera corespunzătoare din desenul tehnic (l / L) */
+  symbol?: string;
   unit?: string;
   value: number | null;
   min: number;
@@ -21,7 +23,7 @@ const clamp = (v: number, min: number, max: number) => Math.min(max, Math.max(mi
  * Slider + input numeric sincronizate. Valoarea `null` înseamnă "neselectat":
  * slider-ul stă la minim (stil estompat) și input-ul este gol.
  */
-export function RangeField({ label, unit = 'mm', value, min, max, step = 1, presets = [], hint, notice, disabled, onChange }: RangeFieldProps) {
+export function RangeField({ label, symbol, unit = 'mm', value, min, max, step = 1, presets = [], hint, notice, disabled, onChange }: RangeFieldProps) {
   const id = useId();
   const [text, setText] = useState(value == null ? '' : String(value));
 
@@ -53,7 +55,9 @@ export function RangeField({ label, unit = 'mm', value, min, max, step = 1, pres
       <div className="flex flex-wrap items-end justify-between gap-3">
         <div>
           <label htmlFor={id} className="label">
-            {label} <span className="font-normal text-muted">({unit})</span>
+            {label}
+            {symbol && <span className="ml-1.5 rounded bg-surface-2 px-1.5 py-0.5 font-mono text-[11px] font-semibold text-ink-soft" title="Notația din desen">{symbol}</span>}{' '}
+            <span className="font-normal text-muted">({unit})</span>
           </label>
           {hint && <p className="mt-0.5 text-xs text-muted">{hint}</p>}
         </div>

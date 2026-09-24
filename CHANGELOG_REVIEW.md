@@ -144,3 +144,16 @@ fotografii reale + ilustrațiile tehnice oficiale pentru fiecare formă.
 - Checkout: plata exclusiv în avans – doar card online sau transfer bancar (opțiunea „Ramburs la livrare” a fost eliminată); la „Card online” apare secțiunea NETOPIA Payments cu formular de card (număr cu formatare și validare Luhn, expirare LL/AA, CVV, nume) – simulare, datele cardului nu se salvează, în comandă rămân doar ultimele 4 cifre. Butonul devine „Plătește <sumă>”.
 - Footer: siglele NETOPIA Payments / Visa / Mastercard cu „Plăți online securizate prin NETOPIA Payments” (ca în webshopul actual).
 - Corecție: la deschiderea directă a paginii de checkout, datele contului se preiau automat.
+
+# Revizia 5 (2026-09-24)
+- **Desene tehnice noi, vectoriale (SVG).** Ilustrațiile de 325×150 px ale calculatorului oficial au fost redesenate
+  programatic (`tools/generate-tech-drawings.mjs`): aceleași forme 3D și **aceleași notații** (b, d, g, l/L), dar clare
+  la orice rezoluție (proiecție paralelă, umbrire metalică, cote cu săgeți).
+- Desenul tehnic apare **peste tot unde era o imagine de produs**: carduri (prima pagină, Produse, căutare),
+  pagina de material, configurator, coș, favorite, sugestiile din antet.
+- Machetele („casetele gri” rezervate fotografiilor) și miniaturile au fost eliminate: pe pagina produsului se vede
+  direct desenul secțiunii, fără alte variante de imagine. Desenele 2D simple (`ShapeIcon`) au fost scoase din proiect.
+- Lângă fiecare câmp de dimensiune apare litera din desen (ex. „Lățime `d`”, „Grosime `b`”, „Lungime `L`”), ca să fie
+  clar ce se setează.
+- **Lungime maximă 3.000 mm** la toate formele (limita de transport prin curier); valorile uzuale merg până la 3.000 mm
+  (înainte: 6.000 mm la profile/bare, 50.000 mm la bandă).
