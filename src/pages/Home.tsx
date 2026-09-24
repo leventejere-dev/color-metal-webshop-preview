@@ -69,7 +69,7 @@ export function HomePage() {
         <div className="container-cm py-7 sm:py-9">
           <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-brand-gold">Cum cumperi de aici</p>
 
-          <div className="mt-5 grid gap-px overflow-hidden rounded-xl bg-white/10 ring-1 ring-white/10 sm:grid-cols-3">
+          <div className="mt-5 grid gap-px overflow-hidden rounded-xl bg-white/10 ring-1 ring-white/10 lg:grid-cols-3">
             {GUIDE.map(({ to, icon: Icon, title, text, cta }) => (
               <Link key={to} to={to} className="group relative flex flex-col bg-ink p-5 transition-colors hover:bg-white/[0.045]">
                 <span className="pointer-events-none absolute inset-x-0 top-0 h-0.5 origin-left scale-x-0 bg-gradient-to-r from-brand-gold to-brand-gold/0 transition-transform duration-300 group-hover:scale-x-100" />
