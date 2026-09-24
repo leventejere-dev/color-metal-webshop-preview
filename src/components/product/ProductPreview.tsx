@@ -7,7 +7,7 @@ export function ProductPreview({ shape, title, subtitle, children }: { shape: Sh
   return (
     <div className="card p-4">
       <div className="flex aspect-[13/6] items-center justify-center overflow-hidden rounded-xl bg-surface px-2">
-        <TechDrawing shape={shape} priority />
+        <TechDrawing shape={shape} />
       </div>
       {(title || subtitle) && (
         <div className="mt-3 border-t border-line pt-3 text-center">
