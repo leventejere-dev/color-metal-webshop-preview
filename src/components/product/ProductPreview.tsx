@@ -1,35 +1,55 @@
-import type { ReactNode } from 'react';
+import { useState, type ReactNode } from 'react';
 import { Camera } from 'lucide-react';
 import type { Shape } from '@/data/shapes';
+import { cls } from '@/lib/format';
 import { TechDrawing } from './TechDrawing';
 
+type View = 'desen' | 0 | 1;
+
 /**
- * Previzualizarea produsului: desenul tehnic cu notațiile dimensiunilor și, pe pagina produsului,
- * două locuri rezervate pentru fotografiile de produs Color Metal.
+ * Previzualizarea produsului: desenul tehnic cu notațiile dimensiunilor și, opțional, două locuri
+ * rezervate pentru fotografiile de produs Color Metal. Miniaturile sunt interactive – clic pe ele
+ * schimbă imaginea mare (simulează galeria de produs de mai târziu).
  */
 export function ProductPreview({ shape, title, subtitle, photoSlots, children }: { shape: Shape; title?: string; subtitle?: string; photoSlots?: boolean; children?: ReactNode }) {
+  const [view, setView] = useState<View>('desen');
+  const thumb = 'flex h-12 w-16 shrink-0 items-center justify-center overflow-hidden rounded-md border bg-surface transition';
+  const active = 'border-brand-gold ring-1 ring-brand-gold/40';
+  const idle = 'border-line hover:border-ink/40';
+
   return (
     <div className="card p-4">
-      <div className="flex h-44 items-center justify-center overflow-hidden rounded-xl bg-surface px-3 sm:h-52">
-        <TechDrawing shape={shape} />
+      <div className="flex h-44 items-center justify-center overflow-hidden rounded-xl bg-surface p-4 sm:h-52">
+        {view === 'desen' ? (
+          <TechDrawing shape={shape} />
+        ) : (
+          <div className="flex h-full w-full flex-col items-center justify-center gap-2 rounded-lg border border-dashed border-line bg-surface-2/50 text-muted">
+            <Camera className="h-7 w-7 opacity-60" />
+            <p className="text-sm font-medium">Fotografie produs {view + 1}</p>
+            <p className="text-[11px] opacity-80">Loc rezervat – aici va apărea fotografia Color Metal.</p>
+          </div>
+        )}
       </div>
 
       {photoSlots && (
-        <>
-          <div className="mt-2 grid grid-cols-2 gap-2">
-            {[0, 1].map((i) => (
-              <div
-                key={i}
-                className="flex aspect-[4/3] flex-col items-center justify-center gap-1 rounded-lg border border-dashed border-line bg-surface-2/60 text-muted"
-                title="Loc rezervat pentru fotografia produsului"
-              >
-                <Camera className="h-5 w-5 opacity-60" />
-                <span className="text-[11px] font-medium opacity-70">Fotografie produs</span>
-              </div>
-            ))}
-          </div>
-          <p className="mt-1.5 text-center text-[11px] text-muted">Fotografiile produsului se adaugă ulterior.</p>
-        </>
+        <div className="mt-2 flex items-center gap-2">
+          <button type="button" onClick={() => setView('desen')} aria-pressed={view === 'desen'} title="Desen tehnic" className={cls(thumb, 'p-1', view === 'desen' ? active : idle)}>
+            <TechDrawing shape={shape} />
+          </button>
+          {[0, 1].map((i) => (
+            <button
+              key={i}
+              type="button"
+              onClick={() => setView(i as View)}
+              aria-pressed={view === i}
+              title={`Fotografie produs ${i + 1} (loc rezervat)`}
+              className={cls(thumb, 'border-dashed text-muted', view === i ? active : idle)}
+            >
+              <Camera className="h-4 w-4 opacity-60" />
+            </button>
+          ))}
+          <span className="ml-1 text-[11px] leading-tight text-muted">Fotografiile produsului se adaugă ulterior.</span>
+        </div>
       )}
 
       {(title || subtitle) && (

@@ -436,27 +436,27 @@ function profile(section, d, b, g, name, gAt) {
 
 {
   // rulou pe axa lungimii (d = lățimea benzii) + banda desfășurată pe direcția lățimii (l)
-  const R = 104;
-  const hole = 15;
+  const R = 132;
+  const hole = 17;
   const W = 250;
-  const STRIP = 470;
-  const t = 12;
+  const STRIP = 300;
+  const t = 14;
   const y0 = -R;
   const quad = (a, b, c, e, fill) => {
     const poly = [a, b, c, e];
     trackAll(poly);
     return `<polygon points="${pts(poly)}" fill="${fill}" stroke="${EDGE}" stroke-width="1" stroke-linejoin="round"/>`;
   };
-  let s = shadow(add2(P(STRIP / 2, -R, W / 2), [0, 26]), 420, 50);
+  let s = shadow(add2(P(STRIP / 2, -R, W / 2), [0, 26]), 380, 48);
   s += quad(P(0, y0 + t, 0), P(STRIP, y0 + t, 0), P(STRIP, y0 + t, W), P(0, y0 + t, W), shade([0, 1, 0]));
   s += quad(P(0, y0, 0), P(STRIP, y0, 0), P(STRIP, y0 + t, 0), P(0, y0 + t, 0), shade([0, 0, -1]));
   s += quad(P(STRIP, y0, 0), P(STRIP, y0, W), P(STRIP, y0 + t, W), P(STRIP, y0 + t, 0), shade([1, 0, 0]));
-  s += cylinder(R, W, 'c3');
+  s += cylinder(R, W, "c3");
   const h = circlePts(hole, 0, 0, 0);
-  s += `<path d="M${h.map((p) => `${f(p[0])},${f(p[1])}`).join('L')}Z" fill="#474c52"/>`;
-  s += dim(P(0, R, 0), P(0, R, W), [22, -96], 'd', { labelOff: 36 });
-  s += dim(P(STRIP, -R, 0), P(STRIP, -R + t, 0), [86, 0], 'b', { outside: true, labelOff: 30 });
-  s += dim(P(0, -R, 0), P(STRIP, -R, 0), [-14, 116], 'l', { labelOff: 40, labelAt: 0.62 });
+  s += `<path d="M${h.map((p) => `${f(p[0])},${f(p[1])}`).join("L")}Z" fill="#474c52"/>`;
+  s += dim(P(0, R, 0), P(0, R, W), [20, -92], "d", { labelOff: 36 });
+  s += dim(P(STRIP, -R, 0), P(STRIP, -R + t, 0), [80, 0], "b", { outside: true, labelOff: 30 });
+  s += dim(P(0, -R, 0), P(STRIP, -R, 0), [-14, 108], "l", { labelOff: 40, labelAt: 0.58 });
   drawings.coil = svgDoc(s, 'Bandă rulou');
 }
 

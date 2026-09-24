@@ -45,7 +45,7 @@ export function CartPage() {
               return (
                 <article key={item.id} className="card flex gap-4 p-4">
                   <Link to={`/produse/${shape.slug}`} className="hidden shrink-0 sm:block">
-                    <span className="flex h-20 w-32 items-center justify-center overflow-hidden rounded-lg bg-surface px-1.5">
+                    <span className="flex h-20 w-32 items-center justify-center overflow-hidden rounded-lg bg-surface p-2">
                       <TechDrawing shape={shape} />
                     </span>
                   </Link>
