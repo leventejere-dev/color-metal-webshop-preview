@@ -177,4 +177,4 @@ fotografii reale + ilustrațiile tehnice oficiale pentru fiecare formă.
   doar un titlu scurt („Produse”, „AluShop”, „Cauți altceva?”) și câte o propoziție, cu linii subțiri de separare.
 - Textele din bandă, mai comerciale și fără titlu de secțiune („Cum cumperi de aici” a fost scos): „Produse” –
   configurare, preț pe loc, adăugare în coș, tăiere pe măsură și livrare direct la client; „AluShop” – plăci groase din
-  stoc la preț redus, fiecare bucată unicat; „Cauți altceva?” – căutarea din antet sau call center.
+  stoc la preț redus, fiecare bucată unicat; „Nu găsești în Produse?” – dimensiuni speciale, alte materiale sau cantități mari, prin contact/call center.
