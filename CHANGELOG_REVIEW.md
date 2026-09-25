@@ -190,5 +190,8 @@ fotografii reale + ilustrațiile tehnice oficiale pentru fiecare formă.
   material: aluminiu = gri metalic, cupru = arămiu, alamă = auriu, bronz = brun-auriu. Umbrele, muchiile și
   reflexiile rămân intacte: fiecare gri este mutat pe rampa culorii, păstrându-și luminozitatea. În coș, fiecare
   produs apare în culoarea materialului comandat.
-- Generatorul produce acum 52 de fișiere (13 forme × variantele de material și de notații): `<forma>.svg`,
+- Generatorul produce acum 104 fișiere (13 forme × variantele de material, de eloxare și de notații): `<forma>.svg`,
   `<forma>--dim.svg`, `<forma>--cu.svg`, `<forma>--cu--dim.svg` etc. Regenerare: `node tools/generate-tech-drawings.mjs`.
+- **Și eloxarea schimbă culoarea desenului:** la finisajul Eloxat, piesa apare în culoarea aleasă – negru sau bronz
+  (eloxarea natur/argintie arată ca aluminiul, deci folosește desenul implicit). Se vede pe pagina de material, în
+  configurator și în coș.

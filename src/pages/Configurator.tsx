@@ -167,7 +167,7 @@ function Configurator({ shape, materialId }: { shape: Shape; materialId: Materia
         {/* ---------------- stânga */}
         <div className="space-y-4">
           <div className="max-w-sm">
-            <ProductPreview shape={shape} material={materialId} dims photoSlots />
+            <ProductPreview shape={shape} material={materialId} elox={eloxColor} dims photoSlots />
           </div>
 
           <div className="flex items-center justify-between">

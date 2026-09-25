@@ -53,6 +53,9 @@ const PALETTES = {
   cu: { dark: [86, 38, 18], light: [255, 196, 148] },
   brass: { dark: [102, 76, 22], light: [255, 236, 168] },
   bronze: { dark: [74, 54, 30], light: [226, 196, 150] },
+  // aluminiu eloxat colorat (eloxarea „natur/argintiu” arată ca aluminiul, deci folosește desenul implicit)
+  'elox-negru': { dark: [16, 16, 18], light: [134, 136, 140] },
+  'elox-bronz': { dark: [44, 26, 17], light: [196, 144, 108] },
 };
 let PAL = null;
 /** Cotele (săgeți + literele b, d, g, l/L) se desenează doar în varianta „--dim”. */
@@ -519,7 +522,8 @@ for (const [mat, pal] of Object.entries(PALETTES)) {
     ANNOTATE = annotate;
     EDGE = col(EDGE0);
     for (const [id, svg] of Object.entries(buildDrawings())) {
-      if (!(SHAPE_MATERIALS[id] ?? ['al']).includes(mat)) continue;
+      // eloxarea se face doar pe aluminiu, deci variantele „elox-” există la toate formele
+      if (!mat.startsWith('elox-') && !(SHAPE_MATERIALS[id] ?? ['al']).includes(mat)) continue;
       fs.writeFileSync(path.join(OUT, `${id}${mat === 'al' ? '' : `--${mat}`}${annotate ? '--dim' : ''}.svg`), svg);
       count++;
     }
