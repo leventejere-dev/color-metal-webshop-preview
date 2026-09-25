@@ -40,14 +40,45 @@ const f = (n) => (Math.round(n * 100) / 100).toString();
 const pts = (arr) => arr.map((p) => `${f(p[0])},${f(p[1])}`).join(' ');
 
 const INK = '#1a1a1a';
-const EDGE = '#6f747a';
+const EDGE0 = '#6f747a';
+let EDGE = EDGE0;
 
-/** Gri metalic în funcție de orientarea feței. */
+/**
+ * Paleta materialului: `null` = aluminiu (gri metalic, culorile originale). Pentru celelalte
+ * materiale fiecare gri al piesei este mutat pe rampa culorii, păstrându-și luminozitatea –
+ * așa rămân intacte umbrele, muchiile și reflexiile, dar desenul are culoarea materialului ales.
+ */
+const PALETTES = {
+  al: null,
+  cu: { dark: [86, 38, 18], light: [255, 196, 148] },
+  brass: { dark: [102, 76, 22], light: [255, 236, 168] },
+  bronze: { dark: [74, 54, 30], light: [226, 196, 150] },
+};
+let PAL = null;
+/** Cotele (săgeți + literele b, d, g, l/L) se desenează doar în varianta „--dim”. */
+let ANNOTATE = true;
+
+function col(c) {
+  if (!PAL) return c;
+  let r, g, b;
+  if (c[0] === '#') {
+    r = parseInt(c.slice(1, 3), 16);
+    g = parseInt(c.slice(3, 5), 16);
+    b = parseInt(c.slice(5, 7), 16);
+  } else {
+    [r, g, b] = c.match(/\d+/g).map(Number);
+  }
+  const u = Math.max(0, Math.min(1, (0.299 * r + 0.587 * g + 0.114 * b - 55) / 190));
+  const m = (i) => Math.round(PAL.dark[i] + (PAL.light[i] - PAL.dark[i]) * u);
+  return `rgb(${m(0)},${m(1)},${m(2)})`;
+}
+
+/** Gri metalic (sau culoarea materialului) în funcție de orientarea feței. */
 function shade(n3) {
   const t = Math.max(0, dot3(norm3(n3), LIGHT));
   const k = 0.34 + 0.66 * Math.pow(t, 0.85);
   const c = Math.round(112 + k * 128);
-  return `rgb(${Math.min(Math.round(c * 0.985), 255)},${Math.min(Math.round(c * 0.995), 255)},${Math.min(c, 255)})`;
+  return col(`rgb(${Math.min(Math.round(c * 0.985), 255)},${Math.min(Math.round(c * 0.995), 255)},${Math.min(c, 255)})`);
 }
 
 /* ------------------------------------------------- acumulator de puncte (bbox) */
@@ -143,7 +174,7 @@ function cylinder(r, len, id, rInner = 0, cw = 0, ch = 0) {
   const grad = (gid, stops) =>
     `<defs><linearGradient id="${gid}" gradientUnits="userSpaceOnUse" x1="${f(g1[0])}" y1="${f(g1[1])}" x2="${f(g2[0])}" y2="${f(g2[1])}">${stops}</linearGradient></defs>`;
 
-  let svg = grad(id, '<stop offset="0" stop-color="#8f9399"/><stop offset="0.32" stop-color="#e2e5e8"/><stop offset="0.68" stop-color="#b6babf"/><stop offset="1" stop-color="#7f8389"/>');
+  let svg = grad(id, `<stop offset="0" stop-color="${col('#8f9399')}"/><stop offset="0.32" stop-color="${col('#e2e5e8')}"/><stop offset="0.68" stop-color="${col('#b6babf')}"/><stop offset="1" stop-color="${col('#7f8389')}"/>`);
   svg += `<path d="M${visible.map((i) => `${f(front[i][0])},${f(front[i][1])}`).join('L')}L${[...visible].reverse().map((i) => `${f(back[i][0])},${f(back[i][1])}`).join('L')}Z" fill="url(#${id})" stroke="${EDGE}" stroke-width="1" stroke-linejoin="round"/>`;
 
   if (rInner > 0) {
@@ -152,14 +183,14 @@ function cylinder(r, len, id, rInner = 0, cw = 0, ch = 0) {
     const bin = circlePts(rInner, cw, ch, len * 0.55);
     const holePath = `M${fin.map((p) => `${f(p[0])},${f(p[1])}`).join('L')}Z`;
     svg += `<clipPath id="${id}c"><path d="${holePath}"/></clipPath>`;
-    svg += grad(`${id}h`, '<stop offset="0" stop-color="#4a4f55"/><stop offset="1" stop-color="#6b7177"/>');
-    svg += grad(`${id}i`, '<stop offset="0" stop-color="#a6abb1"/><stop offset="1" stop-color="#83888e"/>');
+    svg += grad(`${id}h`, `<stop offset="0" stop-color="${col('#4a4f55')}"/><stop offset="1" stop-color="${col('#6b7177')}"/>`);
+    svg += grad(`${id}i`, `<stop offset="0" stop-color="${col('#a6abb1')}"/><stop offset="1" stop-color="${col('#83888e')}"/>`);
     svg += `<g clip-path="url(#${id}c)"><path d="${holePath}" fill="url(#${id}h)"/>` +
       `<path d="M${hidden.map((i) => `${f(fin[i][0])},${f(fin[i][1])}`).join('L')}L${[...hidden].reverse().map((i) => `${f(bin[i][0])},${f(bin[i][1])}`).join('L')}Z" fill="url(#${id}i)"/></g>`;
   }
 
   // fața frontală (inel sau disc)
-  svg += grad(`${id}f`, '<stop offset="0" stop-color="#6f747a"/><stop offset="0.55" stop-color="#a0a5ab"/><stop offset="1" stop-color="#7b8086"/>');
+  svg += grad(`${id}f`, `<stop offset="0" stop-color="${col('#6f747a')}"/><stop offset="0.55" stop-color="${col('#a0a5ab')}"/><stop offset="1" stop-color="${col('#7b8086')}"/>`);
   const face = `M${front.map((p) => `${f(p[0])},${f(p[1])}`).join('L')}Z`;
   const inner = rInner > 0 ? `M${circlePts(rInner, cw, ch, 0).map((p) => `${f(p[0])},${f(p[1])}`).join('L')}Z` : '';
   svg += `<path d="${face}${inner}" fill-rule="evenodd" fill="url(#${id}f)" stroke="${EDGE}" stroke-width="1"/>`;
@@ -191,6 +222,7 @@ function label(text, at, size = TXT) {
 
 /** Cotă între A și B, deplasată cu `off`; `outside` = săgeți în exterior (distanțe mici). */
 function dim(A, B, off, text, { outside = false, labelOff = 34, ext = true, labelAt = 0.5 } = {}) {
+  if (!ANNOTATE) return ''; // varianta fără notații (carduri, pagina de material)
   const a = add2(A, off);
   const b = add2(B, off);
   const dir = norm2(sub2(b, a));
@@ -239,11 +271,14 @@ function svgDoc(body, name) {
     .replace(/stroke-width="([d.]+)"/g, (_m, v) => `stroke-width="${f(Number(v) * k)}"`)
     .replace(/font-size="([d.]+)"/g, (_m, v) => `font-size="${f(Number(v) * k)}"`);
   BOX = null;
-  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="${f(x0 - PAD)} ${f(y0 - PAD)} ${f(w)} ${f(h)}" role="img" aria-label="Ghid dimensiuni – ${name}">${fixed}</svg>`;
+  const alt = ANNOTATE ? `Ghid dimensiuni – ${name}` : `Desen tehnic – ${name}`;
+  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="${f(x0 - PAD)} ${f(y0 - PAD)} ${f(w)} ${f(h)}" role="img" aria-label="${alt}">${fixed}</svg>`;
 }
 
 /* ------------------------------------------------------------------- desenele */
 const LEN = 480;
+
+function buildDrawings() {
 const drawings = {};
 
 /** Cote standard pentru o secțiune dreptunghiulară (b = grosime/înălțime, d = lățime). */
@@ -453,12 +488,41 @@ function profile(section, d, b, g, name, gAt) {
   s += quad(P(STRIP, y0, 0), P(STRIP, y0, W), P(STRIP, y0 + t, W), P(STRIP, y0 + t, 0), shade([1, 0, 0]));
   s += cylinder(R, W, "c3");
   const h = circlePts(hole, 0, 0, 0);
-  s += `<path d="M${h.map((p) => `${f(p[0])},${f(p[1])}`).join("L")}Z" fill="#474c52"/>`;
+  s += `<path d="M${h.map((p) => `${f(p[0])},${f(p[1])}`).join("L")}Z" fill="${col('#474c52')}"/>`;
   s += dim(P(0, R, 0), P(0, R, W), [20, -92], "d", { labelOff: 36 });
   s += dim(P(STRIP, -R, 0), P(STRIP, -R + t, 0), [80, 0], "b", { outside: true, labelOff: 30 });
   s += dim(P(0, -R, 0), P(STRIP, -R, 0), [-14, 108], "l", { labelOff: 40, labelAt: 0.58 });
   drawings.coil = svgDoc(s, 'Bandă rulou');
 }
 
-for (const [id, svg] of Object.entries(drawings)) fs.writeFileSync(path.join(OUT, `${id}.svg`), svg);
-console.log('generate-tech-drawings:', Object.keys(drawings).length, 'desene →', OUT);
+  return drawings;
+}
+
+/* ------------------------------------------------------------------ variantele */
+// Materialele disponibile pentru fiecare formă (identic cu src/data/shapes.ts).
+const SHAPE_MATERIALS = {
+  thick_plate: ['al', 'cu', 'brass'],
+  sheet: ['al', 'cu', 'brass'],
+  flat_bar: ['al', 'cu', 'brass'],
+  square_bar: ['al', 'cu', 'brass'],
+  hex_bar: ['al', 'cu', 'brass'],
+  round_bar: ['al', 'cu', 'brass', 'bronze'],
+};
+
+// <forma>.svg = aluminiu, fără notații (carduri, pagina de material)
+// <forma>--dim.svg = aluminiu, cu notații (pasul de alegere a dimensiunilor)
+// <forma>--cu.svg, <forma>--cu--dim.svg … = aceleași, în culoarea materialului
+let count = 0;
+for (const [mat, pal] of Object.entries(PALETTES)) {
+  for (const annotate of [false, true]) {
+    PAL = pal;
+    ANNOTATE = annotate;
+    EDGE = col(EDGE0);
+    for (const [id, svg] of Object.entries(buildDrawings())) {
+      if (!(SHAPE_MATERIALS[id] ?? ['al']).includes(mat)) continue;
+      fs.writeFileSync(path.join(OUT, `${id}${mat === 'al' ? '' : `--${mat}`}${annotate ? '--dim' : ''}.svg`), svg);
+      count++;
+    }
+  }
+}
+console.log('generate-tech-drawings:', count, 'desene →', OUT);

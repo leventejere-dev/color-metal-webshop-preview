@@ -34,11 +34,6 @@ export interface RangeSpec {
   presets: number[];
 }
 
-export interface ShapeImages {
-  /** desenul tehnic cu notațiile dimensiunilor (SVG vectorial, vezi tools/generate-tech-drawings.mjs) */
-  guide: string;
-}
-
 export interface Shape {
   id: ShapeId;
   slug: string;
@@ -55,10 +50,8 @@ export interface Shape {
   /** câmpuri continue (slider + input) */
   ranges: RangeSpec[];
   unitLabel: string;
-  images: ShapeImages;
 }
 
-const img = (id: ShapeId): ShapeImages => ({ guide: `/assets/tech/${id}.svg` });
 
 // limita de transport prin curier: 3.000 mm
 const LENGTHS = [500, 1000, 1500, 2000, 2500, 3000];
@@ -117,7 +110,6 @@ export const SHAPES: Shape[] = [
     ],
     ranges: [plateLength],
     unitLabel: 'buc',
-    images: img('thick_plate'),
   },
   {
     id: 'sheet',
@@ -150,7 +142,6 @@ export const SHAPES: Shape[] = [
     ],
     ranges: [plateLength],
     unitLabel: 'buc',
-    images: img('sheet'),
   },
   {
     id: 'profile_u',
@@ -193,7 +184,6 @@ export const SHAPES: Shape[] = [
     ],
     ranges: [lengthProfile],
     unitLabel: 'buc',
-    images: img('profile_u'),
   },
   {
     id: 'profile_l',
@@ -229,7 +219,6 @@ export const SHAPES: Shape[] = [
     ],
     ranges: [lengthProfile],
     unitLabel: 'buc',
-    images: img('profile_l'),
   },
   {
     id: 'profile_t',
@@ -260,7 +249,6 @@ export const SHAPES: Shape[] = [
     ],
     ranges: [lengthProfile],
     unitLabel: 'buc',
-    images: img('profile_t'),
   },
   {
     id: 'rect_tube',
@@ -298,7 +286,6 @@ export const SHAPES: Shape[] = [
     ],
     ranges: [lengthProfile],
     unitLabel: 'buc',
-    images: img('rect_tube'),
   },
   {
     id: 'square_tube',
@@ -334,7 +321,6 @@ export const SHAPES: Shape[] = [
     ],
     ranges: [lengthProfile],
     unitLabel: 'buc',
-    images: img('square_tube'),
   },
   {
     id: 'round_tube',
@@ -365,7 +351,6 @@ export const SHAPES: Shape[] = [
     ],
     ranges: [lengthProfile],
     unitLabel: 'buc',
-    images: img('round_tube'),
   },
   {
     id: 'flat_bar',
@@ -408,7 +393,6 @@ export const SHAPES: Shape[] = [
     ],
     ranges: [lengthBar],
     unitLabel: 'buc',
-    images: img('flat_bar'),
   },
   {
     id: 'square_bar',
@@ -424,7 +408,6 @@ export const SHAPES: Shape[] = [
     variants: [{ side: 10 }, { side: 15 }, { side: 20 }, { side: 25 }, { side: 30 }, { side: 40 }, { side: 50 }, { side: 60 }],
     ranges: [lengthBar],
     unitLabel: 'buc',
-    images: img('square_bar'),
   },
   {
     id: 'hex_bar',
@@ -440,7 +423,6 @@ export const SHAPES: Shape[] = [
     variants: [{ side: 10 }, { side: 15 }, { side: 20 }, { side: 25 }, { side: 30 }, { side: 40 }, { side: 50 }],
     ranges: [lengthBar],
     unitLabel: 'buc',
-    images: img('hex_bar'),
   },
   {
     id: 'round_bar',
@@ -467,7 +449,6 @@ export const SHAPES: Shape[] = [
     ],
     ranges: [lengthBar],
     unitLabel: 'buc',
-    images: img('round_bar'),
   },
   {
     id: 'coil',
@@ -502,7 +483,6 @@ export const SHAPES: Shape[] = [
     ],
     ranges: [lengthCoil],
     unitLabel: 'buc',
-    images: img('coil'),
   },
 ];
 

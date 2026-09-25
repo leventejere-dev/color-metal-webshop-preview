@@ -8,7 +8,7 @@ fotografii stock.
 
 | Fișier(e) | Sursă | Observații |
 |---|---|---|
-| `tech/<forma>.svg` (13 desene) | redesenate în proiect: `tools/generate-tech-drawings.mjs` | Desene 3D vectoriale, generate programatic (proiecție paralelă, umbrire metalică, cote). Reproduc ilustrațiile calculatorului oficial de greutate Color Metal (https://color-metal.ro/ro/calculator-greutate), cu **aceleași notații**: `b` = grosime/înălțime, `d` = lățime/diametru/latură/deschidere de cheie, `g` = grosimea peretelui, `l` (`L` la profile) = lungime. Originalele erau imagini de 325×150 px; versiunea vectorială este clară la orice rezoluție. |
+| `tech/<forma>[--material][--dim].svg` (52 fișiere) | redesenate în proiect: `tools/generate-tech-drawings.mjs` | Desene 3D vectoriale, generate programatic (proiecție paralelă, umbrire metalică, cote). Reproduc ilustrațiile calculatorului oficial de greutate Color Metal (https://color-metal.ro/ro/calculator-greutate), cu **aceleași notații**: `b` = grosime/înălțime, `d` = lățime/diametru/latură/deschidere de cheie, `g` = grosimea peretelui, `l` (`L` la profile) = lungime. Originalele erau imagini de 325×150 px; versiunea vectorială este clară la orice rezoluție. Variante: fără sufix = aluminiu, `--cu` / `--brass` / `--bronze` = culoarea materialului; `--dim` = varianta cu notații (doar la pasul de alegere a dimensiunilor). |
 
 Regenerare: `node tools/generate-tech-drawings.mjs`.
 

@@ -1,17 +1,20 @@
 import { useState, type ReactNode } from 'react';
 import { Camera } from 'lucide-react';
 import type { Shape } from '@/data/shapes';
+import type { MaterialId } from '@/data/materials';
 import { cls } from '@/lib/format';
 import { TechDrawing } from './TechDrawing';
 
 type View = 'desen' | 0 | 1;
 
 /**
- * Previzualizarea produsului: desenul tehnic cu notațiile dimensiunilor și, opțional, două locuri
- * rezervate pentru fotografiile de produs Color Metal. Miniaturile sunt interactive – clic pe ele
- * schimbă imaginea mare (simulează galeria de produs de mai târziu).
+ * Previzualizarea produsului: desenul tehnic și, opțional, două locuri rezervate pentru
+ * fotografiile de produs Color Metal. Miniaturile sunt interactive – clic pe ele schimbă
+ * imaginea mare (simulează galeria de produs de mai târziu).
+ *
+ * `material` = culoarea piesei urmează materialul ales; `dims` = desenul cu notații (b, d, g, l).
  */
-export function ProductPreview({ shape, title, subtitle, photoSlots, children }: { shape: Shape; title?: string; subtitle?: string; photoSlots?: boolean; children?: ReactNode }) {
+export function ProductPreview({ shape, material, dims, title, subtitle, photoSlots, children }: { shape: Shape; material?: MaterialId; dims?: boolean; title?: string; subtitle?: string; photoSlots?: boolean; children?: ReactNode }) {
   const [view, setView] = useState<View>('desen');
   const thumb = 'flex h-12 w-16 shrink-0 items-center justify-center overflow-hidden rounded-md border bg-surface transition';
   const active = 'border-brand-gold ring-1 ring-brand-gold/40';
@@ -21,7 +24,7 @@ export function ProductPreview({ shape, title, subtitle, photoSlots, children }:
     <div className="card p-4">
       <div className="flex h-44 items-center justify-center overflow-hidden rounded-xl bg-surface p-4 sm:h-52">
         {view === 'desen' ? (
-          <TechDrawing shape={shape} />
+          <TechDrawing shape={shape} material={material} dims={dims} />
         ) : (
           <div className="flex h-full w-full flex-col items-center justify-center gap-2 rounded-lg border border-dashed border-line bg-surface-2/50 text-muted">
             <Camera className="h-7 w-7 opacity-60" />
@@ -34,7 +37,7 @@ export function ProductPreview({ shape, title, subtitle, photoSlots, children }:
       {photoSlots && (
         <div className="mt-2 flex items-center gap-2">
           <button type="button" onClick={() => setView('desen')} aria-pressed={view === 'desen'} title="Desen tehnic" className={cls(thumb, 'p-1', view === 'desen' ? active : idle)}>
-            <TechDrawing shape={shape} />
+            <TechDrawing shape={shape} material={material} dims={dims} />
           </button>
           {[0, 1].map((i) => (
             <button

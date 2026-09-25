@@ -180,3 +180,15 @@ fotografii reale + ilustrațiile tehnice oficiale pentru fiecare formă.
   stoc la preț redus, fiecare bucată unicat; „Comenzi speciale” – alte dimensiuni, alte materiale sau cantități mari, prin contact/call center.
 - Pictogramele din bandă se mișcă continuu, discret: rigla se înclină, eticheta se leagănă, căștile pulsează
   (`src/index.css`). Dacă sistemul cere mișcare redusă, nu se deplasează nimic – rămâne doar o pulsație de opacitate.
+
+# Revizia 7 (2026-09-25)
+- **Notațiile apar doar unde ajută.** Literele de pe desen (`b`, `d`, `g`, `l`/`L`) și cotele se afișează numai la
+  pasul de alegere a dimensiunilor (configurator). Pe carduri (prima pagină, Produse, căutare, coș, favorite) și pe
+  pagina de material/finisaj desenul este curat, fără notații – acolo literele nu spun nimic cumpărătorului.
+  Fără cote, desenul ocupă tot cadrul, deci piesa se vede mai mare.
+- **Desenul ia culoarea materialului ales.** Pe pagina de material și în configurator, piesa se colorează după
+  material: aluminiu = gri metalic, cupru = arămiu, alamă = auriu, bronz = brun-auriu. Umbrele, muchiile și
+  reflexiile rămân intacte: fiecare gri este mutat pe rampa culorii, păstrându-și luminozitatea. În coș, fiecare
+  produs apare în culoarea materialului comandat.
+- Generatorul produce acum 52 de fișiere (13 forme × variantele de material și de notații): `<forma>.svg`,
+  `<forma>--dim.svg`, `<forma>--cu.svg`, `<forma>--cu--dim.svg` etc. Regenerare: `node tools/generate-tech-drawings.mjs`.
