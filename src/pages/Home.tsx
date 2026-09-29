@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { ArrowRight, Headphones, Ruler, Tag } from 'lucide-react';
+import { ArrowRight, ExternalLink, Headphones, Ruler, Tag } from 'lucide-react';
 import { SHAPES } from '@/data/shapes';
 import { ProductCard } from '@/components/product/ProductCard';
 import { asset, cls } from '@/lib/format';
@@ -54,6 +54,35 @@ export function HomePage() {
           ))}
         </div>
         <p className="mt-4 text-xs text-muted">Produsele configurate se realizează conform specificațiilor clientului și nu beneficiază de drept de retur (OUG 34/2014).</p>
+      </section>
+
+      {/* Trimitere către magazinul de soluții arhitecturale */}
+      <section className="container-cm mt-14">
+        <div className="relative isolate overflow-hidden rounded-2xl bg-ink p-6 text-white shadow-[var(--shadow-card)] sm:p-8">
+          <span className="pointer-events-none absolute -right-20 -top-24 -z-10 h-72 w-72 rounded-full bg-brand-gold/25 blur-3xl cm-aura" />
+          <div className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
+            <div className="max-w-2xl">
+              <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-brand-gold">Soluții arhitecturale</p>
+              <h2 className="mt-2 text-xl font-semibold sm:text-2xl">Te gândești la un acoperiș sau la o fațadă?</h2>
+              <p className="mt-2 text-[13px] leading-6 text-white/70">
+                PremiumRoof este magazinul Color Metal pentru proiecte arhitecturale: îți alegi materialele pentru proiect și
+                vezi la ce costuri să te aștepți, iar detaliile tehnice le punem la punct împreună înainte de comanda finală.
+                Pentru proprietari de case, dar și pentru arhitecți, montatori și firme de construcții.
+              </p>
+            </div>
+            <div className="shrink-0">
+              <a
+                href={SITE.premiumRoof}
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex h-12 items-center gap-2 rounded-lg bg-brand-gold px-6 text-sm font-bold uppercase tracking-wide text-white shadow-sm transition hover:bg-brand-gold-dark"
+              >
+                Vezi PremiumRoof <ExternalLink className="h-4 w-4" />
+              </a>
+              <p className="mt-2 text-[11px] text-white/45">premiumroof.ro · magazinul se lansează în curând</p>
+            </div>
+          </div>
+        </div>
       </section>
 
     </>

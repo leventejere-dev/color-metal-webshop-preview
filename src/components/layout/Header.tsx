@@ -1,10 +1,11 @@
 import { useEffect, useMemo, useRef, useState, type FormEvent } from 'react';
 import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom';
-import { ChevronDown, Heart, LogOut, Menu, Package, Search, ShoppingCart, User as UserIcon, X } from 'lucide-react';
+import { ChevronDown, ExternalLink, Heart, LogOut, Menu, Package, Search, ShoppingCart, User as UserIcon, X } from 'lucide-react';
 import { useAuth } from '@/context/AuthContext';
 import { useCart } from '@/context/CartContext';
 import { useFavorites } from '@/context/FavoritesContext';
 import { searchShapes } from '@/lib/search';
+import { SITE } from '@/config/site';
 import { asset, cls } from '@/lib/format';
 import { TechDrawing } from '@/components/product/TechDrawing';
 
@@ -81,6 +82,15 @@ export function Header() {
               {n.label}
             </NavLink>
           ))}
+          <a
+            href={SITE.mainSite}
+            target="_blank"
+            rel="noreferrer"
+            title="Site-ul principal Color Metal"
+            className="ml-1 inline-flex items-center gap-1.5 rounded-full border border-brand-gold/45 bg-brand-gold-light/60 px-2.5 py-1 text-[12px] font-semibold text-brand-gold-dark transition hover:border-brand-gold hover:bg-brand-gold-light"
+          >
+            color-metal.ro <ExternalLink className="h-3 w-3" />
+          </a>
         </nav>
 
         {/* Căutare */}
@@ -201,6 +211,9 @@ export function Header() {
                   {n.label}
                 </NavLink>
               ))}
+              <a href={SITE.mainSite} target="_blank" rel="noreferrer" className="flex items-center gap-2 rounded-lg px-3 py-2.5 text-[15px] font-medium text-brand-gold-dark">
+                color-metal.ro <ExternalLink className="h-4 w-4" />
+              </a>
               <div className="my-2 border-t border-line" />
               <Link to="/favorite" className="flex items-center gap-2 rounded-lg px-3 py-2.5 text-[15px] font-medium">
                 <Heart className="h-4 w-4" /> Favorite ({slugs.length})

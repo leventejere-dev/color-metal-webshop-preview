@@ -4,6 +4,10 @@ export const SITE = {
   legalName: 'Color Metal SRL',
   tagline: 'Partner in engineering',
   website: 'https://color-metal.ro',
+  /** site-ul principal Color Metal (versiunea în limba română) */
+  mainSite: 'https://color-metal.ro/ro',
+  /** magazinul Color Metal pentru soluții arhitecturale (în pregătire) */
+  premiumRoof: 'https://premiumroof.ro',
   emails: {
     direct: 'direct@color-metal.ro',
     bucharest: 'officebuc@color-metal.ro',

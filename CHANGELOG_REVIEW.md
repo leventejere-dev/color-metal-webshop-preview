@@ -226,3 +226,12 @@ fotografii reale + ilustrațiile tehnice oficiale pentru fiecare formă.
   metalelor neferoase”: peste 20 de ani de experiență, punct de lucru propriu în Bulgaria etc.), iar antetul paginii
   primește un titlu curat, iar fotografia sediului apare dedesubt, în cadru propriu (colțuri rotunjite, umbră
   discretă, legendă peste un degrade și o apropiere lentă la hover) – nu ca fundal întunecat de antet.
+- **Despre noi – corecții de date:** patru centre logistice (Odorheiu Secuiesc – sediu central, București – Mogoșoaia,
+  Timișoara – Ghiroda și Plovdiv, Bulgaria). „Prezență regională” nu mai include Bulgaria (are centru propriu) și
+  menționează biroul comercial de la Budapesta, alături de piețele din Serbia și Republica Moldova.
+- **Antet:** link discret către site-ul principal, `color-metal.ro`, într-o pastilă aurie cu pictogramă de link extern
+  (în meniul mobil apare ca rând separat). Se deschide într-o filă nouă.
+- **Trimitere către PremiumRoof:** pe prima pagină, sub lista de forme, un panou închis cu accent auriu –
+  „Te gândești la un acoperiș sau la o fațadă?” – care explică magazinul de soluții arhitecturale (alegerea
+  materialelor, estimarea costurilor, discuția tehnică înainte de comanda finală; pentru proprietari de case,
+  arhitecți, montatori și firme de construcții) și duce la premiumroof.ro, cu mențiunea că se lansează în curând.

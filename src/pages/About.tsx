@@ -72,8 +72,8 @@ export function AboutPage() {
 
         <aside className="space-y-4">
           {[
-            { icon: Factory, title: 'Trei centre logistice', text: 'Odorheiu Secuiesc (sediu central), București – Mogoșoaia și Timișoara – Ghiroda.' },
-            { icon: Globe2, title: 'Prezență regională', text: 'România și punct de lucru propriu în Bulgaria; prezenți în Ungaria, Serbia și Republica Moldova.' },
+            { icon: Factory, title: 'Patru centre logistice', text: 'Odorheiu Secuiesc (sediu central), București – Mogoșoaia, Timișoara – Ghiroda și Plovdiv (Bulgaria).' },
+            { icon: Globe2, title: 'Prezență regională', text: 'Birou comercial la Budapesta (Ungaria); prezenți și pe piețele din Serbia și Republica Moldova.' },
             { icon: Scissors, title: 'Servicii', text: 'Debitare la dimensiune, ambalare personalizată și asistență tehnică.' },
             { icon: Award, title: 'Materiale certificate', text: 'Semifabricate de la producători recunoscuți la nivel internațional, cu certificate de calitate.' },
           ].map(({ icon: Icon, title, text }) => (
