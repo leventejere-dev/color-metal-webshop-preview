@@ -7,6 +7,7 @@ import { BareLayout, Layout } from '@/components/layout/Layout';
 import { HomePage } from '@/pages/Home';
 import { ProductsPage } from '@/pages/Products';
 import { AluShopPage } from '@/pages/AluShop';
+import { ThickPlateConfiguratorPage, ThickPlateHubPage } from '@/pages/ThickPlate';
 import { ProductDetailPage } from '@/pages/ProductDetail';
 import { ConfiguratorPage } from '@/pages/Configurator';
 import { CartPage } from '@/pages/Cart';
@@ -34,6 +35,9 @@ export default function App() {
                   <Route index element={<HomePage />} />
                   <Route path="produse" element={<ProductsPage />} />
                   <Route path="alushop" element={<AluShopPage />} />
+                  <Route path="produse/placa-groasa" element={<ThickPlateHubPage />} />
+                  <Route path="produse/placa-groasa/configurator" element={<ThickPlateConfiguratorPage />} />
+                  <Route path="produse/placa-groasa/material" element={<ProductDetailPage slug="placa-groasa" only={['CU', 'BRASS']} />} />
                   <Route path="produse/:slug" element={<ProductDetailPage />} />
                   <Route path="configurator/:slug/:material" element={<ConfiguratorPage />} />
                   <Route path="cautare" element={<SearchPage />} />

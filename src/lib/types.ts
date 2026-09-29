@@ -54,7 +54,7 @@ export interface CartItem {
   /** AluShop (stoc fix): bucată unică, cu cod, aliaj și cost de transport orientativ */
   sku?: string;
   alloy?: string;
-  source?: 'configurator' | 'alushop';
+  source?: 'configurator' | 'alushop' | 'betashop';
   transportRon?: number;
 }
 

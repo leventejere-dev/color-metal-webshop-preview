@@ -8,7 +8,7 @@ import { SITE } from '@/config/site';
 /** Bandă scurtă sub banner: un titlu și o propoziție despre fiecare secțiune a webshopului. */
 const GUIDE = [
   { to: '/produse', icon: Ruler, title: 'Produse', anim: 'cm-anim-tilt', text: 'Configurezi, vezi prețul și adaugi în coș – tăiat pe măsura ta, livrat direct la tine acasă.' },
-  { to: '/alushop', icon: Tag, title: 'AluShop', anim: 'cm-anim-swing', text: 'Plăci groase de aluminiu din stoc, la preț redus – fiecare bucată, unicat.' },
+  { to: '/produse/placa-groasa', icon: Tag, title: 'Plăci groase', anim: 'cm-anim-swing', text: 'Bucăți unice din stoc la preț promoțional sau plăci debitate exact pe măsura ta.' },
   { to: '/contact', icon: Headphones, title: 'Comenzi speciale', anim: 'cm-anim-beat', text: `Alte dimensiuni, alte materiale sau cantități mari – scrie-ne sau sună la ${SITE.phones.callCenter}.` },
 ];
 
@@ -56,19 +56,6 @@ export function HomePage() {
         <p className="mt-4 text-xs text-muted">Produsele configurate se realizează conform specificațiilor clientului și nu beneficiază de drept de retur (OUG 34/2014).</p>
       </section>
 
-      {/* AluShop */}
-      <section className="container-cm mt-12">
-        <div className="card flex flex-col gap-4 bg-surface p-5 sm:flex-row sm:items-center sm:justify-between sm:p-6">
-          <div>
-            <p className="eyebrow">AluShop</p>
-            <h2 className="mt-1 text-lg font-semibold">Promoție plăci debitate</h2>
-            <p className="mt-0.5 text-sm text-muted">Plăci groase din aluminiu, dimensiuni unice, disponibile în limita stocului – preț redus.</p>
-          </div>
-          <Link to="/alushop" className="inline-flex h-10 shrink-0 items-center gap-2 rounded-lg bg-ink px-4 text-sm font-semibold text-white hover:bg-ink-soft">
-            Vezi AluShop <ArrowRight className="h-4 w-4" />
-          </Link>
-        </div>
-      </section>
     </>
   );
 }

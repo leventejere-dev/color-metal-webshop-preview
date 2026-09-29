@@ -10,7 +10,6 @@ import { TechDrawing } from '@/components/product/TechDrawing';
 
 const NAV = [
   { to: '/produse', label: 'Produse' },
-  { to: '/alushop', label: 'AluShop' },
   { to: '/despre-noi', label: 'Despre noi' },
   { to: '/contact', label: 'Contact' },
 ];

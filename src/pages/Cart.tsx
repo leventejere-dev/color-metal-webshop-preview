@@ -69,9 +69,9 @@ export function CartPage() {
                       </div>
                     </div>
                     <div className="mt-3 flex flex-wrap items-center justify-between gap-3">
-                      {item.sku ? (
+                      {item.source === 'alushop' ? (
                         <span className="text-xs text-muted">
-                          1 buc · bucată unică AluShop{item.transportRon != null ? ` · transport orientativ ${money(item.transportRon)}` : ''}
+                          1 buc · bucată unică din promoție{item.transportRon != null ? ` · transport orientativ ${money(item.transportRon)}` : ''}
                         </span>
                       ) : (
                         <div className="flex items-center gap-3">

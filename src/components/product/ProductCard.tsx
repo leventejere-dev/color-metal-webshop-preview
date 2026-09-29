@@ -52,7 +52,9 @@ export function ProductCard({ shape }: { shape: Shape }) {
       </h3>
       <p className="mt-0.5 text-center text-xs text-muted">{shape.short}</p>
       <span className="mt-3 inline-flex items-center justify-center gap-1 text-[13px] font-semibold text-brand-bronze group-hover:underline">
-        Configurează produsul <ArrowRight className="h-3.5 w-3.5 transition group-hover:translate-x-0.5" />
+        {/* placa groasă are două drumuri: promoția din stoc sau configuratorul */}
+        {shape.id === 'thick_plate' ? 'Promoție sau configurator' : 'Configurează produsul'}{' '}
+        <ArrowRight className="h-3.5 w-3.5 transition group-hover:translate-x-0.5" />
       </span>
     </article>
   );

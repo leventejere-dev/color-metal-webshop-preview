@@ -195,3 +195,26 @@ fotografii reale + ilustrațiile tehnice oficiale pentru fiecare formă.
 - **Și eloxarea schimbă culoarea desenului:** la finisajul Eloxat, piesa apare în culoarea aleasă – negru sau bronz
   (eloxarea natur/argintie arată ca aluminiul, deci folosește desenul implicit). Se vede pe pagina de material, în
   configurator și în coș.
+
+# Revizia 8 (2026-09-29)
+- **Placa groasă are acum două drumuri**, ca în sistemul actual Color Metal. Cardul „Placă groasă” duce la o pagină de
+  alegere cu două butoane în stilul materialelor Color Metal (auriu, text alb, majuscule):
+  - **PROMOȚIE** → plăcile debitate din stoc (AluShop): bucăți unice rămase din debitare, la preț promoțional;
+  - **CONFIGURATOR** → placa personalizată (BetaShop): aliaj, grosime, lungime și lățime alese de client.
+- **Configuratorul de plăci groase (BetaShop)** – pagină nouă `/produse/placa-groasa/configurator`, cu structura
+  configuratorului actual: 9 aliaje (2017, 5083 laminat/turnat/elox, 5754, 6082, 7021, 7075), 21 de grosimi (8–150 mm),
+  lungimea și lățimea tastate. Formatul standard este 3.020 × 1.520 mm, minimul de debitare 40 mm, iar valorile peste
+  limită sunt corectate automat, cu mesaj (ca în sistemul actual). Codul articolului (SKU) și masa unitară se generează
+  automat, iar prețul se calculează în lei, cu adăugare în coș și cantitate (spre deosebire de sistemul actual, care
+  trimite cerere de ofertă – aici rămâne logica de webshop, cu preț și coș).
+- **Promoția (AluShop) a fost refăcută** după lista actuală: 70 de bucăți unice din 12 aliaje, filtre pe aliaj, grosime
+  și intervale de lungime/lățime, tabel cu greutate, preț și cheltuieli de transport/ambalare/manipulare, paginare.
+  Greutatea, prețul și transportul se calculează cu formulele din sistemul actual (densitate 2,7 kg/dm³;
+  transport = 35,15 lei + 0,85 lei / kg început).
+- **Corecție de preț:** prețurile AluShop erau stocate ca EUR și convertite încă o dată în lei, deci apăreau de ~5 ori
+  mai mari. Lista actuală afișează prețuri în lei, așa că acum sunt tratate ca atare.
+- AluShop nu mai este o secțiune separată: a fost scos din meniul din antet și de pe prima pagină; se ajunge la el din
+  pagina plăcii groase. Banda de sub banner trimite acum la „Plăci groase”, cu cele două posibilități.
+- Plăcile groase din **cupru sau alamă** (care nu fac parte din AluShop/BetaShop, ambele de aluminiu) rămân accesibile
+  printr-un link discret de pe pagina plăcii groase.
+- Coșul: bucățile din promoție rămân unicate (cantitate 1), iar plăcile configurate se pot comanda în mai multe bucăți.

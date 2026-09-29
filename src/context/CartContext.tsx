@@ -36,8 +36,8 @@ export function CartProvider({ children }: { children: ReactNode }) {
   const add = useCallback<CartCtx['add']>((input) => {
     const item: CartItem = { ...input, id: uid('ci_'), addedAt: new Date().toISOString() };
     setItems((l) => {
-      // bucată unică (AluShop) → o singură dată în coș
-      if (item.sku && l.some((x) => x.sku === item.sku)) return l;
+      // bucată unică din promoție → o singură dată în coș (plăcile configurate se pot comanda în mai multe bucăți)
+      if (item.source === 'alushop' && l.some((x) => x.sku === item.sku)) return l;
       // aceeași configurație → creștem cantitatea (până la limita online)
       const same = l.find(
         (x) =>
@@ -46,6 +46,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
           x.finish === item.finish &&
           x.eloxColor === item.eloxColor &&
           x.length === item.length &&
+          x.alloy === item.alloy &&
           JSON.stringify(x.dims) === JSON.stringify(item.dims),
       );
       if (same) {
@@ -58,7 +59,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
 
   const updateQuantity = useCallback((id: string, quantity: number) => {
     const q = Math.max(1, Math.min(MAX_ONLINE_QTY, Math.round(quantity) || 1));
-    setItems((l) => l.map((x) => (x.id === id ? { ...x, quantity: x.sku ? 1 : q } : x)));
+    setItems((l) => l.map((x) => (x.id === id ? { ...x, quantity: x.source === 'alushop' ? 1 : q } : x)));
   }, []);
 
   const removeItem = useCallback((id: string) => setItems((l) => l.filter((x) => x.id !== id)), []);

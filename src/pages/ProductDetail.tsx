@@ -10,12 +10,16 @@ import { Button } from '@/components/ui/Button';
 import { fieldValues } from '@/lib/configurator';
 import { cls, n } from '@/lib/format';
 
-export function ProductDetailPage() {
-  const { slug = '' } = useParams();
-  const shape = SHAPE_BY_SLUG[slug];
+/** `slug`/`only` sunt folosite de rutele fixe (ex. placa groasă din cupru sau alamă). */
+export function ProductDetailPage({ slug: fixedSlug, only }: { slug?: string; only?: MaterialId[] } = {}) {
+  const params = useParams();
+  const slug = fixedSlug ?? params.slug ?? '';
+  const base = SHAPE_BY_SLUG[slug];
+  const shape = base && only ? { ...base, materials: base.materials.filter((m) => only.includes(m)) } : base;
   const navigate = useNavigate();
   // ca în webshopul actual: primul material (aluminiu) este preselectat; toate opțiunile sunt vizibile de la început
   const [material, setMaterial] = useState<MaterialId>(shape?.materials[0] ?? 'AL');
+  // ruta restrânsă (cupru/alamă) pornește de la primul material permis
   const [finish, setFinish] = useState<FinishId>('natur');
   const [color, setColor] = useState<EloxColorId>('natur');
 

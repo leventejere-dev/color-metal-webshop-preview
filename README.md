@@ -67,7 +67,10 @@ Pe pagina de autentificare există butonul „Completează datele demo”.
 |---|---|
 | `/` | Acasă – banner compact + toate cele 13 forme de produs |
 | `/produse` | Lista produselor, filtre după categorie |
-| `/alushop` | AluShop – promoție plăci debitate (stoc fix, bucăți unice, preluat din webshopul actual) |
+| `/produse/placa-groasa` | Placă groasă – alegerea între promoție și configurator (două drumuri) |
+| `/alushop` | Promoție plăci debitate: bucăți unice din stoc (AluShop) |
+| `/produse/placa-groasa/configurator` | Configuratorul de plăci groase: aliaj, grosime, lungime, lățime (BetaShop) |
+| `/produse/placa-groasa/material` | Placă groasă din cupru sau alamă (configuratorul standard) |
 | `/produse/:slug` | Pagina produsului – alegerea materialului și finisajului, desenul tehnic al formei |
 | `/configurator/:slug/:material` | Configurator dimensiuni (opțiuni, slider+input lungime, cantitate, calcul preț) |
 | `/cautare?q=` | Rezultate căutare |
