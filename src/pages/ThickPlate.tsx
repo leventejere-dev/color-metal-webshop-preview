@@ -1,8 +1,9 @@
 import { useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowLeft, ArrowRight, Calculator, Info, MousePointerClick, ShoppingCart } from 'lucide-react';
+import { ArrowLeft, ArrowRight, Calculator, Info, ShoppingCart, Sparkles } from 'lucide-react';
 import { SHAPE_BY_SLUG } from '@/data/shapes';
 import { ALLOY_BY_ID, BETA_ALLOYS, BETA_FORMAT, BETA_THICKNESSES, plateSku, plateWeightKg } from '@/data/betashop';
+import { ALUSHOP_ALLOYS, ALUSHOP_ITEMS } from '@/data/alushop';
 import { ProductPreview } from '@/components/product/ProductPreview';
 import { FavoriteButton } from '@/components/product/ProductCard';
 import { ContactConsultant } from '@/components/configurator/ContactConsultant';
@@ -23,17 +24,21 @@ const SHAPE = SHAPE_BY_SLUG['placa-groasa'];
 const ROUTES = [
   {
     to: '/alushop',
-    icon: MousePointerClick,
-    title: 'Promoție',
-    text: 'Bucăți unice din plăci de aluminiu rezultate în urma proceselor de debitare, la preț promoțional.',
+    icon: Sparkles,
+    kicker: 'Promoție plăci debitate',
+    name: 'AluShop',
     cta: 'Vezi plăcile din stoc',
+    text: 'Bucăți unice de aluminiu rămase în urma proceselor de debitare. Dimensiuni unicate, disponibile în limita stocului, la preț promoțional – fiecare placă se comandă o singură dată.',
+    facts: [`${ALUSHOP_ITEMS.length} de bucăți în stoc`, `${ALUSHOP_ALLOYS.length} aliaje`, 'preț promoțional'],
   },
   {
     to: '/produse/placa-groasa/configurator',
     icon: Calculator,
-    title: 'Configurator',
-    text: 'Selectează aliajul, grosimea și dimensiunile dorite pentru a personaliza placa exact după nevoile tale.',
+    kicker: 'Configurator plăci',
+    name: 'BetaShop',
     cta: 'Configurează placa',
+    text: 'Alegi aliajul, grosimea, lungimea și lățimea, iar noi debităm placa exact după nevoile tale, din formatul standard. Prețul se calculează pe loc.',
+    facts: [`${BETA_ALLOYS.length} aliaje`, `grosimi ${BETA_THICKNESSES[0]}–${BETA_THICKNESSES[BETA_THICKNESSES.length - 1]} mm`, 'tăiere la milimetru'],
   },
 ];
 
@@ -62,25 +67,45 @@ export function ThickPlateHubPage() {
 
       <div className="mt-6 grid gap-6 lg:grid-cols-[minmax(0,7fr)_minmax(0,4fr)] lg:gap-8">
         <div className="grid gap-4 sm:grid-cols-2">
-          {ROUTES.map(({ to, icon: Icon, title, text, cta }) => (
+          {ROUTES.map(({ to, icon: Icon, kicker, name, text, cta, facts }, i) => (
             <Link
               key={to}
               to={to}
-              className="group relative flex flex-col overflow-hidden rounded-2xl bg-gradient-to-br from-brand-gold to-brand-gold-dark p-5 text-white shadow-[var(--shadow-card)] transition hover:-translate-y-0.5 hover:shadow-lg sm:p-6"
+              className="group relative isolate flex flex-col overflow-hidden rounded-2xl bg-ink p-6 text-white shadow-[var(--shadow-card)] ring-1 ring-white/10 transition duration-300 hover:-translate-y-1 hover:shadow-[0_24px_48px_-20px_rgba(20,20,20,.55)] hover:ring-brand-gold/60 sm:p-7"
             >
-              <span className="pointer-events-none absolute -right-10 -top-16 h-40 w-40 rounded-full bg-white/15 blur-2xl" />
-              <span className="inline-flex items-center gap-2 self-start rounded-lg border-2 border-white/90 px-3 py-1.5">
-                <Icon className="h-4 w-4" />
-                <span className="text-sm font-extrabold uppercase tracking-[0.08em]">{title}</span>
-              </span>
-              <p className="mt-4 text-[13px] font-bold uppercase leading-5 tracking-[0.02em] text-white/95">{text}</p>
-              <span className="mt-auto inline-flex items-center gap-1.5 pt-5 text-sm font-bold uppercase tracking-wide">
-                {cta} <ArrowRight className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-1" />
+              {/* aură aurie care respiră + reflexie metalică ce traversează placa */}
+              <span className={cls('pointer-events-none absolute -left-24 -top-28 z-0 h-72 w-72 rounded-full bg-brand-gold/25 blur-3xl cm-aura', i === 1 && 'cm-delayed')} />
+              <span className={cls('pointer-events-none absolute inset-y-0 -left-1/3 z-0 w-1/3 bg-gradient-to-r from-transparent via-white/30 to-transparent cm-sheen', i === 1 && 'cm-delayed')} />
+
+              <span className="relative z-10 flex flex-col">
+                <span className="flex items-center gap-3">
+                  <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-brand-gold/15 text-brand-gold ring-1 ring-inset ring-brand-gold/40 transition duration-300 group-hover:bg-brand-gold group-hover:text-ink">
+                    <Icon className="h-5 w-5" />
+                  </span>
+                  <span className="min-w-0">
+                    <span className="block text-[10px] font-semibold uppercase tracking-[0.22em] text-brand-gold">{kicker}</span>
+                    <span className="block text-2xl font-bold tracking-tight sm:text-[26px]">{name}</span>
+                  </span>
+                </span>
+
+                <span className="mt-5 inline-flex h-11 items-center justify-center gap-2 self-start rounded-lg bg-brand-gold px-5 text-sm font-bold uppercase tracking-wide text-ink shadow-sm transition duration-300 group-hover:bg-white">
+                  {cta} <ArrowRight className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-1" />
+                </span>
+
+                <span className="mt-4 block text-[13px] leading-6 text-white/70">{text}</span>
+
+                <span className="mt-4 flex flex-wrap gap-1.5">
+                  {facts.map((f) => (
+                    <span key={f} className="rounded-full bg-white/[0.07] px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.1em] text-white/55 ring-1 ring-inset ring-white/10">
+                      {f}
+                    </span>
+                  ))}
+                </span>
               </span>
             </Link>
           ))}
           <p className="text-sm text-muted sm:col-span-2">
-            Plăcile din promoție și cele configurate sunt din aluminiu. Ai nevoie de{' '}
+            Plăcile din AluShop și BetaShop sunt din aluminiu. Ai nevoie de{' '}
             <Link to="/produse/placa-groasa/material" className="font-semibold text-brand-bronze hover:underline">
               placă groasă din cupru sau alamă
             </Link>

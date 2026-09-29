@@ -110,3 +110,22 @@
 @media (prefers-reduced-motion: reduce) {
   .cm-anim-tilt, .cm-anim-swing, .cm-anim-beat { animation: cm-glow 3.4s ease-in-out infinite; }
 }
+
+/* ---- Cele două drumuri ale plăcii groase: reflexie metalică în mișcare ---- */
+@keyframes cm-sheen {
+  0%, 100% { transform: translateX(0) skewX(-14deg); opacity: 0; }
+  10% { opacity: 0.5; }
+  48% { transform: translateX(430%) skewX(-14deg); opacity: 0; }
+}
+@keyframes cm-aura {
+  0%, 100% { opacity: 0.55; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.06); }
+}
+.cm-sheen { animation: cm-sheen 6s ease-in-out infinite; }
+.cm-aura { animation: cm-aura 6s ease-in-out infinite; }
+.cm-delayed { animation-delay: 3s; }
+@media (prefers-reduced-motion: reduce) {
+  /* fără deplasare: reflexia rămâne pe loc, aura doar pulsează discret */
+  .cm-sheen { animation: none; opacity: 0.16; transform: translateX(260%) skewX(-14deg); }
+  .cm-aura { animation: cm-glow 5s ease-in-out infinite; }
+}
