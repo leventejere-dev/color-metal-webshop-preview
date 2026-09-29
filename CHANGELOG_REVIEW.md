@@ -218,6 +218,7 @@ fotografii reale + ilustrațiile tehnice oficiale pentru fiecare formă.
 - Plăcile groase din **cupru sau alamă** (care nu fac parte din AluShop/BetaShop, ambele de aluminiu) rămân accesibile
   printr-un link discret de pe pagina plăcii groase.
 - Coșul: bucățile din promoție rămân unicate (cantitate 1), iar plăcile configurate se pot comanda în mai multe bucăți.
-- Cele două drumuri apar acum sub numele lor, **AluShop** și **BetaShop**, pe două panouri închise, cu aură aurie care
-  respiră și o reflexie metalică ce traversează placa; butonul auriu și explicația stau sub nume, iar dedesubt apar
-  câteva repere (număr de bucăți în stoc, aliaje, grosimi). La mișcare redusă, reflexia rămâne pe loc.
+- Cele două drumuri sunt acum **două butoane**, purtând chiar numele magazinelor – **ALUSHOP** și **BETASHOP** – aurii,
+  cu o reflexie metalică ce le traversează (decalată între ele). Sub fiecare buton, pe un **panou de sticlă**
+  (translucid, cu blur peste o aură aurie care respiră), stă eticheta „Promoție” / „Configurator”, explicația și
+  câteva repere (bucăți în stoc, aliaje, grosimi). La mișcare redusă, reflexia rămâne pe loc.

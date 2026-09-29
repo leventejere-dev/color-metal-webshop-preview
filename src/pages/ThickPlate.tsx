@@ -25,18 +25,16 @@ const ROUTES = [
   {
     to: '/alushop',
     icon: Sparkles,
-    kicker: 'Promoție plăci debitate',
     name: 'AluShop',
-    cta: 'Vezi plăcile din stoc',
+    kicker: 'Promoție',
     text: 'Bucăți unice de aluminiu rămase în urma proceselor de debitare. Dimensiuni unicate, disponibile în limita stocului, la preț promoțional – fiecare placă se comandă o singură dată.',
     facts: [`${ALUSHOP_ITEMS.length} de bucăți în stoc`, `${ALUSHOP_ALLOYS.length} aliaje`, 'preț promoțional'],
   },
   {
     to: '/produse/placa-groasa/configurator',
     icon: Calculator,
-    kicker: 'Configurator plăci',
     name: 'BetaShop',
-    cta: 'Configurează placa',
+    kicker: 'Configurator',
     text: 'Alegi aliajul, grosimea, lungimea și lățimea, iar noi debităm placa exact după nevoile tale, din formatul standard. Prețul se calculează pe loc.',
     facts: [`${BETA_ALLOYS.length} aliaje`, `grosimi ${BETA_THICKNESSES[0]}–${BETA_THICKNESSES[BETA_THICKNESSES.length - 1]} mm`, 'tăiere la milimetru'],
   },
@@ -66,45 +64,41 @@ export function ThickPlateHubPage() {
       </div>
 
       <div className="mt-6 grid gap-6 lg:grid-cols-[minmax(0,7fr)_minmax(0,4fr)] lg:gap-8">
-        <div className="grid gap-4 sm:grid-cols-2">
-          {ROUTES.map(({ to, icon: Icon, kicker, name, text, cta, facts }, i) => (
-            <Link
-              key={to}
-              to={to}
-              className="group relative isolate flex flex-col overflow-hidden rounded-2xl bg-ink p-6 text-white shadow-[var(--shadow-card)] ring-1 ring-white/10 transition duration-300 hover:-translate-y-1 hover:shadow-[0_24px_48px_-20px_rgba(20,20,20,.55)] hover:ring-brand-gold/60 sm:p-7"
-            >
-              {/* aură aurie care respiră + reflexie metalică ce traversează placa */}
-              <span className={cls('pointer-events-none absolute -left-24 -top-28 z-0 h-72 w-72 rounded-full bg-brand-gold/25 blur-3xl cm-aura', i === 1 && 'cm-delayed')} />
-              <span className={cls('pointer-events-none absolute inset-y-0 -left-1/3 z-0 w-1/3 bg-gradient-to-r from-transparent via-white/30 to-transparent cm-sheen', i === 1 && 'cm-delayed')} />
+        {/* două butoane, iar sub fiecare explicația pe un panou de sticlă */}
+        <div className="relative isolate">
+          <span className="pointer-events-none absolute -left-16 -top-10 -z-10 h-64 w-64 rounded-full bg-brand-gold/40 blur-3xl cm-aura" />
+          <span className="pointer-events-none absolute -right-12 top-6 -z-10 h-72 w-72 rounded-full bg-brand-bronze/30 blur-3xl cm-aura cm-delayed" />
+          <span className="pointer-events-none absolute bottom-0 left-1/3 -z-10 h-48 w-64 rounded-full bg-brand-gold/25 blur-3xl cm-aura" />
 
-              <span className="relative z-10 flex flex-col">
-                <span className="flex items-center gap-3">
-                  <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-brand-gold/15 text-brand-gold ring-1 ring-inset ring-brand-gold/40 transition duration-300 group-hover:bg-brand-gold group-hover:text-ink">
-                    <Icon className="h-5 w-5" />
-                  </span>
-                  <span className="min-w-0">
-                    <span className="block text-[10px] font-semibold uppercase tracking-[0.22em] text-brand-gold">{kicker}</span>
-                    <span className="block text-2xl font-bold tracking-tight sm:text-[26px]">{name}</span>
-                  </span>
-                </span>
+          <div className="grid gap-5 sm:grid-cols-2">
+            {ROUTES.map(({ to, icon: Icon, kicker, name, text, facts }, i) => (
+              <div key={to} className="flex h-full flex-col gap-3">
+                <Link
+                  to={to}
+                  className="group relative isolate flex h-16 items-center justify-center gap-3 overflow-hidden rounded-xl bg-gradient-to-br from-brand-gold to-brand-gold-dark text-ink shadow-[0_10px_26px_-10px_rgba(179,139,52,.75)] ring-1 ring-brand-gold-dark/30 transition duration-300 hover:-translate-y-0.5 hover:bg-ink hover:from-ink hover:to-ink hover:text-brand-gold hover:ring-brand-gold sm:h-[72px]"
+                >
+                  <span className={cls('pointer-events-none absolute inset-y-0 -left-1/3 w-1/3 bg-gradient-to-r from-transparent via-white/55 to-transparent cm-sheen', i === 1 && 'cm-delayed')} />
+                  <Icon className="h-5 w-5 shrink-0" />
+                  <span className="text-lg font-extrabold uppercase tracking-[0.16em] sm:text-xl">{name}</span>
+                  <ArrowRight className="h-5 w-5 shrink-0 transition-transform duration-200 group-hover:translate-x-1" />
+                </Link>
 
-                <span className="mt-5 inline-flex h-11 items-center justify-center gap-2 self-start rounded-lg bg-brand-gold px-5 text-sm font-bold uppercase tracking-wide text-ink shadow-sm transition duration-300 group-hover:bg-white">
-                  {cta} <ArrowRight className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-1" />
-                </span>
+                <div className="flex-1 rounded-xl border border-white/70 bg-white/55 p-5 shadow-[0_10px_34px_-16px_rgba(20,20,20,.45)] backdrop-blur-xl">
+                  <p className="eyebrow">{kicker}</p>
+                  <p className="mt-2 text-[13px] leading-6 text-ink-soft">{text}</p>
+                  <div className="mt-3 flex flex-wrap gap-1.5">
+                    {facts.map((f) => (
+                      <span key={f} className="rounded-full border border-white/70 bg-white/60 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.1em] text-muted">
+                        {f}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
 
-                <span className="mt-4 block text-[13px] leading-6 text-white/70">{text}</span>
-
-                <span className="mt-4 flex flex-wrap gap-1.5">
-                  {facts.map((f) => (
-                    <span key={f} className="rounded-full bg-white/[0.07] px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.1em] text-white/55 ring-1 ring-inset ring-white/10">
-                      {f}
-                    </span>
-                  ))}
-                </span>
-              </span>
-            </Link>
-          ))}
-          <p className="text-sm text-muted sm:col-span-2">
+          <p className="mt-4 text-sm text-muted">
             Plăcile din AluShop și BetaShop sunt din aluminiu. Ai nevoie de{' '}
             <Link to="/produse/placa-groasa/material" className="font-semibold text-brand-bronze hover:underline">
               placă groasă din cupru sau alamă
