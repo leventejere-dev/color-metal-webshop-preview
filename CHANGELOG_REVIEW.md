@@ -222,3 +222,6 @@ fotografii reale + ilustrațiile tehnice oficiale pentru fiecare formă.
   cu o reflexie metalică ce le traversează (decalată între ele). Sub fiecare buton, pe un **panou de sticlă**
   (translucid, cu blur peste o aură aurie care respiră), stau eticheta „Promoție” / „Configurator” și explicația.
   Butoanele poartă doar numele, cu scris alb, fără pictograme. La mișcare redusă, reflexia rămâne pe loc.
+- **Despre noi:** textul de prezentare a fost înlocuit cu versiunea furnizată de client („Soluții complete în domeniul
+  metalelor neferoase”: peste 20 de ani de experiență, punct de lucru propriu în Bulgaria etc.), iar antetul paginii
+  folosește acum fotografia sediului Color Metal, în locul texturii aurii.

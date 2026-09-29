@@ -17,6 +17,7 @@ Regenerare: `node tools/generate-tech-drawings.mjs`.
 | Fișier(e) | Sursă | Observații |
 |---|---|---|
 | `banner/hero.jpg`, `banner/hero-mobile.jpg` | Fotografie Color Metal furnizată de client (textură metalică aurie, 2000×667) | Drept de utilizare: Color Metal SRL. |
+| `about/sediu.jpg`, `about/sediu-mobile.jpg` | Fotografie Color Metal furnizată de client (sediul, 2000×1125) | Drept de utilizare: Color Metal SRL. Folosită ca antet pe pagina „Despre noi”. |
 | `brand/color-metal-logo.png`, `brand/color-metal-logo-sm.png` | https://color-metal.ro/sites/default/files/CM_Singular_Logo_color_print_1.png (logo oficial) | Marcă înregistrată Color Metal SRL. |
 | `brand/favicon.png` | generat în proiect (inițialele „CM” pe fundal auriu #CBA349) | – |
 

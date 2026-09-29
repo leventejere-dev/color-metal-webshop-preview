@@ -4,16 +4,27 @@ import { Breadcrumbs } from '@/components/ui/misc';
 import { asset } from '@/lib/format';
 import { SITE } from '@/config/site';
 
-/** Textul urmează pagina oficială „Despre noi / Echipa” de pe color-metal.ro. */
+/** Textul și fotografia sunt furnizate de Color Metal. */
 export function AboutPage() {
   return (
     <div>
       <section className="relative isolate overflow-hidden bg-ink text-white">
-        <img src={asset('/assets/banner/hero.jpg')} alt="" className="absolute inset-0 -z-10 h-full w-full object-cover opacity-70" />
-        <div className="absolute inset-0 -z-10 bg-gradient-to-r from-ink/90 via-ink/70 to-ink/30" />
-        <div className="container-cm flex min-h-[220px] flex-col justify-center py-10">
+        <picture>
+          <source media="(max-width: 640px)" srcSet={asset('/assets/about/sediu-mobile.jpg')} />
+          <img
+            src={asset('/assets/about/sediu.jpg')}
+            alt="Sediul Color Metal – clădirea cu fațadă verde din tablă expandată"
+            className="absolute inset-0 -z-10 h-full w-full object-cover object-center"
+            width={1920}
+            height={1080}
+            fetchPriority="high"
+          />
+        </picture>
+        <div className="absolute inset-0 -z-10 bg-gradient-to-r from-ink/85 via-ink/40 to-transparent" />
+        <div className="container-cm flex min-h-[300px] flex-col justify-end py-10 sm:min-h-[380px]">
           <p className="eyebrow !text-brand-gold">Despre noi</p>
-          <h1 className="mt-2 text-3xl font-light sm:text-4xl lg:text-[44px]">20 de ani de excelență în industria metalelor neferoase</h1>
+          <h1 className="mt-2 text-3xl font-semibold tracking-tight sm:text-4xl lg:text-[44px]">Color Metal</h1>
+          <p className="mt-2 max-w-2xl text-lg font-light text-white/85 sm:text-xl">Soluții complete în domeniul metalelor neferoase</p>
         </div>
       </section>
 
@@ -22,30 +33,43 @@ export function AboutPage() {
         <div className="grid gap-10 lg:grid-cols-[minmax(0,7fr)_minmax(0,5fr)]">
           <article className="prose-cm max-w-3xl">
             <p>
-              În 2025, Color Metal sărbătorește 20 de ani de activitate dedicată furnizării de semifabricate din aluminiu, cupru, alamă, bronz și titan-zinc. Suntem unul dintre liderii din Europa de Est în distribuția materialelor neferoase, deservind industrii diverse precum automotive, prelucrarea metalelor, aeronautica, industria alimentară, construcțiile și publicitatea.
+              În prezent, Color Metal are peste 20 de ani de experiență în furnizarea de semifabricate din aluminiu, cupru,
+              alamă, bronz și titan-zinc. Suntem unul dintre distribuitorii importanți de metale neferoase din Europa de Est
+              și colaborăm cu industrii diverse, precum automotive, prelucrarea metalelor, aeronautica, industria alimentară,
+              construcțiile și publicitatea.
             </p>
             <p>
-              Activitatea noastră este construită pe parteneriate solide și pe încrederea câștigată prin profesionalism și flexibilitate. Cu trei centre logistice în România – București, Timișoara și Odorheiu Secuiesc – și o prezență activă în Bulgaria, Ungaria, Serbia și Republica Moldova, oferim acces rapid la materiale certificate, de înaltă calitate, provenite de la producători recunoscuți la nivel mondial.
+              De-a lungul anilor, am construit parteneriate solide și am câștigat încrederea clienților prin profesionalism,
+              flexibilitate și soluții adaptate nevoilor fiecărui proiect. Activitatea noastră este susținută de trei centre
+              logistice în România — București, Timișoara și Odorheiu Secuiesc — și de propriul nostru punct de lucru din
+              Bulgaria. Suntem prezenți și pe piețele din Ungaria, Serbia și Republica Moldova, oferind acces la materiale
+              certificate, de înaltă calitate, provenite de la producători recunoscuți la nivel internațional.
             </p>
             <p>
-              Gama noastră variată de produse este completată de servicii profesionale, precum debitarea materialelor, ambalarea personalizată și asistența tehnică. De asemenea, divizia de soluții arhitecturale susține proiectele de renovare și design contemporan cu materiale premium pentru fațade, acoperișuri și amenajări interioare.
+              Pe lângă gama variată de produse, oferim servicii precum debitarea materialelor, ambalarea personalizată și
+              asistența tehnică. Divizia noastră de soluții arhitecturale sprijină proiecte de renovare și construcții
+              contemporane cu materiale premium pentru fațade, acoperișuri și amenajări interioare.
             </p>
             <p>
-              Cu o echipă de experți și o viziune orientată spre excelență, Color Metal continuă să răspundă cerințelor pieței și să susțină inovația industrială, fiind un partener de încredere pentru clienții săi. 20 de ani de experiență confirmă angajamentul nostru pentru calitate, sustenabilitate și soluții personalizate.
+              Cu o echipă de specialiști și o experiență de peste două decenii, Color Metal continuă să răspundă cerințelor
+              pieței și să susțină dezvoltarea proiectelor industriale și arhitecturale. Calitatea, seriozitatea și
+              flexibilitatea stau la baza fiecărei colaborări.
             </p>
             <h2>Webshopul Color Metal</h2>
             <p>
-              Webshopul aduce online exact logica din depozit: alegi forma, apoi materialul, apoi dimensiunile. Prețul se calculează automat din greutatea piesei. Pentru cantități mari sau dimensiuni speciale, echipa de vânzări răspunde la{' '}
-              <a href={`mailto:${SITE.emails.direct}`}>{SITE.emails.direct}</a> sau la call center {SITE.phones.callCenter}.
+              Webshopul aduce online exact logica din depozit: alegi forma, apoi materialul, apoi dimensiunile. Prețul se
+              calculează automat din greutatea piesei. Pentru cantități mari sau dimensiuni speciale, echipa de vânzări
+              răspunde la <a href={`mailto:${SITE.emails.direct}`}>{SITE.emails.direct}</a> sau la call center{' '}
+              {SITE.phones.callCenter}.
             </p>
           </article>
 
           <aside className="space-y-4">
             {[
               { icon: Factory, title: 'Trei centre logistice', text: 'Odorheiu Secuiesc (sediu central), București – Mogoșoaia și Timișoara – Ghiroda.' },
-              { icon: Globe2, title: 'Prezență regională', text: 'România, Bulgaria, Ungaria, Serbia și Republica Moldova.' },
+              { icon: Globe2, title: 'Prezență regională', text: 'România și punct de lucru propriu în Bulgaria; prezenți în Ungaria, Serbia și Republica Moldova.' },
               { icon: Scissors, title: 'Servicii', text: 'Debitare la dimensiune, ambalare personalizată și asistență tehnică.' },
-              { icon: Award, title: 'Materiale certificate', text: 'Semifabricate de la producători recunoscuți la nivel mondial, cu certificate de calitate.' },
+              { icon: Award, title: 'Materiale certificate', text: 'Semifabricate de la producători recunoscuți la nivel internațional, cu certificate de calitate.' },
             ].map(({ icon: Icon, title, text }) => (
               <div key={title} className="card flex gap-4 p-5">
                 <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg bg-brand-gold-light text-brand-gold-dark">
