@@ -1,9 +1,8 @@
 import { useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowLeft, ArrowRight, Calculator, Info, ShoppingCart, Sparkles } from 'lucide-react';
+import { ArrowLeft, ArrowRight, Info, ShoppingCart } from 'lucide-react';
 import { SHAPE_BY_SLUG } from '@/data/shapes';
 import { ALLOY_BY_ID, BETA_ALLOYS, BETA_FORMAT, BETA_THICKNESSES, plateSku, plateWeightKg } from '@/data/betashop';
-import { ALUSHOP_ALLOYS, ALUSHOP_ITEMS } from '@/data/alushop';
 import { ProductPreview } from '@/components/product/ProductPreview';
 import { FavoriteButton } from '@/components/product/ProductCard';
 import { ContactConsultant } from '@/components/configurator/ContactConsultant';
@@ -24,19 +23,15 @@ const SHAPE = SHAPE_BY_SLUG['placa-groasa'];
 const ROUTES = [
   {
     to: '/alushop',
-    icon: Sparkles,
     name: 'AluShop',
     kicker: 'Promoție',
     text: 'Bucăți unice de aluminiu rămase în urma proceselor de debitare. Dimensiuni unicate, disponibile în limita stocului, la preț promoțional – fiecare placă se comandă o singură dată.',
-    facts: [`${ALUSHOP_ITEMS.length} de bucăți în stoc`, `${ALUSHOP_ALLOYS.length} aliaje`, 'preț promoțional'],
   },
   {
     to: '/produse/placa-groasa/configurator',
-    icon: Calculator,
     name: 'BetaShop',
     kicker: 'Configurator',
     text: 'Alegi aliajul, grosimea, lungimea și lățimea, iar noi debităm placa exact după nevoile tale, din formatul standard. Prețul se calculează pe loc.',
-    facts: [`${BETA_ALLOYS.length} aliaje`, `grosimi ${BETA_THICKNESSES[0]}–${BETA_THICKNESSES[BETA_THICKNESSES.length - 1]} mm`, 'tăiere la milimetru'],
   },
 ];
 
@@ -71,28 +66,20 @@ export function ThickPlateHubPage() {
           <span className="pointer-events-none absolute bottom-0 left-1/3 -z-10 h-48 w-64 rounded-full bg-brand-gold/25 blur-3xl cm-aura" />
 
           <div className="grid gap-5 sm:grid-cols-2">
-            {ROUTES.map(({ to, icon: Icon, kicker, name, text, facts }, i) => (
+            {ROUTES.map(({ to, kicker, name, text }, i) => (
               <div key={to} className="flex h-full flex-col gap-3">
                 <Link
                   to={to}
-                  className="group relative isolate flex h-16 items-center justify-center gap-3 overflow-hidden rounded-xl bg-gradient-to-br from-brand-gold to-brand-gold-dark text-ink shadow-[0_10px_26px_-10px_rgba(179,139,52,.75)] ring-1 ring-brand-gold-dark/30 transition duration-300 hover:-translate-y-0.5 hover:bg-ink hover:from-ink hover:to-ink hover:text-brand-gold hover:ring-brand-gold sm:h-[72px]"
+                  className="group relative isolate flex h-16 items-center justify-center gap-3 overflow-hidden rounded-xl bg-gradient-to-br from-brand-gold to-brand-gold-dark text-white shadow-[0_10px_26px_-10px_rgba(179,139,52,.75)] ring-1 ring-brand-gold-dark/30 transition duration-300 hover:-translate-y-0.5 hover:from-brand-gold-dark hover:to-brand-bronze hover:shadow-[0_16px_34px_-12px_rgba(179,139,52,.85)] sm:h-[72px]"
                 >
                   <span className={cls('pointer-events-none absolute inset-y-0 -left-1/3 w-1/3 bg-gradient-to-r from-transparent via-white/55 to-transparent cm-sheen', i === 1 && 'cm-delayed')} />
-                  <Icon className="h-5 w-5 shrink-0" />
-                  <span className="text-lg font-extrabold uppercase tracking-[0.16em] sm:text-xl">{name}</span>
+                  <span className="text-lg font-extrabold uppercase tracking-[0.18em] [text-shadow:0_1px_2px_rgba(0,0,0,.3)] sm:text-xl">{name}</span>
                   <ArrowRight className="h-5 w-5 shrink-0 transition-transform duration-200 group-hover:translate-x-1" />
                 </Link>
 
                 <div className="flex-1 rounded-xl border border-white/70 bg-white/55 p-5 shadow-[0_10px_34px_-16px_rgba(20,20,20,.45)] backdrop-blur-xl">
                   <p className="eyebrow">{kicker}</p>
                   <p className="mt-2 text-[13px] leading-6 text-ink-soft">{text}</p>
-                  <div className="mt-3 flex flex-wrap gap-1.5">
-                    {facts.map((f) => (
-                      <span key={f} className="rounded-full border border-white/70 bg-white/60 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.1em] text-muted">
-                        {f}
-                      </span>
-                    ))}
-                  </div>
                 </div>
               </div>
             ))}

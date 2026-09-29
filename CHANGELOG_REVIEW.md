@@ -220,5 +220,5 @@ fotografii reale + ilustrațiile tehnice oficiale pentru fiecare formă.
 - Coșul: bucățile din promoție rămân unicate (cantitate 1), iar plăcile configurate se pot comanda în mai multe bucăți.
 - Cele două drumuri sunt acum **două butoane**, purtând chiar numele magazinelor – **ALUSHOP** și **BETASHOP** – aurii,
   cu o reflexie metalică ce le traversează (decalată între ele). Sub fiecare buton, pe un **panou de sticlă**
-  (translucid, cu blur peste o aură aurie care respiră), stă eticheta „Promoție” / „Configurator”, explicația și
-  câteva repere (bucăți în stoc, aliaje, grosimi). La mișcare redusă, reflexia rămâne pe loc.
+  (translucid, cu blur peste o aură aurie care respiră), stau eticheta „Promoție” / „Configurator” și explicația.
+  Butoanele poartă doar numele, cu scris alb, fără pictograme. La mișcare redusă, reflexia rămâne pe loc.
