@@ -1,6 +1,6 @@
 import { useMemo, useState, type FormEvent } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowLeft, Check, Info, Sparkles } from 'lucide-react';
+import { ArrowLeft, Check, Info } from 'lucide-react';
 import {
   ALUSHOP_ALLOYS,
   ALUSHOP_ITEMS,
@@ -96,7 +96,7 @@ export function AluShopPage() {
 
       <div className="flex flex-wrap items-center gap-3">
         <span className="inline-flex items-center gap-1.5 rounded-lg bg-gradient-to-br from-brand-gold to-brand-gold-dark px-3 py-1.5 text-sm font-extrabold uppercase tracking-[0.08em] text-white">
-          <Sparkles className="h-4 w-4" /> Promoție
+          Promoție
         </span>
         <h1 className="text-2xl font-semibold sm:text-3xl">Plăci debitate din stoc</h1>
       </div>
