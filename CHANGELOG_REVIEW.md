@@ -224,4 +224,5 @@ fotografii reale + ilustrațiile tehnice oficiale pentru fiecare formă.
   Butoanele poartă doar numele, cu scris alb, fără pictograme. La mișcare redusă, reflexia rămâne pe loc.
 - **Despre noi:** textul de prezentare a fost înlocuit cu versiunea furnizată de client („Soluții complete în domeniul
   metalelor neferoase”: peste 20 de ani de experiență, punct de lucru propriu în Bulgaria etc.), iar antetul paginii
-  folosește acum fotografia sediului Color Metal, în locul texturii aurii.
+  primește un titlu curat, iar fotografia sediului apare dedesubt, în cadru propriu (colțuri rotunjite, umbră
+  discretă, legendă peste un degrade și o apropiere lentă la hover) – nu ca fundal întunecat de antet.
