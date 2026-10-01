@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useRef, useState, type FormEvent } from 'react';
+import { createPortal } from 'react-dom';
 import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom';
 import { ChevronDown, ExternalLink, Heart, LogOut, Menu, Package, Search, ShoppingCart, User as UserIcon, X } from 'lucide-react';
 import { useAuth } from '@/context/AuthContext';
@@ -49,6 +50,19 @@ export function Header() {
     return () => document.removeEventListener('mousedown', onDoc);
   }, []);
 
+  // cât timp sertarul mobil este deschis, pagina din spate nu se mai derulează
+  useEffect(() => {
+    if (!menuOpen) return;
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    const onEsc = (e: KeyboardEvent) => e.key === 'Escape' && setMenuOpen(false);
+    document.addEventListener('keydown', onEsc);
+    return () => {
+      document.body.style.overflow = prev;
+      document.removeEventListener('keydown', onEsc);
+    };
+  }, [menuOpen]);
+
   const suggestions = useMemo(() => (query.trim().length >= 2 ? searchShapes(query).slice(0, 5) : []), [query]);
 
   const submitSearch = (e: FormEvent) => {
@@ -87,9 +101,9 @@ export function Header() {
             target="_blank"
             rel="noreferrer"
             title="Site-ul principal Color Metal"
-            className="ml-1 inline-flex items-center gap-1.5 rounded-full border border-brand-gold/45 bg-brand-gold-light/60 px-2.5 py-1 text-[12px] font-semibold text-brand-gold-dark transition hover:border-brand-gold hover:bg-brand-gold-light"
+            className="inline-flex items-center gap-1 whitespace-nowrap rounded-md px-2 py-1.5 text-[13px] font-medium text-muted transition hover:text-brand-bronze"
           >
-            color-metal.ro <ExternalLink className="h-3 w-3" />
+            color-metal.ro <ExternalLink className="h-3 w-3 opacity-70" />
           </a>
         </nav>
 
@@ -185,9 +199,10 @@ export function Header() {
         </div>
       </div>
 
-      {/* Meniu mobil */}
-      {menuOpen && (
-        <div className="fixed inset-0 z-[70] lg:hidden" role="dialog" aria-modal="true" aria-label="Meniu">
+      {/* Meniu mobil – prin portal, ca să acopere tot ecranul */}
+      {menuOpen &&
+        createPortal(
+          <div className="fixed inset-0 z-[70] lg:hidden" role="dialog" aria-modal="true" aria-label="Meniu">
           <div className="absolute inset-0 bg-ink/40" onClick={() => setMenuOpen(false)} />
           <div className="absolute right-0 top-0 flex h-full w-[86%] max-w-sm flex-col bg-white shadow-2xl">
             <div className="flex items-center justify-between border-b border-line px-4 py-3">
@@ -211,8 +226,8 @@ export function Header() {
                   {n.label}
                 </NavLink>
               ))}
-              <a href={SITE.mainSite} target="_blank" rel="noreferrer" className="flex items-center gap-2 rounded-lg px-3 py-2.5 text-[15px] font-medium text-brand-gold-dark">
-                color-metal.ro <ExternalLink className="h-4 w-4" />
+              <a href={SITE.mainSite} target="_blank" rel="noreferrer" className="flex items-center gap-2 rounded-lg px-3 py-2.5 text-[15px] font-medium text-muted">
+                color-metal.ro <ExternalLink className="h-4 w-4 opacity-70" />
               </a>
               <div className="my-2 border-t border-line" />
               <Link to="/favorite" className="flex items-center gap-2 rounded-lg px-3 py-2.5 text-[15px] font-medium">
@@ -247,8 +262,9 @@ export function Header() {
             </nav>
             <p className="border-t border-line px-4 py-3 text-xs text-muted">Color Metal Webshop</p>
           </div>
-        </div>
-      )}
+          </div>,
+          document.body,
+        )}
     </header>
   );
 }

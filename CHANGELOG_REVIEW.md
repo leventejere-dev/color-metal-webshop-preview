@@ -229,9 +229,13 @@ fotografii reale + ilustrațiile tehnice oficiale pentru fiecare formă.
 - **Despre noi – corecții de date:** patru centre logistice (Odorheiu Secuiesc – sediu central, București – Mogoșoaia,
   Timișoara – Ghiroda și Plovdiv, Bulgaria). „Prezență regională” nu mai include Bulgaria (are centru propriu) și
   menționează biroul comercial de la Budapesta, alături de piețele din Serbia și Republica Moldova.
-- **Antet:** link discret către site-ul principal, `color-metal.ro`, într-o pastilă aurie cu pictogramă de link extern
-  (în meniul mobil apare ca rând separat). Se deschide într-o filă nouă.
+- **Antet:** link discret către site-ul principal, `color-metal.ro`, scris gri lângă celelalte intrări de meniu, cu o
+  pictogramă mică de link extern (în meniul mobil apare ca rând separat). Se deschide într-o filă nouă.
 - **Trimitere către PremiumRoof:** pe prima pagină, sub lista de forme, un panou închis cu accent auriu –
   „Te gândești la un acoperiș sau la o fațadă?” – care explică magazinul de soluții arhitecturale (alegerea
   materialelor, estimarea costurilor, discuția tehnică înainte de comanda finală; pentru proprietari de case,
   arhitecți, montatori și firme de construcții) și duce la premiumroof.ro, cu mențiunea că se lansează în curând.
+- **Corecție – meniul mobil:** sertarul nu se deschidea pe tot ecranul, ci rămânea de înălțimea antetului.
+  Cauza: `backdrop-filter` de pe antet face din antet blocul de referință al elementelor poziționate `fixed`.
+  Sertarul se randează acum prin portal, direct în `<body>`; în plus, pagina din spate nu se mai derulează cât timp
+  meniul este deschis, iar tasta Esc îl închide.
