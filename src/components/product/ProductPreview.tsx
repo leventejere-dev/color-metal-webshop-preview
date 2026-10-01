@@ -62,7 +62,6 @@ export function ProductPreview({
               <img src={asset(photoUrl(ph.file, true))} alt="" className="h-full w-full object-cover" width={360} height={270} loading="lazy" />
             </button>
           ))}
-          <span className="ml-1 text-[11px] leading-tight text-muted">Fotografii Color Metal</span>
         </div>
       )}
 
