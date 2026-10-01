@@ -19,9 +19,9 @@ const p = (file: string, alt: string): ProductPhoto => ({ file, alt });
 const DEFAULT_PHOTOS: Record<ShapeId, ProductPhoto[]> = {
   thick_plate: [p('placa-groasa-al', 'Plăci groase din aluminiu'), p('placa-groasa-turnat', 'Placă din aluminiu turnat')],
   sheet: [p('tabla-lisa', 'Tablă lisă din aluminiu')],
-  profile_u: [p('profil-u', 'Profile U din aluminiu'), p('profile-speciale', 'Profile speciale din aluminiu')],
-  profile_l: [p('profil-l', 'Profile L din aluminiu'), p('profile-speciale', 'Profile speciale din aluminiu')],
-  profile_t: [p('profil-t', 'Profile T din aluminiu'), p('profile-speciale', 'Profile speciale din aluminiu')],
+  profile_u: [p('profil-u', 'Profile U din aluminiu')],
+  profile_l: [p('profil-l', 'Profile L din aluminiu')],
+  profile_t: [p('profil-t', 'Profile T din aluminiu')],
   rect_tube: [p('teava-rect-al', 'Țevi rectangulare din aluminiu')],
   square_tube: [p('teava-patrat-al', 'Țevi pătrate din aluminiu')],
   round_tube: [p('teava-rotund-al', 'Țevi rotunde din aluminiu')],
@@ -32,10 +32,6 @@ const DEFAULT_PHOTOS: Record<ShapeId, ProductPhoto[]> = {
 
 /** Fotografii pentru celelalte materiale. */
 const BY_MATERIAL: Partial<Record<ShapeId, Partial<Record<MaterialId, ProductPhoto[]>>>> = {
-  thick_plate: {
-    CU: [p('placa-groasa-cu', 'Plăci din cupru')],
-    BRASS: [p('placa-groasa-brass', 'Plăci din alamă')],
-  },
   sheet: {
     CU: [p('tabla-cu', 'Tablă din cupru')],
     BRASS: [p('tabla-brass', 'Tablă din alamă')],
@@ -45,7 +41,6 @@ const BY_MATERIAL: Partial<Record<ShapeId, Partial<Record<MaterialId, ProductPho
     BRASS: [p('bara-lata-brass', 'Bare rectangulare din alamă')],
   },
   square_bar: {
-    CU: [p('bara-patrata-cu', 'Bare pătrate din cupru')],
     BRASS: [p('bara-patrata-brass', 'Bare pătrate din alamă')],
   },
   round_bar: {
@@ -63,13 +58,14 @@ const SHEET_BY_SURFACE: Record<SurfaceId, ProductPhoto> = {
   'striata-quintet': p('tabla-quintet', 'Tablă striată Quintet din aluminiu'),
 };
 
-/** Fotografiile potrivite pentru combinația aleasă. */
+/**
+ * Fotografiile potrivite pentru combinația aleasă. Pentru cupru, alamă și bronz se afișează doar
+ * fotografia materialului respectiv – acolo unde nu există, rămâne desenul tehnic, colorat oricum
+ * în culoarea materialului (nu se arată o piesă de aluminiu în locul uneia de cupru).
+ */
 export function productPhotos(shapeId: ShapeId, material?: MaterialId, surface?: SurfaceId): ProductPhoto[] {
   if (shapeId === 'sheet' && (!material || material === 'AL')) return [SHEET_BY_SURFACE[surface ?? 'lisa']];
-  if (material) {
-    const forMaterial = BY_MATERIAL[shapeId]?.[material];
-    if (forMaterial) return forMaterial;
-  }
+  if (material && material !== 'AL') return BY_MATERIAL[shapeId]?.[material] ?? [];
   return DEFAULT_PHOTOS[shapeId] ?? [];
 }
 

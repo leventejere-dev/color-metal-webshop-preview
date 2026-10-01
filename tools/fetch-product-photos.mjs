@@ -1,8 +1,9 @@
 /**
  * Preia fotografiile de produs de pe site-ul oficial Color Metal
  * (https://color-metal.ro/ro/produse/industriale – fotografii proprii Color Metal)
- * și le pregătește pentru webshop: fundal alb, piesa întreagă în cadru (nu se taie capetele),
- * două dimensiuni, JPEG optimizat.
+ * și le pregătește pentru webshop: fundal alb, piesa întreagă în cadru (nu se taie capetele).
+ * Se folosesc doar fotografiile pe fundal alb – cele din catalogul furnizorului (fundal întunecat,
+ * filigran) nu sunt preluate. Două dimensiuni, JPEG optimizat.
  *
  * Rulare: node tools/fetch-product-photos.mjs → public/assets/products/<nume>.jpg
  */
@@ -19,8 +20,6 @@ const PHOTOS = {
   // plăci și table
   'placa-groasa-al': '/sites/default/files/2020-02/ColorMetal-EBE_0022.png',
   'placa-groasa-turnat': '/sites/default/files/2020-02/ColorMetal-EBE_0016_0.png',
-  'placa-groasa-cu': '/sites/default/files/2020-08/%28c%29kme_mansfeld_sheets_plates%20%28005%29%20placi%20cupru.jpg',
-  'placa-groasa-brass': '/sites/default/files/2020-08/%28c%29kme_mansfeld_sheets_plates%20%28001%29%20placi%20alama_1.jpg',
   'tabla-lisa': '/sites/default/files/2020-02/ColorMetal-EBE_0038_tabla_lisa_1200x800.jpg',
   'tabla-stucco': '/sites/default/files/2020-02/ColorMetal-EBE_0029.png',
   'tabla-diamond': '/sites/default/files/product_image/2026-09/cm%20diamond.jpg',
@@ -31,7 +30,6 @@ const PHOTOS = {
   'profil-u': '/sites/default/files/product_image/2025-03/Profile%20U.jpg',
   'profil-l': '/sites/default/files/product_image/2025-03/Profile%20L.jpg',
   'profil-t': '/sites/default/files/product_image/2025-03/Profile%20T.jpg',
-  'profile-speciale': '/sites/default/files/2020-02/ColorMetal-EBE_0162.png',
   // țevi
   'teava-rect-al': '/sites/default/files/product_image/2026-09/cm%20rect.png',
   'teava-patrat-al': '/sites/default/files/product_image/2026-09/cm%20patrat.jpg',
@@ -40,7 +38,6 @@ const PHOTOS = {
   'bare-al': '/sites/default/files/2020-02/ColorMetal-EBE_0108_0.png',
   'bara-rotunda-cu': '/sites/default/files/2020-02/ColorMetal-EBE_0125_uj_0.png',
   'bara-lata-cu': '/sites/default/files/2020-02/ColorMetal-EBE_0126.png',
-  'bara-patrata-cu': '/sites/default/files/2020-08/Hexagonale%2C%20patrate%202_0.jpg',
   'bara-rotunda-brass': '/sites/default/files/2020-10/Bara-rotunda-din-alama-Color-Metal.jpg',
   'bara-lata-brass': '/sites/default/files/2020-11/ColorMetal-EBE_0140_1.jpg',
   'bara-patrata-brass': '/sites/default/files/2020-11/ColorMetal-bare-patrate-alama_1.jpg',

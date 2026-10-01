@@ -267,3 +267,5 @@ fotografii reale + ilustrațiile tehnice oficiale pentru fiecare formă.
 - Corecție fotografii: fotografiile decupate (PNG cu fundal transparent) apăreau cu **fundal negru** după conversia
   în JPEG; acum sunt așezate pe **alb**. În plus, nu mai sunt tăiate la 4:3 – marginea uniformă este eliminată, iar
   piesa este încadrată întreagă, cu o margine mică, astfel încât capetele barelor și ale profilelor rămân vizibile.
+- Au fost scoase fotografiile care nu erau pe fundal alb: „profile speciale” (fundal negru) și trei fotografii din
+  catalogul furnizorului, cu filigran. Au rămas 21 de fotografii, toate pe alb.

@@ -25,7 +25,7 @@ Regenerare: `node tools/generate-tech-drawings.mjs`.
 
 | Fișier(e) | Sursă | Observații |
 |---|---|---|
-| `products/*.jpg` (25 fotografii, două dimensiuni fiecare) | catalogul oficial Color Metal: https://color-metal.ro/ro/produse/industriale | **Fotografii proprii Color Metal**, folosite cu acordul clientului. Preluate și pregătite cu `tools/fetch-product-photos.mjs`: fundal alb (fotografiile decupate sunt PNG cu transparență), marginea albă tăiată, piesa încadrată întreagă într-un cadru 4:3 cu o margine mică – așa rămân vizibile capetele barelor și ale profilelor. Două dimensiuni: 1200×900 și 360×270, JPEG optimizat. Fotografia afișată urmează materialul ales, iar la tablă suprafața aleasă (lisă, stucco, striată Diamond / Quintet). |
+| `products/*.jpg` (21 fotografii, două dimensiuni fiecare) | catalogul oficial Color Metal: https://color-metal.ro/ro/produse/industriale | **Fotografii proprii Color Metal**, folosite cu acordul clientului. Preluate și pregătite cu `tools/fetch-product-photos.mjs`: fundal alb (fotografiile decupate sunt PNG cu transparență), marginea albă tăiată, piesa încadrată întreagă într-un cadru 4:3 cu o margine mică – așa rămân vizibile capetele barelor și ale profilelor. Două dimensiuni: 1200×900 și 360×270, JPEG optimizat. Se folosesc **doar fotografiile pe fundal alb**; cele din catalogul furnizorului (fundal întunecat, filigran) nu au fost preluate. Fotografia afișată urmează materialul ales, iar la tablă suprafața aleasă (lisă, stucco, striată Diamond / Quintet); unde nu există fotografie pentru materialul ales, rămâne desenul tehnic, colorat în culoarea materialului. |
 
 ## 4. Alte resurse
 
