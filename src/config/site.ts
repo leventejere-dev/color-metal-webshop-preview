@@ -6,8 +6,10 @@ export const SITE = {
   website: 'https://color-metal.ro',
   /** site-ul principal Color Metal (versiunea în limba română) */
   mainSite: 'https://color-metal.ro/ro',
+  /** magazinul industrial – acest webshop (domeniu în pregătire) */
+  industrialShop: 'https://cmindustrial.ro',
   /** magazinul Color Metal pentru soluții arhitecturale (în pregătire) */
-  premiumRoof: 'https://premiumroof.ro',
+  architecturalShop: 'https://cmarhitectural.ro',
   emails: {
     direct: 'direct@color-metal.ro',
     bucharest: 'officebuc@color-metal.ro',

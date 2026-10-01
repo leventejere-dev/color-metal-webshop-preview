@@ -65,21 +65,21 @@ export function HomePage() {
               <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-brand-gold">Soluții arhitecturale</p>
               <h2 className="mt-2 text-xl font-semibold sm:text-2xl">Te gândești la un acoperiș sau la o fațadă?</h2>
               <p className="mt-2 text-[13px] leading-6 text-white/70">
-                PremiumRoof este magazinul Color Metal pentru proiecte arhitecturale: îți alegi materialele pentru proiect și
-                vezi la ce costuri să te aștepți, iar detaliile tehnice le punem la punct împreună înainte de comanda finală.
-                Pentru proprietari de case, dar și pentru arhitecți, montatori și firme de construcții.
+                Color Metal Arhitectural este magazinul nostru pentru proiecte de arhitectură: îți alegi materialele
+                pentru proiect și vezi la ce costuri să te aștepți, iar detaliile tehnice le punem la punct împreună înainte
+                de comanda finală. Pentru proprietari de case, dar și pentru arhitecți, montatori și firme de construcții.
               </p>
             </div>
             <div className="shrink-0">
               <a
-                href={SITE.premiumRoof}
+                href={SITE.architecturalShop}
                 target="_blank"
                 rel="noreferrer"
                 className="inline-flex h-12 items-center gap-2 rounded-lg bg-brand-gold px-6 text-sm font-bold uppercase tracking-wide text-white shadow-sm transition hover:bg-brand-gold-dark"
               >
-                Vezi PremiumRoof <ExternalLink className="h-4 w-4" />
+                Vezi magazinul arhitectural <ExternalLink className="h-4 w-4" />
               </a>
-              <p className="mt-2 text-[11px] text-white/45">premiumroof.ro · magazinul se lansează în curând</p>
+              <p className="mt-2 text-[11px] text-white/45">cmarhitectural.ro · se lansează în curând</p>
             </div>
           </div>
         </div>
