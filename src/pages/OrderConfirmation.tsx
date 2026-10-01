@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
-import { Link, useParams } from 'react-router-dom';
-import { CheckCircle2, FileText, Landmark } from 'lucide-react';
+import { Link, useLocation, useParams } from 'react-router-dom';
+import { CheckCircle2, FileText, Landmark, Package } from 'lucide-react';
 import { ordersApi } from '@/lib/api';
 import { ORDER_STATUS_LABEL, PAYMENT_LABEL, type Order } from '@/lib/types';
 import { SHAPE_BY_ID } from '@/data/shapes';
@@ -9,10 +9,15 @@ import { Badge, EmptyState, SummaryRow } from '@/components/ui/misc';
 import { dateTimeRo, kg, money } from '@/lib/format';
 import { round2 } from '@/lib/pricing';
 import { itemDescription } from './Cart';
+import { OrderTimeline } from '@/components/order/OrderTimeline';
+import { ReorderButton } from '@/components/cart/ReorderButton';
 import { SITE } from '@/config/site';
 
 export function OrderConfirmationPage() {
   const { id = '' } = useParams();
+  // pagina servește și ca detaliu de comandă din cont; mesajul de confirmare apare doar
+  // imediat după plasarea comenzii
+  const justPlaced = Boolean((useLocation().state as { justPlaced?: boolean } | null)?.justPlaced);
   const [order, setOrder] = useState<Order | null | undefined>(undefined);
 
   useEffect(() => {
@@ -31,15 +36,25 @@ export function OrderConfirmationPage() {
     <div className="container-cm max-w-3xl py-10">
       <div className="card p-6 sm:p-8">
         <div className="flex items-start gap-4">
-          <CheckCircle2 className="h-10 w-10 shrink-0 text-success" />
+          {justPlaced ? <CheckCircle2 className="h-10 w-10 shrink-0 text-success" /> : <Package className="h-10 w-10 shrink-0 text-brand-gold-dark" />}
           <div>
             <p className="eyebrow">Comanda {order.number}</p>
-            <h1 className="mt-1 text-2xl font-semibold">Comanda a fost înregistrată cu succes.</h1>
+            <h1 className="mt-1 text-2xl font-semibold">{justPlaced ? 'Comanda a fost înregistrată cu succes.' : 'Detaliile comenzii'}</h1>
             <p className="mt-1 text-sm text-muted">
               {dateTimeRo(order.createdAt)} · <Badge tone={order.status === 'asteapta_plata' ? 'warning' : 'success'}>{ORDER_STATUS_LABEL[order.status]}</Badge>
             </p>
           </div>
         </div>
+
+        <section className="mt-6 rounded-xl border border-line bg-surface/60 p-5">
+          <h2 className="mb-4 text-sm font-semibold uppercase tracking-wide text-muted">Stadiul comenzii</h2>
+          <OrderTimeline order={order} />
+          {order.status === 'asteapta_plata' && order.payment === 'transfer' && (
+            <p className="mt-4 border-t border-line pt-3 text-xs text-muted">
+              Comanda intră în debitare imediat ce plata prin transfer bancar este confirmată.
+            </p>
+          )}
+        </section>
 
         {order.payment === 'transfer' ? (
           <div className="mt-6 rounded-xl border border-brand-gold/40 bg-brand-gold-light/40 p-5">
@@ -102,6 +117,7 @@ export function OrderConfirmationPage() {
         </div>
 
         <div className="mt-8 flex flex-wrap gap-2">
+          <ReorderButton order={order} size="md" />
           {order.userId ? (
             <ButtonLink to="/cont/comenzi" variant="secondary">
               Comenzile mele

@@ -13,6 +13,8 @@ import { Badge, EmptyState, Notice, SummaryRow } from '@/components/ui/misc';
 import { dateRo, dateTimeRo, kg, money } from '@/lib/format';
 import { round2 } from '@/lib/pricing';
 import { itemDescription } from '../Cart';
+import { OrderTimeline } from '@/components/order/OrderTimeline';
+import { ReorderButton } from '@/components/cart/ReorderButton';
 import { ACCOUNT_NAV } from './AccountLayout';
 
 const statusTone = (s: Order['status']) => (s === 'livrata' ? 'success' : s === 'asteapta_plata' ? 'warning' : s === 'anulata' ? 'danger' : 'gold');
@@ -127,8 +129,13 @@ export function OrdersPage() {
                 </li>
               )}
             </ul>
-            <div className="mt-3 flex flex-wrap items-center gap-3 text-sm">
+            <div className="mt-4 border-t border-line pt-4">
+              <OrderTimeline order={o} compact />
+            </div>
+
+            <div className="mt-4 flex flex-wrap items-center gap-3 text-sm">
               <span className="text-muted">Greutate {kg(o.totalWeightKg)} · fără TVA {money(o.netRon)}</span>
+              <ReorderButton order={o} />
               <span className="ml-auto flex gap-3">
                 {o.proformaNumber && (
                   <Link to={`/proforma/${o.id}`} className="font-semibold text-brand-bronze hover:underline">

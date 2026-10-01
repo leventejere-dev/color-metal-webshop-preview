@@ -240,3 +240,15 @@ fotografii reale + ilustrațiile tehnice oficiale pentru fiecare formă.
   Cauza: `backdrop-filter` de pe antet face din antet blocul de referință al elementelor poziționate `fixed`.
   Sertarul se randează acum prin portal, direct în `<body>`; în plus, pagina din spate nu se mai derulează cât timp
   meniul este deschis, iar tasta Esc îl închide.
+
+# Revizia 9 (2026-10-01)
+- **„Comandă din nou”** – pe fiecare comandă din cont (`/cont/comenzi`) și pe pagina comenzii. Pune din nou în coș
+  toate produsele, cu aceeași configurație și cantitate, apoi deschide coșul. Plăcile din promoție (bucăți unice,
+  vândute o singură dată) sunt sărite, iar clientul este anunțat; dacă o comandă conține doar astfel de bucăți,
+  butonul este inactiv și explică de ce.
+- **Stadiul comenzii** – traseu în patru etape (Comandă plasată → Plată confirmată → În debitare → Livrată), cu
+  etapa curentă marcată. Varianta orizontală, compactă, apare sub fiecare comandă din cont; varianta verticală, cu
+  explicații și datele cunoscute (plasare, factură), pe pagina comenzii. Comanda anulată se afișează separat, iar la
+  plata prin transfer bancar apare precizarea că debitarea începe după confirmarea plății.
+- Pagina `/comanda/:id` servește acum și ca detaliu de comandă: mesajul de confirmare apare doar imediat după
+  plasarea comenzii, altfel titlul este „Detaliile comenzii”.

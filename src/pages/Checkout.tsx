@@ -147,7 +147,7 @@ export function CheckoutPage() {
       write('lastOrder', order.id);
       clear();
       toast(payment === 'card' ? 'Plata a fost procesată prin NETOPIA Payments (simulare). Comanda a fost înregistrată.' : 'Comanda a fost înregistrată cu succes.', { cta: { label: 'Vezi comanda', to: `/comanda/${order.id}` } });
-      navigate(mode === 'proforma' ? `/proforma/${order.id}` : `/comanda/${order.id}`);
+      navigate(mode === 'proforma' ? `/proforma/${order.id}` : `/comanda/${order.id}`, { state: { justPlaced: true } });
     } catch (err) {
       toast((err as Error).message || 'A apărut o eroare temporară. Te rugăm să încerci din nou.', { kind: 'warning' });
       setBusy(false);
