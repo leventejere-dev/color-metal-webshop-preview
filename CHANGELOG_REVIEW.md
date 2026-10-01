@@ -264,3 +264,6 @@ fotografii reale + ilustrațiile tehnice oficiale pentru fiecare formă.
   în coș și pe comandă.
 - **Bara hexagonală și banda rulou au fost scoase** din catalog (deocamdată), împreună cu categoria „Bandă rulou”,
   desenele și formulele lor. Au rămas 11 forme.
+- Corecție fotografii: fotografiile decupate (PNG cu fundal transparent) apăreau cu **fundal negru** după conversia
+  în JPEG; acum sunt așezate pe **alb**. În plus, nu mai sunt tăiate la 4:3 – marginea uniformă este eliminată, iar
+  piesa este încadrată întreagă, cu o margine mică, astfel încât capetele barelor și ale profilelor rămân vizibile.

@@ -1,7 +1,8 @@
 /**
  * Preia fotografiile de produs de pe site-ul oficial Color Metal
  * (https://color-metal.ro/ro/produse/industriale – fotografii proprii Color Metal)
- * și le pregătește pentru webshop: decupate 4:3, două dimensiuni, JPEG optimizat.
+ * și le pregătește pentru webshop: fundal alb, piesa întreagă în cadru (nu se taie capetele),
+ * două dimensiuni, JPEG optimizat.
  *
  * Rulare: node tools/fetch-product-photos.mjs → public/assets/products/<nume>.jpg
  */
@@ -46,6 +47,21 @@ const PHOTOS = {
   'bara-rotunda-bronze': '/sites/default/files/2022-02/DSC_2913-Edit_1.jpg',
 };
 
+const WHITE = { r: 255, g: 255, b: 255 };
+
+/** Fotografia, pe fundal alb, încadrată întreagă (cu o margine mică) într-un cadru 4:3. */
+async function frame(src, width, height, file, quality) {
+  const margin = Math.round(width * 0.04);
+  const inner = await sharp(src)
+    .resize(width - 2 * margin, height - 2 * margin, { fit: 'inside', withoutEnlargement: false })
+    .toBuffer();
+  const m = await sharp(inner).metadata();
+  await sharp({ create: { width, height, channels: 3, background: WHITE } })
+    .composite([{ input: inner, left: Math.round((width - m.width) / 2), top: Math.round((height - m.height) / 2) }])
+    .jpeg({ quality, mozjpeg: true })
+    .toFile(file);
+}
+
 let ok = 0;
 for (const [name, rel] of Object.entries(PHOTOS)) {
   const url = BASE + rel;
@@ -55,8 +71,22 @@ for (const [name, rel] of Object.entries(PHOTOS)) {
     continue;
   }
   const buf = Buffer.from(await res.arrayBuffer());
-  await sharp(buf).resize(1200, 900, { fit: 'cover', position: 'centre' }).jpeg({ quality: 80, mozjpeg: true }).toFile(path.join(OUT, `${name}.jpg`));
-  await sharp(buf).resize(360, 270, { fit: 'cover', position: 'centre' }).jpeg({ quality: 72, mozjpeg: true }).toFile(path.join(OUT, `${name}-sm.jpg`));
+  // fotografiile decupate sunt PNG cu fundal transparent: fără asta, JPEG le-ar face fundalul negru
+  const flat = await sharp(buf).flatten({ background: WHITE }).png().toBuffer();
+  const meta = await sharp(flat).metadata();
+
+  // tăiem marginea albă uniformă, ca piesa să umple cadrul; dacă detecția dă greș, păstrăm originalul
+  let src = flat;
+  try {
+    const t = await sharp(flat).trim({ background: WHITE, threshold: 12 }).toBuffer();
+    const tm = await sharp(t).metadata();
+    if (tm.width * tm.height > 0.12 * meta.width * meta.height) src = t;
+  } catch {
+    /* fotografie fără margine uniformă – rămâne neschimbată */
+  }
+
+  await frame(src, 1200, 900, path.join(OUT, `${name}.jpg`), 82);
+  await frame(src, 360, 270, path.join(OUT, `${name}-sm.jpg`), 74);
   ok++;
 }
 console.log('fetch-product-photos:', ok, 'fotografii →', OUT);

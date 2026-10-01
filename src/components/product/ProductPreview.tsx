@@ -42,9 +42,9 @@ export function ProductPreview({
 
   return (
     <div className="card p-4">
-      <div className="flex h-44 items-center justify-center overflow-hidden rounded-xl bg-surface sm:h-52">
+      <div className={cls('flex h-44 items-center justify-center overflow-hidden rounded-xl sm:h-52', photo ? 'bg-white' : 'bg-surface')}>
         {photo ? (
-          <img src={asset(photoUrl(photo.file))} alt={photo.alt} className="h-full w-full object-cover" width={1200} height={900} />
+          <img src={asset(photoUrl(photo.file))} alt={photo.alt} className="h-full w-full object-contain" width={1200} height={900} />
         ) : (
           <span className="flex h-full w-full items-center justify-center p-4">
             <TechDrawing shape={shape} material={material} elox={elox} dims={dims} />
