@@ -1,7 +1,7 @@
 # Color Metal Webshop – prototip frontend
 
 Prototip complet funcțional (fără backend) al webshopului Color Metal pentru semifabricate metalice configurabile:
-plăci, table, profile, țevi, bare și bandă rulou din aluminiu, cupru, alamă și bronz.
+plăci, table, profile, țevi și bare din aluminiu, cupru, alamă și bronz.
 
 Reconstruiește funcționalitatea și structura vizuală a webshopului actual (`cmwebshop.odocs.ro`) cu modificările
 cerute în brief – vezi [CHANGELOG_REVIEW.md](CHANGELOG_REVIEW.md). Sursele și licențele imaginilor sunt în
@@ -65,7 +65,7 @@ Pe pagina de autentificare există butonul „Completează datele demo”.
 
 | Rută | Pagină |
 |---|---|
-| `/` | Acasă – banner compact + toate cele 13 forme de produs |
+| `/` | Acasă – banner compact + toate cele 11 forme de produs |
 | `/produse` | Lista produselor, filtre după categorie |
 | `/produse/placa-groasa` | Placă groasă – alegerea între promoție și configurator (două drumuri) |
 | `/alushop` | Promoție plăci debitate: bucăți unice din stoc (AluShop) |
@@ -85,7 +85,7 @@ Pe pagina de autentificare există butonul „Completează datele demo”.
 | `/termeni-si-conditii`, `/politica-de-confidentialitate`, `/politica-de-retur` | Pagini legale (conținut demonstrativ) |
 
 Sluguri produse: `placa-groasa`, `tabla`, `profil-u`, `profil-l`, `profil-t`, `teava-rectangulara`, `teava-patrata`,
-`teava-rotunda`, `bara-lata`, `bara-patrata`, `bara-hexagonala`, `bara-rotunda`, `banda-rulou`.
+`teava-rotunda`, `bara-lata`, `bara-patrata`, `bara-rotunda`.
 Parametrul material: `al`, `cu`, `brass`, `bronze`.
 
 ## Structura proiectului
@@ -93,7 +93,7 @@ Parametrul material: `al`, `cu`, `brass`, `bronze`.
 ```
 src/
   config/      site.ts (date de contact oficiale), pricing.ts (EUR_TO_RON, TVA, adaos, limită 100 buc)
-  data/        shapes.ts (13 forme + combinațiile reale de dimensiuni), materials.ts, demo.ts (cont + comenzi demo)
+  data/        shapes.ts (11 forme + combinațiile reale de dimensiuni), materials.ts, demo.ts (cont + comenzi demo)
   lib/         geometry.ts (arii/greutăți), pricing.ts, configurator.ts (compatibilitate opțiuni), search.ts,
                api.ts (strat de persistență – singurul fișier de înlocuit la integrarea cu backend), storage.ts, types.ts
   context/     Auth, Cart, Favorites, Toast
@@ -109,7 +109,7 @@ tools/         prepare-images.mjs – pipeline-ul de imagini folosit pentru asse
 - **Preț** = greutate teoretică (aria secțiunii × lungime × densitate) × preț/kg. Prețurile de bază demo sunt în EUR
   (ca în sistemul actual) și se convertesc **o singură dată** prin `EUR_TO_RON` din `src/config/pricing.ts`; interfața
   afișează exclusiv lei (`9,60 lei`). TVA 21%.
-- **Materiale**: cupru și alamă doar la bară hexagonală / rotundă / pătrată / lată, placă groasă și tablă; bronz doar la
+- **Materiale**: cupru și alamă doar la bară rotundă / pătrată / lată, placă groasă și tablă; bronz doar la
   bară rotundă; toate celelalte forme exclusiv aluminiu. Finisaje: doar Natur și Eloxat (numai la aluminiu; culoare
   de eloxare la Eloxat). Fără selector de aliaj.
 - **Configurator**: nimic preselectat; clic pe opțiunea activă o deselectează; opțiunile incompatibile rămân vizibile,

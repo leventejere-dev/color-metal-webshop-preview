@@ -2,7 +2,7 @@ import { useCallback, useEffect, useMemo, useState } from 'react';
 import { Link, Navigate, useParams, useSearchParams } from 'react-router-dom';
 import { ArrowLeft, Info, RotateCcw, ShoppingCart } from 'lucide-react';
 import { SHAPE_BY_SLUG, type Shape } from '@/data/shapes';
-import { ELOX_COLORS, FINISHES, MATERIALS, type EloxColorId, type FinishId, type MaterialId } from '@/data/materials';
+import { ELOX_COLORS, FINISHES, MATERIALS, SURFACE_BY_ID, type EloxColorId, type FinishId, type MaterialId, type SurfaceId } from '@/data/materials';
 import { OptionGroup } from '@/components/configurator/OptionGroup';
 import { ContactConsultant } from '@/components/configurator/ContactConsultant';
 import { RangeField } from '@/components/ui/RangeField';
@@ -35,6 +35,7 @@ function Configurator({ shape, materialId }: { shape: Shape; materialId: Materia
   const material = MATERIALS[materialId];
   const finish = (material.finishes.length ? ((params.get('finisaj') as FinishId) || 'natur') : undefined) as FinishId | undefined;
   const eloxColor = finish === 'eloxat' ? ((params.get('culoare') as EloxColorId) || 'natur') : undefined;
+  const surface = shape.surfaces ? ((params.get('suprafata') as SurfaceId) || 'lisa') : undefined;
   const { add } = useCart();
   const { toast } = useToast();
 
@@ -107,7 +108,7 @@ function Configurator({ shape, materialId }: { shape: Shape; materialId: Materia
   const anySelection = Object.values(sel).some((v) => v != null) || ranges.length != null;
 
   const configLabel = complete
-    ? `${shape.name} ${material.label}${finish ? ` (${FINISHES[finish].label}${eloxColor ? ` ${ELOX_COLORS.find((c) => c.id === eloxColor)?.label}` : ''})` : ''} – ${dimsLabel(shape, dims, { length: lengthMm })}`
+    ? `${shape.name} ${material.label}${surface ? ` (${SURFACE_BY_ID[surface].label})` : ''}${finish ? ` (${FINISHES[finish].label}${eloxColor ? ` ${ELOX_COLORS.find((c) => c.id === eloxColor)?.label}` : ''})` : ''} – ${dimsLabel(shape, dims, { length: lengthMm })}`
     : `${shape.name} ${material.label}`;
 
   const addToCart = () => {
@@ -117,6 +118,7 @@ function Configurator({ shape, materialId }: { shape: Shape; materialId: Materia
       materialId,
       finish,
       eloxColor,
+      surface,
       dims,
       length: lengthMm,
       quantity: qty,
@@ -149,6 +151,11 @@ function Configurator({ shape, materialId }: { shape: Shape; materialId: Materia
             <span className="rounded-full border border-line bg-white px-3 py-1">
               Material: <strong>{material.label}</strong>
             </span>
+            {surface && (
+              <span className="rounded-full border border-line bg-white px-3 py-1">
+                Finisaj: <strong>{SURFACE_BY_ID[surface].label}</strong>
+              </span>
+            )}
             {finish && (
               <span className="rounded-full border border-line bg-white px-3 py-1">
                 Finisaj: <strong>{FINISHES[finish].label}{eloxColor ? ` · ${ELOX_COLORS.find((c) => c.id === eloxColor)?.label}` : ''}</strong>
@@ -167,7 +174,7 @@ function Configurator({ shape, materialId }: { shape: Shape; materialId: Materia
         {/* ---------------- stânga */}
         <div className="space-y-4">
           <div className="max-w-sm">
-            <ProductPreview shape={shape} material={materialId} elox={eloxColor} dims photoSlots />
+            <ProductPreview shape={shape} material={materialId} elox={eloxColor} surface={surface} dims gallery />
           </div>
 
           <div className="flex items-center justify-between">

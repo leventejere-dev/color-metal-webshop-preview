@@ -1,4 +1,4 @@
-import type { EloxColorId, FinishId, MaterialId } from '@/data/materials';
+import type { EloxColorId, FinishId, MaterialId, SurfaceId } from '@/data/materials';
 import type { ShapeId } from '@/data/shapes';
 import type { Dims } from './geometry';
 
@@ -42,6 +42,8 @@ export interface CartItem {
   materialId: MaterialId;
   finish?: FinishId;
   eloxColor?: EloxColorId;
+  /** suprafața tablei (lisă, stucco, striată) */
+  surface?: SurfaceId;
   dims: Dims;
   /** lungimea debitată (mm) */
   length: number;

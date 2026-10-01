@@ -2,7 +2,7 @@ import { useMemo, useState } from 'react';
 import { Link, Navigate, useNavigate, useParams } from 'react-router-dom';
 import { ArrowLeft, ArrowRight, Check } from 'lucide-react';
 import { CATEGORIES, SHAPE_BY_SLUG } from '@/data/shapes';
-import { ELOX_COLORS, FINISHES, MATERIALS, type EloxColorId, type FinishId, type MaterialId } from '@/data/materials';
+import { ELOX_COLORS, FINISHES, MATERIALS, SURFACES, SURFACE_BY_ID, type EloxColorId, type FinishId, type MaterialId, type SurfaceId } from '@/data/materials';
 import { ProductPreview } from '@/components/product/ProductPreview';
 import { FavoriteButton } from '@/components/product/ProductCard';
 import { Breadcrumbs, Notice } from '@/components/ui/misc';
@@ -22,6 +22,7 @@ export function ProductDetailPage({ slug: fixedSlug, only }: { slug?: string; on
   // ruta restrânsă (cupru/alamă) pornește de la primul material permis
   const [finish, setFinish] = useState<FinishId>('natur');
   const [color, setColor] = useState<EloxColorId>('natur');
+  const [surface, setSurface] = useState<SurfaceId>('lisa');
 
   const dimsSummary = useMemo(() => {
     if (!shape) return '';
@@ -36,13 +37,16 @@ export function ProductDetailPage({ slug: fixedSlug, only }: { slug?: string; on
   if (!shape) return <Navigate to="/produse" replace />;
 
   const mat = MATERIALS[material];
-  const hasFinish = shape.materials.includes('AL');
+  // tabla are suprafețe (lisă, stucco, striată) în locul finisajului natur/eloxat
+  const hasSurfaces = Boolean(shape?.surfaces);
+  const hasFinish = !hasSurfaces && shape.materials.includes('AL');
   const finishEnabled = mat.finishes.length > 0;
   const colorEnabled = finishEnabled && finish === 'eloxat';
   const category = CATEGORIES.find((c) => c.id === shape.category)?.label ?? '';
 
   const goNext = () => {
     const params = new URLSearchParams();
+    if (hasSurfaces) params.set('suprafata', surface);
     if (finishEnabled) {
       params.set('finisaj', finish);
       if (finish === 'eloxat') params.set('culoare', color);
@@ -50,7 +54,11 @@ export function ProductDetailPage({ slug: fixedSlug, only }: { slug?: string; on
     navigate(`/configurator/${shape.slug}/${material.toLowerCase()}${params.toString() ? `?${params}` : ''}`);
   };
 
-  const subtitle = finishEnabled ? `${FINISHES[finish].label}${finish === 'eloxat' ? ` · ${ELOX_COLORS.find((c) => c.id === color)?.label ?? ''}` : ''}` : 'Fără tratament de suprafață';
+  const subtitle = hasSurfaces
+    ? SURFACE_BY_ID[surface].label
+    : finishEnabled
+      ? `${FINISHES[finish].label}${finish === 'eloxat' ? ` · ${ELOX_COLORS.find((c) => c.id === color)?.label ?? ''}` : ''}`
+      : 'Fără tratament de suprafață';
 
   return (
     <div className="container-cm py-6 sm:py-8">
@@ -84,7 +92,11 @@ export function ProductDetailPage({ slug: fixedSlug, only }: { slug?: string; on
                 <button
                   key={id}
                   type="button"
-                  onClick={() => setMaterial(id)}
+                  onClick={() => {
+                    setMaterial(id);
+                    // relieful (stucco, striată) se execută doar pe aluminiu
+                    if (hasSurfaces && id !== 'AL') setSurface('lisa');
+                  }}
                   aria-pressed={active}
                   className={cls('flex flex-col items-center gap-2 rounded-xl border bg-white px-3 py-4 text-center transition', active ? 'border-brand-gold ring-2 ring-brand-gold/30' : 'border-line hover:border-ink/40')}
                 >
@@ -96,6 +108,37 @@ export function ProductDetailPage({ slug: fixedSlug, only }: { slug?: string; on
               );
             })}
           </div>
+
+          {hasSurfaces && (
+            <div className="mt-6">
+              <p className="label">Finisaj</p>
+              <div className="mt-2 flex flex-wrap gap-2" role="group" aria-label="Finisaj">
+                {SURFACES.map((sf) => {
+                  const available = !sf.alOnly || material === 'AL';
+                  const active = available && surface === sf.id;
+                  return (
+                    <button
+                      key={sf.id}
+                      type="button"
+                      aria-pressed={active}
+                      aria-disabled={!available}
+                      title={available ? sf.note : 'Disponibil doar în aluminiu.'}
+                      onClick={() => available && setSurface(sf.id)}
+                      className={cls(
+                        'h-10 rounded-lg border px-4 text-sm font-semibold uppercase tracking-wide transition',
+                        active && 'border-ink bg-ink text-white',
+                        !active && available && 'border-line bg-white hover:border-ink/40',
+                        !available && 'cursor-not-allowed border-dashed border-line/80 bg-surface text-muted/50',
+                      )}
+                    >
+                      {sf.label}
+                    </button>
+                  );
+                })}
+              </div>
+              <p className="mt-2 text-xs text-muted">{SURFACE_BY_ID[surface].note}</p>
+            </div>
+          )}
 
           {hasFinish && (
             <div className={cls('mt-6 grid gap-5 sm:grid-cols-2', !finishEnabled && 'opacity-50')}>
@@ -152,6 +195,12 @@ export function ProductDetailPage({ slug: fixedSlug, only }: { slug?: string; on
               <span className="text-muted">Densitate</span>
               <span className="font-medium">{mat.density} kg/dm³</span>
             </div>
+            {hasSurfaces && (
+              <div className="flex justify-between gap-3">
+                <span className="text-muted">Finisaj</span>
+                <span className="font-medium">{SURFACE_BY_ID[surface].label}</span>
+              </div>
+            )}
             {hasFinish && (
               <>
                 <div className="flex justify-between gap-3">
@@ -175,7 +224,7 @@ export function ProductDetailPage({ slug: fixedSlug, only }: { slug?: string; on
 
         {/* ---- dreapta: previzualizare mică, ca în webshopul actual */}
         <aside className="lg:sticky lg:top-24 lg:self-start">
-          <ProductPreview shape={shape} material={material} elox={colorEnabled ? color : undefined} photoSlots title={`${shape.name} · ${mat.label}`} subtitle={subtitle} />
+          <ProductPreview shape={shape} material={material} elox={colorEnabled ? color : undefined} surface={hasSurfaces ? surface : undefined} gallery title={`${shape.name} · ${mat.label}`} subtitle={subtitle} />
           <Notice className="mt-4 text-xs">Produsele configurate se realizează conform specificațiilor clientului și nu beneficiază de drept de retur (OUG 34/2014).</Notice>
         </aside>
       </div>

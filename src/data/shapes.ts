@@ -11,11 +11,9 @@ export type ShapeId =
   | 'round_tube'
   | 'flat_bar'
   | 'square_bar'
-  | 'hex_bar'
-  | 'round_bar'
-  | 'coil';
+  | 'round_bar';
 
-export type ShapeCategory = 'placa' | 'profil' | 'teava' | 'bara' | 'rulou';
+export type ShapeCategory = 'placa' | 'profil' | 'teava' | 'bara';
 
 export interface DimensionField {
   key: string;
@@ -43,6 +41,8 @@ export interface Shape {
   keywords: string[];
   category: ShapeCategory;
   materials: MaterialId[];
+  /** la tablă, finisajul este suprafața (lisă, stucco, striată), nu natur/eloxat */
+  surfaces?: boolean;
   /** câmpuri de secțiune (valori discrete, din catalog) */
   fields: DimensionField[];
   /** combinații reale (SKU-uri) – doar acestea pot fi comandate */
@@ -58,7 +58,6 @@ const LENGTHS = [500, 1000, 1500, 2000, 2500, 3000];
 
 const lengthProfile: RangeSpec = { key: 'length', label: 'Lungime', min: 50, max: 3000, step: 1, presets: LENGTHS };
 const lengthBar: RangeSpec = { key: 'length', label: 'Lungime', min: 25, max: 3000, step: 1, presets: LENGTHS };
-const lengthCoil: RangeSpec = { key: 'length', label: 'Lungime (la metraj)', min: 500, max: 3000, step: 1, presets: [500, 1000, 1500, 2000, 2500, 3000] };
 const plateLength: RangeSpec = { key: 'length', label: 'Lungime', min: 50, max: 3000, step: 1, presets: [250, 500, 1000, 1500, 2000, 2500, 3000] };
 
 // simbolurile corespund literelor din desenele tehnice
@@ -113,6 +112,7 @@ export const SHAPES: Shape[] = [
   },
   {
     id: 'sheet',
+    surfaces: true,
     slug: 'tabla',
     name: 'Tablă',
     short: 'Tablă tăiată la dimensiune',
@@ -410,21 +410,6 @@ export const SHAPES: Shape[] = [
     unitLabel: 'buc',
   },
   {
-    id: 'hex_bar',
-    slug: 'bara-hexagonala',
-    name: 'Bară hexagonală',
-    short: 'Bară plină hexagonală',
-    description:
-      'Bare hexagonale pline (specificate prin deschiderea de cheie), debitate la lungime. În aluminiu, cupru sau alamă – ideale pentru piulițe, fitinguri și piese strunjite.',
-    keywords: ['bara', 'bară', 'hexagonala', 'hexagonală', 'hex', 'sw', 'plină'],
-    category: 'bara',
-    materials: CU_BRASS_AL,
-    fields: [F.sw],
-    variants: [{ side: 10 }, { side: 15 }, { side: 20 }, { side: 25 }, { side: 30 }, { side: 40 }, { side: 50 }],
-    ranges: [lengthBar],
-    unitLabel: 'buc',
-  },
-  {
     id: 'round_bar',
     slug: 'bara-rotunda',
     name: 'Bară rotundă',
@@ -450,40 +435,6 @@ export const SHAPES: Shape[] = [
     ranges: [lengthBar],
     unitLabel: 'buc',
   },
-  {
-    id: 'coil',
-    slug: 'banda-rulou',
-    name: 'Bandă rulou',
-    short: 'Bandă rulou, livrată la metraj',
-    description:
-      'Bandă din aluminiu în rulou, cu grosimi de 0,5–2 mm, livrată la metraj. Pentru acoperișuri, tinichigerie, ambalaje industriale și placări.',
-    keywords: ['banda', 'bandă', 'rulou', 'coil', 'metraj', 'rola', 'rolă'],
-    category: 'rulou',
-    materials: ['AL'],
-    fields: [F.width, F.thickness],
-    variants: [
-      { width: 500, thickness: 0.5 },
-      { width: 500, thickness: 0.7 },
-      { width: 500, thickness: 0.8 },
-      { width: 500, thickness: 1 },
-      { width: 500, thickness: 1.5 },
-      { width: 500, thickness: 2 },
-      { width: 1000, thickness: 0.5 },
-      { width: 1000, thickness: 0.7 },
-      { width: 1000, thickness: 0.8 },
-      { width: 1000, thickness: 1 },
-      { width: 1000, thickness: 1.5 },
-      { width: 1000, thickness: 2 },
-      { width: 1250, thickness: 0.5 },
-      { width: 1250, thickness: 0.7 },
-      { width: 1250, thickness: 0.8 },
-      { width: 1250, thickness: 1 },
-      { width: 1250, thickness: 1.5 },
-      { width: 1250, thickness: 2 },
-    ],
-    ranges: [lengthCoil],
-    unitLabel: 'buc',
-  },
 ];
 
 export const SHAPE_BY_SLUG = Object.fromEntries(SHAPES.map((s) => [s.slug, s])) as Record<string, Shape>;
@@ -494,5 +445,4 @@ export const CATEGORIES: { id: ShapeCategory; label: string }[] = [
   { id: 'profil', label: 'Profile' },
   { id: 'teava', label: 'Țevi' },
   { id: 'bara', label: 'Bare' },
-  { id: 'rulou', label: 'Bandă rulou' },
 ];

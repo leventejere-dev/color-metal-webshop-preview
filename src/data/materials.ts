@@ -1,5 +1,7 @@
 export type MaterialId = 'AL' | 'CU' | 'BRASS' | 'BRONZE';
 export type FinishId = 'natur' | 'eloxat';
+/** La tablă, în locul finisajului natur/eloxat se alege suprafața. */
+export type SurfaceId = 'lisa' | 'stucco' | 'striata-diamond' | 'striata-quintet';
 export type EloxColorId = 'natur' | 'negru' | 'bronz';
 
 export interface Material {
@@ -68,3 +70,16 @@ export const ELOX_COLORS: { id: EloxColorId; label: string; swatch: string }[] =
   { id: 'negru', label: 'Negru', swatch: '#202020' },
   { id: 'bronz', label: 'Bronz', swatch: '#8a5a44' },
 ];
+
+/**
+ * Suprafețele tablei. Modelele în relief (stucco, striată) se execută doar pe aluminiu;
+ * tabla de cupru și de alamă este lisă.
+ */
+export const SURFACES: { id: SurfaceId; label: string; note: string; alOnly?: boolean }[] = [
+  { id: 'lisa', label: 'Lisă', note: 'Suprafață netedă, laminată – pentru confecții metalice, placări și prelucrări.' },
+  { id: 'stucco', label: 'Stucco', note: 'Relief fin, mat – ascunde urmele și zgârieturile; izolații și placări.', alOnly: true },
+  { id: 'striata-diamond', label: 'Striată Diamond', note: 'Model romb, antiderapant – podele, trepte și platforme.', alOnly: true },
+  { id: 'striata-quintet', label: 'Striată Quintet', note: 'Model cu cinci bare, antiderapant – rampe și podele industriale.', alOnly: true },
+];
+
+export const SURFACE_BY_ID = Object.fromEntries(SURFACES.map((s) => [s.id, s])) as Record<SurfaceId, (typeof SURFACES)[number]>;

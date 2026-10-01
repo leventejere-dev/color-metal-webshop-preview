@@ -16,7 +16,6 @@ export function sectionArea(shapeId: ShapeId, d: Dims): number {
   switch (shapeId) {
     case 'thick_plate':
     case 'sheet':
-    case 'coil':
     case 'flat_bar':
       return w * t;
     case 'profile_u':
@@ -33,8 +32,6 @@ export function sectionArea(shapeId: ShapeId, d: Dims): number {
       return (Math.PI / 4) * (D * D - (D - 2 * t) * (D - 2 * t));
     case 'square_bar':
       return a * a;
-    case 'hex_bar':
-      return (Math.sqrt(3) / 2) * a * a; // a = SW (deschidere cheie)
     case 'round_bar':
       return (Math.PI / 4) * D * D;
     default:
@@ -56,7 +53,7 @@ export function dimsLabel(shape: Shape, dims: Dims, ranges: Partial<Record<'leng
     return parts.join(', ');
   }
   const section = shape.fields.map((f) => fmtNum(dims[f.key] ?? 0)).join(' × ');
-  const prefix = shape.id === 'round_tube' ? 'Ø' : shape.id === 'round_bar' ? 'Ø' : shape.id === 'hex_bar' ? 'SW ' : '';
+  const prefix = shape.id === 'round_tube' || shape.id === 'round_bar' ? 'Ø' : '';
   parts.push(`${prefix}${section} mm`);
   if (ranges.length != null) parts.push(`L ${fmtNum(ranges.length)} mm`);
   return parts.join(', ');

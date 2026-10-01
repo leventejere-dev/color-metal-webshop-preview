@@ -252,3 +252,15 @@ fotografii reale + ilustrațiile tehnice oficiale pentru fiecare formă.
   plata prin transfer bancar apare precizarea că debitarea începe după confirmarea plății.
 - Pagina `/comanda/:id` servește acum și ca detaliu de comandă: mesajul de confirmare apare doar imediat după
   plasarea comenzii, altfel titlul este „Detaliile comenzii”.
+
+# Revizia 10 (2026-10-01)
+- **Fotografii de produs reale.** Fotografiile proprii Color Metal din catalogul oficial
+  (color-metal.ro/ro/produse/industriale) au înlocuit casetele rezervate: fiecare produs are desenul tehnic plus una
+  sau două fotografii, comutabile din miniaturi. Fotografia urmează materialul ales (aluminiu, cupru, alamă, bronz),
+  iar la tablă urmează suprafața aleasă. Preluare și pregătire: `node tools/fetch-product-photos.mjs`.
+- **Tabla: finisajul este suprafața.** În locul opțiunilor Natur/Eloxat, tabla are acum **Lisă, Stucco, Striată
+  Diamond, Striată Quintet**, fiecare cu o scurtă explicație și cu fotografia potrivită. Modelele în relief se
+  execută doar pe aluminiu, deci la cupru și alamă rămân estompate, iar suprafața aleasă apare în configurator,
+  în coș și pe comandă.
+- **Bara hexagonală și banda rulou au fost scoase** din catalog (deocamdată), împreună cu categoria „Bandă rulou”,
+  desenele și formulele lor. Au rămas 11 forme.

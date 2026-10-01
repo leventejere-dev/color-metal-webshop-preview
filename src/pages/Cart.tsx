@@ -2,7 +2,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { ArrowRight, ShoppingCart, Trash2 } from 'lucide-react';
 import { useCart } from '@/context/CartContext';
 import { SHAPE_BY_ID } from '@/data/shapes';
-import { ELOX_COLORS, FINISHES, MATERIALS } from '@/data/materials';
+import { ELOX_COLORS, FINISHES, MATERIALS, SURFACE_BY_ID } from '@/data/materials';
 import { QuantityField } from '@/components/ui/QuantityField';
 import { Button, ButtonLink } from '@/components/ui/Button';
 import { Breadcrumbs, EmptyState, Notice, PageHeader, SummaryRow } from '@/components/ui/misc';
@@ -15,6 +15,7 @@ import type { CartItem } from '@/lib/types';
 export function itemDescription(item: CartItem): string {
   const parts: string[] = [MATERIALS[item.materialId].label];
   if (item.alloy) parts.push(item.alloy);
+  if (item.surface) parts.push(SURFACE_BY_ID[item.surface].label);
   if (item.finish) parts.push(FINISHES[item.finish].label + (item.eloxColor ? ` ${ELOX_COLORS.find((c) => c.id === item.eloxColor)?.label ?? ''}` : ''));
   return parts.join(' · ');
 }

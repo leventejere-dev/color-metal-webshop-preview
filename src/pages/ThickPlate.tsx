@@ -95,7 +95,7 @@ export function ThickPlateHubPage() {
         </div>
 
         <aside className="lg:sticky lg:top-24 lg:self-start">
-          <ProductPreview shape={SHAPE} photoSlots title={SHAPE.name} subtitle="Aluminiu · grosimi 8–150 mm" />
+          <ProductPreview shape={SHAPE} gallery title={SHAPE.name} subtitle="Aluminiu · grosimi 8–150 mm" />
           <Notice className="mt-4 text-xs">
             Plăcile din promoție sunt bucăți unice, disponibile în limita stocului. Plăcile configurate se debitează la
             comandă și nu beneficiază de drept de retur (OUG 34/2014).
@@ -212,7 +212,7 @@ export function ThickPlateConfiguratorPage() {
         {/* ---------------- stânga: configurarea */}
         <div className="space-y-4">
           <div className="max-w-sm">
-            <ProductPreview shape={SHAPE} dims photoSlots />
+            <ProductPreview shape={SHAPE} dims gallery />
           </div>
 
           <div className="rounded-xl border border-line bg-white p-4 sm:p-5">

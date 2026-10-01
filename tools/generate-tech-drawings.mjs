@@ -438,21 +438,6 @@ function profile(section, d, b, g, name, gAt) {
 }
 
 {
-  const d = 104; // deschiderea de cheie (între fețe paralele)
-  const R = d / Math.sqrt(3);
-  const section = [];
-  for (let i = 0; i < 6; i++) {
-    const t = (Math.PI / 3) * i;
-    section.push([R * Math.cos(t), R * Math.sin(t)]);
-  }
-  let s = shadow(add2(P(0, -R, LEN / 2), [0, 26]), 380, 46);
-  s += prism(section, LEN);
-  s += dim(P(0, d / 2, 0), P(0, -d / 2, 0), [-128, 0], 'd', { labelOff: 36 });
-  s += dim(P(R, -d / 2, 0), P(R, -d / 2, LEN), [54, 112], 'l', { labelOff: 40, labelAt: 0.56 });
-  drawings.hex_bar = svgDoc(s, 'Bară hexagonală');
-}
-
-{
   const r = 58;
   let s = shadow(add2(P(0, -r, LEN / 2), [0, 24]), 380, 44);
   s += cylinder(r, LEN, 'c1');
@@ -472,32 +457,6 @@ function profile(section, d, b, g, name, gAt) {
   drawings.round_tube = svgDoc(s, 'Țeavă rotundă');
 }
 
-{
-  // rulou pe axa lungimii (d = lățimea benzii) + banda desfășurată pe direcția lățimii (l)
-  const R = 132;
-  const hole = 17;
-  const W = 250;
-  const STRIP = 300;
-  const t = 14;
-  const y0 = -R;
-  const quad = (a, b, c, e, fill) => {
-    const poly = [a, b, c, e];
-    trackAll(poly);
-    return `<polygon points="${pts(poly)}" fill="${fill}" stroke="${EDGE}" stroke-width="1" stroke-linejoin="round"/>`;
-  };
-  let s = shadow(add2(P(STRIP / 2, -R, W / 2), [0, 26]), 380, 48);
-  s += quad(P(0, y0 + t, 0), P(STRIP, y0 + t, 0), P(STRIP, y0 + t, W), P(0, y0 + t, W), shade([0, 1, 0]));
-  s += quad(P(0, y0, 0), P(STRIP, y0, 0), P(STRIP, y0 + t, 0), P(0, y0 + t, 0), shade([0, 0, -1]));
-  s += quad(P(STRIP, y0, 0), P(STRIP, y0, W), P(STRIP, y0 + t, W), P(STRIP, y0 + t, 0), shade([1, 0, 0]));
-  s += cylinder(R, W, "c3");
-  const h = circlePts(hole, 0, 0, 0);
-  s += `<path d="M${h.map((p) => `${f(p[0])},${f(p[1])}`).join("L")}Z" fill="${col('#474c52')}"/>`;
-  s += dim(P(0, R, 0), P(0, R, W), [20, -92], "d", { labelOff: 36 });
-  s += dim(P(STRIP, -R, 0), P(STRIP, -R + t, 0), [80, 0], "b", { outside: true, labelOff: 30 });
-  s += dim(P(0, -R, 0), P(STRIP, -R, 0), [-14, 108], "l", { labelOff: 40, labelAt: 0.58 });
-  drawings.coil = svgDoc(s, 'Bandă rulou');
-}
-
   return drawings;
 }
 
@@ -508,7 +467,6 @@ const SHAPE_MATERIALS = {
   sheet: ['al', 'cu', 'brass'],
   flat_bar: ['al', 'cu', 'brass'],
   square_bar: ['al', 'cu', 'brass'],
-  hex_bar: ['al', 'cu', 'brass'],
   round_bar: ['al', 'cu', 'brass', 'bronze'],
 };
 
