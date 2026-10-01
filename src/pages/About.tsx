@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { Award, Factory, Globe2, Scissors } from 'lucide-react';
+import { Award, ExternalLink, Factory, Globe2, Scissors } from 'lucide-react';
 import { Breadcrumbs } from '@/components/ui/misc';
 import { asset } from '@/lib/format';
 import { SITE } from '@/config/site';
@@ -87,6 +87,18 @@ export function AboutPage() {
               </div>
             </div>
           ))}
+          <div className="card p-5 text-sm">
+            <p className="font-semibold">Site-ul Color Metal</p>
+            <p className="mt-1 text-muted">Prezentarea completă a companiei, a serviciilor și a soluțiilor arhitecturale.</p>
+            <a
+              href={SITE.mainSite}
+              target="_blank"
+              rel="noreferrer"
+              className="mt-3 inline-flex items-center gap-1.5 font-semibold text-brand-bronze hover:underline"
+            >
+              color-metal.ro <ExternalLink className="h-3.5 w-3.5" />
+            </a>
+          </div>
           <div className="card bg-surface p-5 text-sm">
             <p className="font-semibold">Ai întrebări despre produse?</p>
             <p className="mt-1 text-muted">Echipa Color Metal răspunde la call center {SITE.phones.callCenter}.</p>

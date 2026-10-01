@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { Mail, MapPin, Phone } from 'lucide-react';
+import { ExternalLink, Mail, MapPin, Phone } from 'lucide-react';
 import { SITE, telHref } from '@/config/site';
 import { asset } from '@/lib/format';
 import { PaymentBadges } from '@/components/ui/PaymentBadges';
@@ -12,6 +12,15 @@ export function Footer() {
         <div>
           <img src={asset('/assets/brand/color-metal-logo.png')} alt="Color Metal – Partner in engineering" className="h-6 w-auto" />
           <p className="mt-4 max-w-xs text-sm leading-6 text-muted">Semifabricate din aluminiu, cupru, alamă și bronz, debitate la dimensiune.</p>
+          <a
+            href={SITE.mainSite}
+            target="_blank"
+            rel="noreferrer"
+            className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-brand-bronze hover:underline"
+          >
+            Site-ul Color Metal <ExternalLink className="h-3.5 w-3.5" />
+          </a>
+          <p className="mt-1 text-xs text-muted">color-metal.ro – compania, serviciile și soluțiile arhitecturale.</p>
         </div>
 
         <div>

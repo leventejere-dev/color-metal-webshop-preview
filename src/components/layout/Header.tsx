@@ -1,12 +1,11 @@
 import { useEffect, useMemo, useRef, useState, type FormEvent } from 'react';
 import { createPortal } from 'react-dom';
 import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom';
-import { ChevronDown, ExternalLink, Heart, LogOut, Menu, Package, Search, ShoppingCart, User as UserIcon, X } from 'lucide-react';
+import { ChevronDown, Heart, LogOut, Menu, Package, Search, ShoppingCart, User as UserIcon, X } from 'lucide-react';
 import { useAuth } from '@/context/AuthContext';
 import { useCart } from '@/context/CartContext';
 import { useFavorites } from '@/context/FavoritesContext';
 import { searchShapes } from '@/lib/search';
-import { SITE } from '@/config/site';
 import { asset, cls } from '@/lib/format';
 import { TechDrawing } from '@/components/product/TechDrawing';
 
@@ -96,15 +95,6 @@ export function Header() {
               {n.label}
             </NavLink>
           ))}
-          <a
-            href={SITE.mainSite}
-            target="_blank"
-            rel="noreferrer"
-            title="Site-ul principal Color Metal"
-            className="inline-flex items-center gap-1 whitespace-nowrap rounded-md px-2 py-1.5 text-[13px] font-medium text-muted transition hover:text-brand-bronze"
-          >
-            color-metal.ro <ExternalLink className="h-3 w-3 opacity-70" />
-          </a>
         </nav>
 
         {/* Căutare */}
@@ -226,9 +216,6 @@ export function Header() {
                   {n.label}
                 </NavLink>
               ))}
-              <a href={SITE.mainSite} target="_blank" rel="noreferrer" className="flex items-center gap-2 rounded-lg px-3 py-2.5 text-[15px] font-medium text-muted">
-                color-metal.ro <ExternalLink className="h-4 w-4 opacity-70" />
-              </a>
               <div className="my-2 border-t border-line" />
               <Link to="/favorite" className="flex items-center gap-2 rounded-lg px-3 py-2.5 text-[15px] font-medium">
                 <Heart className="h-4 w-4" /> Favorite ({slugs.length})
