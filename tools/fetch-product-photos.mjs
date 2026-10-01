@@ -82,8 +82,14 @@ for (const [name, rel] of Object.entries(PHOTOS)) {
     /* fotografie fără margine uniformă – rămâne neschimbată */
   }
 
+  // imaginea mare: piesa întreagă, cu margine; miniatura: decupată strâns, ca piesa să se vadă
+  // și la 64×48 px (altfel un profil subțire pe alb pare o casetă goală)
   await frame(src, 1200, 900, path.join(OUT, `${name}.jpg`), 82);
-  await frame(src, 360, 270, path.join(OUT, `${name}-sm.jpg`), 74);
+  await sharp(src)
+    .resize(360, 270, { fit: 'cover', position: 'centre' })
+    .flatten({ background: WHITE })
+    .jpeg({ quality: 74, mozjpeg: true })
+    .toFile(path.join(OUT, `${name}-sm.jpg`));
   ok++;
 }
 console.log('fetch-product-photos:', ok, 'fotografii →', OUT);
