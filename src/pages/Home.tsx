@@ -71,7 +71,7 @@ export function HomePage() {
               alt="Acoperiș din titan-zinc realizat cu materiale Color Metal"
               className="absolute inset-0 -z-10 h-full w-full object-cover object-center"
               width={2000}
-              height={340}
+              height={320}
               loading="lazy"
             />
           </picture>
