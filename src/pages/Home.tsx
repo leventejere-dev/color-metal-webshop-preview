@@ -71,16 +71,16 @@ export function HomePage() {
               alt="Acoperiș din titan-zinc realizat cu materiale Color Metal"
               className="absolute inset-0 -z-10 h-full w-full object-cover object-center"
               width={2000}
-              height={560}
+              height={340}
               loading="lazy"
             />
           </picture>
           {/* umbra care face textul lizibil peste fotografie */}
-          <span className="pointer-events-none absolute inset-0 -z-10 bg-gradient-to-r from-ink via-ink/85 to-ink/20" />
-          <span className="pointer-events-none absolute inset-0 -z-10 bg-gradient-to-t from-ink/70 via-transparent to-ink/30" />
+          <span className="pointer-events-none absolute inset-0 -z-10 bg-gradient-to-r from-ink from-15% via-ink/75 via-50% to-ink/5" />
+          <span className="pointer-events-none absolute inset-0 -z-10 bg-gradient-to-t from-ink/45 via-transparent to-ink/15" />
 
-          <div className="flex min-h-[260px] flex-col gap-6 p-6 sm:p-8 lg:min-h-[320px] lg:flex-row lg:items-center lg:justify-between lg:p-10">
-            <div className="max-w-xl">
+          <div className="flex flex-col gap-5 p-5 sm:p-6 lg:flex-row lg:items-center lg:justify-between lg:gap-8 lg:px-8 lg:py-7">
+            <div className="max-w-3xl">
               <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-brand-gold">Soluții arhitecturale</p>
               <h2 className="mt-2 text-xl font-semibold [text-shadow:0_2px_12px_rgba(0,0,0,.45)] sm:text-2xl">Te gândești la un acoperiș sau la o fațadă?</h2>
               <p className="mt-2 text-[13px] leading-6 text-white/80 [text-shadow:0_1px_8px_rgba(0,0,0,.5)]">
