@@ -18,7 +18,7 @@ Regenerare: `node tools/generate-tech-drawings.mjs`.
 |---|---|---|
 | `banner/hero.jpg`, `banner/hero-mobile.jpg` | Fotografie Color Metal furnizată de client (textură metalică aurie, 2000×667) | Drept de utilizare: Color Metal SRL. |
 | `about/sediu.jpg`, `about/sediu-mobile.jpg` | Fotografie Color Metal furnizată de client (sediul, 2000×1125) | Drept de utilizare: Color Metal SRL. Folosită ca antet pe pagina „Despre noi”. |
-| `arhitectural/acoperis.jpg`, `arhitectural/acoperis-mobile.jpg` | Fotografie Color Metal furnizată de client (proiect de referință: acoperiș din titan-zinc) | Drept de utilizare: Color Metal SRL. Fundal pentru trimiterea către magazinul arhitectural, de pe prima pagină. |
+| `arhitectural/acoperis-v2.jpg`, `arhitectural/acoperis-mobile-v2.jpg` | Fotografie Color Metal furnizată de client (proiect de referință: acoperiș din titan-zinc) | Drept de utilizare: Color Metal SRL. Fundal pentru trimiterea către magazinul arhitectural, de pe prima pagină. |
 | `brand/color-metal-logo.png`, `brand/color-metal-logo-sm.png` | https://color-metal.ro/sites/default/files/CM_Singular_Logo_color_print_1.png (logo oficial) | Marcă înregistrată Color Metal SRL. |
 | `brand/favicon.png` | generat în proiect (inițialele „CM” pe fundal auriu #CBA349) | – |
 

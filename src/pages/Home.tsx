@@ -65,9 +65,9 @@ export function HomePage() {
         <div className="relative isolate overflow-hidden rounded-2xl bg-ink text-white shadow-[var(--shadow-card)]">
           {/* fotografie de referință: acoperiș din titan-zinc */}
           <picture>
-            <source media="(max-width: 640px)" srcSet={asset('/assets/arhitectural/acoperis-mobile.jpg')} />
+            <source media="(max-width: 640px)" srcSet={asset('/assets/arhitectural/acoperis-mobile-v2.jpg')} />
             <img
-              src={asset('/assets/arhitectural/acoperis.jpg')}
+              src={asset('/assets/arhitectural/acoperis-v2.jpg')}
               alt="Acoperiș din titan-zinc realizat cu materiale Color Metal"
               className="absolute inset-0 -z-10 h-full w-full object-cover object-center"
               width={1960}
