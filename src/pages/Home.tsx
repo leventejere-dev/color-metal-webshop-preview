@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { ArrowRight, ExternalLink, Headphones, Ruler, Tag } from 'lucide-react';
+import { ArrowRight, ExternalLink, Headphones, Ruler, ShoppingCart, Tag } from 'lucide-react';
 import { SHAPES } from '@/data/shapes';
 import { ProductCard } from '@/components/product/ProductCard';
 import { asset, cls } from '@/lib/format';
@@ -22,7 +22,11 @@ export function HomePage() {
           <img src={asset('/assets/banner/hero.jpg')} alt="" className="absolute inset-0 -z-10 h-full w-full object-cover object-center" fetchPriority="high" width={1920} height={480} />
         </picture>
         <div className="absolute inset-0 -z-10 bg-gradient-to-r from-ink/60 via-ink/30 to-transparent" />
-        <div className="container-cm flex min-h-[120px] items-center py-6 sm:min-h-[150px] lg:min-h-[168px]">
+        <div className="container-cm flex min-h-[120px] items-center gap-3 py-6 sm:min-h-[150px] sm:gap-4 lg:min-h-[168px] lg:gap-5">
+          {/* semn de magazin: se vede din prima că e webshop */}
+          <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-white/45 bg-white/10 shadow-[0_6px_20px_-8px_rgba(0,0,0,.6)] backdrop-blur-[2px] sm:h-[52px] sm:w-[52px] lg:h-14 lg:w-14">
+            <ShoppingCart className="h-5 w-5 text-white sm:h-6 sm:w-6 lg:h-7 lg:w-7" strokeWidth={1.25} />
+          </span>
           <h1 className="text-2xl font-light uppercase tracking-[0.2em] text-white sm:text-3xl lg:text-4xl">Webshop Color Metal</h1>
         </div>
       </section>

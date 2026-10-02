@@ -278,3 +278,5 @@ fotografii reale + ilustrațiile tehnice oficiale pentru fiecare formă.
   originală, deci reflexiile și textura metalului rămân credibile, iar fundalul alb rămâne alb.
 - Trimiterea către magazinul arhitectural de pe prima pagină are acum ca fundal o fotografie de referință (acoperiș
   din titan-zinc), cu umbră în degrade peste ea, astfel încât textul rămâne perfect lizibil.
+- Bannerul primește, înaintea titlului, un semn discret de magazin: un coș de cumpărături alb, cu linie subțire,
+  într-un cerc translucid – se vede din prima că este un webshop.
