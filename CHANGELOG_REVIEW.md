@@ -276,8 +276,7 @@ fotografii reale + ilustrațiile tehnice oficiale pentru fiecare formă.
 - **Fotografia urmează și eloxarea:** la finisajul Eloxat, piesa din fotografie apare în culoarea aleasă – negru sau
   bronz – nu doar desenul tehnic. Recolorarea se face pixel cu pixel, pe rampa culorii, păstrând luminozitatea
   originală, deci reflexiile și textura metalului rămân credibile, iar fundalul alb rămâne alb.
-- Trimiterea către magazinul arhitectural de pe prima pagină are acum fotografia de referință – acoperișul din
-  titan-zinc auriu – într-un panou propriu, în dreapta benzii: fotografia se vede întreagă, iar textul rămâne pe fundal
-  întunecat, perfect lizibil. Pe telefon fotografia trece deasupra textului.
+- Trimiterea către magazinul arhitectural de pe prima pagină are ca fundal fotografia de referință – acoperișul din
+  titan-zinc auriu – cu umbră în degrade peste ea: textul rămâne lizibil, iar în dreapta se vede acoperișul auriu.
 - Bannerul primește, înaintea titlului, un semn discret de magazin: un coș de cumpărături alb, cu linie subțire,
   într-un cerc translucid – se vede din prima că este un webshop.
