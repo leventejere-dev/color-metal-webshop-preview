@@ -14,9 +14,15 @@ export function AboutPage() {
       <h1 className="mt-1 text-3xl font-semibold tracking-tight sm:text-4xl">Color Metal</h1>
       <p className="mt-2 max-w-2xl text-lg font-light text-muted sm:text-xl">Soluții complete în domeniul metalelor neferoase</p>
 
-      {/* fotografia sediului, în propriul cadru */}
-      <figure className="group mt-6 overflow-hidden rounded-2xl shadow-[var(--shadow-card)] ring-1 ring-black/5">
-        <span className="relative block overflow-hidden">
+      {/* fotografia sediului, în propriul cadru – duce la site-ul principal */}
+      <figure className="mt-6">
+        <a
+          href={SITE.mainSite}
+          target="_blank"
+          rel="noreferrer"
+          title="Vezi site-ul Color Metal"
+          className="group relative block overflow-hidden rounded-2xl shadow-[var(--shadow-card)] ring-1 ring-black/5 transition hover:ring-brand-gold/60"
+        >
           <picture>
             <source media="(max-width: 640px)" srcSet={asset('/assets/about/sediu-mobile.jpg')} />
             <img
@@ -29,11 +35,14 @@ export function AboutPage() {
             />
           </picture>
           <span className="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-ink/80 to-transparent" />
-          <figcaption className="absolute inset-x-0 bottom-0 flex flex-wrap items-center gap-x-2 px-5 py-4 text-sm text-white/90 sm:px-6">
+          <figcaption className="absolute inset-x-0 bottom-0 flex flex-wrap items-center gap-x-2 gap-y-1 px-5 py-4 text-sm text-white/90 sm:px-6">
             <span className="font-semibold">Sediul Color Metal</span>
-            <span className="text-white/60">· depozit, debitare și Metal Shop sub același acoperiș</span>
+            <span className="text-white/70">· Odorheiu Secuiesc, jud. Harghita</span>
+            <span className="ml-auto inline-flex items-center gap-1.5 text-[13px] font-semibold text-white/80 transition group-hover:text-brand-gold">
+              color-metal.ro <ExternalLink className="h-3.5 w-3.5" />
+            </span>
           </figcaption>
-        </span>
+        </a>
       </figure>
 
       <div className="mt-10 grid gap-10 lg:grid-cols-[minmax(0,7fr)_minmax(0,5fr)]">

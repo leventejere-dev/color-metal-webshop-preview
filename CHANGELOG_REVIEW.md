@@ -269,3 +269,7 @@ fotografii reale + ilustrațiile tehnice oficiale pentru fiecare formă.
   piesa este încadrată întreagă, cu o margine mică, astfel încât capetele barelor și ale profilelor rămân vizibile.
 - Au fost scoase fotografiile care nu erau pe fundal alb: „profile speciale” (fundal negru) și trei fotografii din
   catalogul furnizorului, cu filigran. Au rămas 21 de fotografii, toate pe alb.
+- Suprafețele (Lisă, Stucco, Striată) apar **doar la tabla din aluminiu**: tabla de cupru și de alamă se face doar
+  lisă, deci acolo nu mai apare deloc rândul „Finisaj”.
+- Pagina „Despre noi”: fotografia sediului este acum un link către site-ul principal (color-metal.ro), iar legenda
+  arată locația – „Sediul Color Metal · Odorheiu Secuiesc, jud. Harghita”.

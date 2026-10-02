@@ -35,7 +35,7 @@ function Configurator({ shape, materialId }: { shape: Shape; materialId: Materia
   const material = MATERIALS[materialId];
   const finish = (material.finishes.length ? ((params.get('finisaj') as FinishId) || 'natur') : undefined) as FinishId | undefined;
   const eloxColor = finish === 'eloxat' ? ((params.get('culoare') as EloxColorId) || 'natur') : undefined;
-  const surface = shape.surfaces ? ((params.get('suprafata') as SurfaceId) || 'lisa') : undefined;
+  const surface = shape.surfaces ? ((params.get('suprafata') as SurfaceId) || undefined) : undefined;
   const { add } = useCart();
   const { toast } = useToast();
 

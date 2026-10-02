@@ -39,14 +39,16 @@ export function ProductDetailPage({ slug: fixedSlug, only }: { slug?: string; on
   const mat = MATERIALS[material];
   // tabla are suprafețe (lisă, stucco, striată) în locul finisajului natur/eloxat
   const hasSurfaces = Boolean(shape?.surfaces);
+  // tabla de cupru și de alamă este doar lisă – acolo nu se alege suprafața
   const hasFinish = !hasSurfaces && shape.materials.includes('AL');
   const finishEnabled = mat.finishes.length > 0;
+  const surfacesEnabled = hasSurfaces && material === 'AL';
   const colorEnabled = finishEnabled && finish === 'eloxat';
   const category = CATEGORIES.find((c) => c.id === shape.category)?.label ?? '';
 
   const goNext = () => {
     const params = new URLSearchParams();
-    if (hasSurfaces) params.set('suprafata', surface);
+    if (surfacesEnabled) params.set('suprafata', surface);
     if (finishEnabled) {
       params.set('finisaj', finish);
       if (finish === 'eloxat') params.set('culoare', color);
@@ -54,7 +56,7 @@ export function ProductDetailPage({ slug: fixedSlug, only }: { slug?: string; on
     navigate(`/configurator/${shape.slug}/${material.toLowerCase()}${params.toString() ? `?${params}` : ''}`);
   };
 
-  const subtitle = hasSurfaces
+  const subtitle = surfacesEnabled
     ? SURFACE_BY_ID[surface].label
     : finishEnabled
       ? `${FINISHES[finish].label}${finish === 'eloxat' ? ` · ${ELOX_COLORS.find((c) => c.id === color)?.label ?? ''}` : ''}`
@@ -109,7 +111,7 @@ export function ProductDetailPage({ slug: fixedSlug, only }: { slug?: string; on
             })}
           </div>
 
-          {hasSurfaces && (
+          {surfacesEnabled && (
             <div className="mt-6">
               <p className="label">Finisaj</p>
               <div className="mt-2 flex flex-wrap gap-2" role="group" aria-label="Finisaj">
@@ -195,7 +197,7 @@ export function ProductDetailPage({ slug: fixedSlug, only }: { slug?: string; on
               <span className="text-muted">Densitate</span>
               <span className="font-medium">{mat.density} kg/dm³</span>
             </div>
-            {hasSurfaces && (
+            {surfacesEnabled && (
               <div className="flex justify-between gap-3">
                 <span className="text-muted">Finisaj</span>
                 <span className="font-medium">{SURFACE_BY_ID[surface].label}</span>
