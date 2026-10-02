@@ -58,13 +58,28 @@ export function HomePage() {
 
       {/* Trimitere către magazinul de soluții arhitecturale */}
       <section className="container-cm mt-14">
-        <div className="relative isolate overflow-hidden rounded-2xl bg-ink p-6 text-white shadow-[var(--shadow-card)] sm:p-8">
-          <span className="pointer-events-none absolute -right-20 -top-24 -z-10 h-72 w-72 rounded-full bg-brand-gold/25 blur-3xl cm-aura" />
-          <div className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
-            <div className="max-w-2xl">
+        <div className="relative isolate overflow-hidden rounded-2xl bg-ink text-white shadow-[var(--shadow-card)]">
+          {/* fotografie de referință: acoperiș din titan-zinc */}
+          <picture>
+            <source media="(max-width: 640px)" srcSet={asset('/assets/arhitectural/acoperis-mobile.jpg')} />
+            <img
+              src={asset('/assets/arhitectural/acoperis.jpg')}
+              alt="Acoperiș din titan-zinc realizat cu materiale Color Metal"
+              className="absolute inset-0 -z-10 h-full w-full object-cover object-center"
+              width={2000}
+              height={560}
+              loading="lazy"
+            />
+          </picture>
+          {/* umbra care face textul lizibil peste fotografie */}
+          <span className="pointer-events-none absolute inset-0 -z-10 bg-gradient-to-r from-ink via-ink/85 to-ink/20" />
+          <span className="pointer-events-none absolute inset-0 -z-10 bg-gradient-to-t from-ink/70 via-transparent to-ink/30" />
+
+          <div className="flex min-h-[260px] flex-col gap-6 p-6 sm:p-8 lg:min-h-[320px] lg:flex-row lg:items-center lg:justify-between lg:p-10">
+            <div className="max-w-xl">
               <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-brand-gold">Soluții arhitecturale</p>
-              <h2 className="mt-2 text-xl font-semibold sm:text-2xl">Te gândești la un acoperiș sau la o fațadă?</h2>
-              <p className="mt-2 text-[13px] leading-6 text-white/70">
+              <h2 className="mt-2 text-xl font-semibold [text-shadow:0_2px_12px_rgba(0,0,0,.45)] sm:text-2xl">Te gândești la un acoperiș sau la o fațadă?</h2>
+              <p className="mt-2 text-[13px] leading-6 text-white/80 [text-shadow:0_1px_8px_rgba(0,0,0,.5)]">
                 Color Metal Arhitectural este magazinul nostru pentru proiecte de arhitectură: îți alegi materialele
                 pentru proiect și vezi la ce costuri să te aștepți, iar detaliile tehnice le punem la punct împreună înainte
                 de comanda finală. Pentru proprietari de case, dar și pentru arhitecți, montatori și firme de construcții.
@@ -75,11 +90,11 @@ export function HomePage() {
                 href={SITE.architecturalShop}
                 target="_blank"
                 rel="noreferrer"
-                className="inline-flex h-12 items-center gap-2 rounded-lg bg-brand-gold px-6 text-sm font-bold uppercase tracking-wide text-white shadow-sm transition hover:bg-brand-gold-dark"
+                className="inline-flex h-12 items-center gap-2 rounded-lg bg-brand-gold px-6 text-sm font-bold uppercase tracking-wide text-white shadow-[0_10px_26px_-10px_rgba(0,0,0,.8)] transition hover:bg-brand-gold-dark"
               >
                 Vezi magazinul arhitectural <ExternalLink className="h-4 w-4" />
               </a>
-              <p className="mt-2 text-[11px] text-white/45">cmarhitectural.ro · se lansează în curând</p>
+              <p className="mt-2 text-[11px] text-white/60 [text-shadow:0_1px_6px_rgba(0,0,0,.6)]">cmarhitectural.ro · se lansează în curând</p>
             </div>
           </div>
         </div>

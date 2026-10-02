@@ -46,6 +46,38 @@ const PHOTOS = {
 
 const WHITE = { r: 255, g: 255, b: 255 };
 
+/**
+ * Culorile eloxării, pentru variantele colorate ale fotografiilor de aluminiu. Fiecare pixel al
+ * piesei este mutat pe rampa culorii, păstrându-și luminozitatea – la fel ca la desenele tehnice –
+ * astfel reflexiile și umbrele rămân intacte. Fundalul alb nu se atinge.
+ */
+const ELOX = {
+  'elox-negru': { dark: [16, 16, 18], light: [134, 136, 140] },
+  'elox-bronz': { dark: [44, 26, 17], light: [196, 144, 108] },
+};
+
+/** Fotografiile de aluminiu – doar acestea se eloxează. */
+const ALUMINIUM = new Set([
+  'placa-groasa-al', 'placa-groasa-turnat', 'tabla-lisa', 'tabla-stucco', 'tabla-diamond', 'tabla-quintet',
+  'profil-u', 'profil-l', 'profil-t', 'teava-rect-al', 'teava-patrat-al', 'teava-rotund-al', 'bare-al',
+]);
+
+/** Varianta eloxată a unei fotografii: piesa în culoarea eloxării, fundalul alb neatins. */
+async function eloxed(file, palette) {
+  const { data, info } = await sharp(file).raw().toBuffer({ resolveWithObject: true });
+  const ch = info.channels;
+  for (let i = 0; i < data.length; i += ch) {
+    const r = data[i], g = data[i + 1], b = data[i + 2];
+    if (r > 243 && g > 243 && b > 243) continue; // fundalul alb rămâne alb
+    const lum = 0.299 * r + 0.587 * g + 0.114 * b;
+    const u = Math.max(0, Math.min(1, (lum - 28) / 200));
+    data[i] = Math.round(palette.dark[0] + (palette.light[0] - palette.dark[0]) * u);
+    data[i + 1] = Math.round(palette.dark[1] + (palette.light[1] - palette.dark[1]) * u);
+    data[i + 2] = Math.round(palette.dark[2] + (palette.light[2] - palette.dark[2]) * u);
+  }
+  return sharp(data, { raw: { width: info.width, height: info.height, channels: ch } });
+}
+
 /** Fotografia, pe fundal alb, încadrată întreagă (cu o margine mică) într-un cadru 4:3. */
 async function frame(src, width, height, file, quality) {
   const margin = Math.round(width * 0.04);
@@ -90,6 +122,14 @@ for (const [name, rel] of Object.entries(PHOTOS)) {
     .flatten({ background: WHITE })
     .jpeg({ quality: 74, mozjpeg: true })
     .toFile(path.join(OUT, `${name}-sm.jpg`));
+
+  // variantele eloxate (negru, bronz) ale fotografiilor de aluminiu
+  if (ALUMINIUM.has(name)) {
+    for (const [suffix, palette] of Object.entries(ELOX)) {
+      await (await eloxed(path.join(OUT, `${name}.jpg`), palette)).jpeg({ quality: 82, mozjpeg: true }).toFile(path.join(OUT, `${name}--${suffix}.jpg`));
+      await (await eloxed(path.join(OUT, `${name}-sm.jpg`), palette)).jpeg({ quality: 74, mozjpeg: true }).toFile(path.join(OUT, `${name}--${suffix}-sm.jpg`));
+    }
+  }
   ok++;
 }
 console.log('fetch-product-photos:', ok, 'fotografii →', OUT);

@@ -34,6 +34,8 @@ export function ProductPreview({
   children?: ReactNode;
 }) {
   const photos = gallery ? productPhotos(shape.id, material, surface) : [];
+  // piesa eloxată apare și în fotografie în culoarea aleasă (doar aluminiul se eloxează)
+  const eloxPhoto = elox && elox !== 'natur' && (!material || material === 'AL') ? elox : undefined;
   const [view, setView] = useState(0); // 0 = desenul tehnic, 1..n = fotografii
   const photo = view > 0 ? photos[view - 1] : undefined;
   const thumb = 'flex h-12 w-16 shrink-0 items-center justify-center overflow-hidden rounded-md border bg-surface transition';
@@ -44,7 +46,7 @@ export function ProductPreview({
     <div className="card p-4">
       <div className={cls('flex h-44 items-center justify-center overflow-hidden rounded-xl sm:h-52', photo ? 'bg-white' : 'bg-surface')}>
         {photo ? (
-          <img src={asset(photoUrl(photo.file))} alt={photo.alt} className="h-full w-full object-contain" width={1200} height={900} />
+          <img src={asset(photoUrl(photo.file, { elox: eloxPhoto }))} alt={photo.alt} className="h-full w-full object-contain" width={1200} height={900} />
         ) : (
           <span className="flex h-full w-full items-center justify-center p-4">
             <TechDrawing shape={shape} material={material} elox={elox} dims={dims} />
@@ -59,7 +61,7 @@ export function ProductPreview({
           </button>
           {photos.map((ph, i) => (
             <button key={ph.file} type="button" onClick={() => setView(i + 1)} aria-pressed={view === i + 1} title={ph.alt} className={cls(thumb, view === i + 1 ? active : idle)}>
-              <img src={asset(photoUrl(ph.file, true))} alt="" className="h-full w-full object-cover" width={360} height={270} loading="lazy" />
+              <img src={asset(photoUrl(ph.file, { small: true, elox: eloxPhoto }))} alt="" className="h-full w-full object-cover" width={360} height={270} loading="lazy" />
             </button>
           ))}
         </div>

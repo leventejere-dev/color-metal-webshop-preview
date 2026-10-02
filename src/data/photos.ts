@@ -5,7 +5,7 @@
  * Fotografiile urmează materialul ales, iar la tablă suprafața aleasă (lisă, stucco, striată).
  */
 import type { ShapeId } from './shapes';
-import type { MaterialId, SurfaceId } from './materials';
+import type { EloxColorId, MaterialId, SurfaceId } from './materials';
 
 export interface ProductPhoto {
   /** numele fișierului din public/assets/products (fără extensie) */
@@ -69,4 +69,8 @@ export function productPhotos(shapeId: ShapeId, material?: MaterialId, surface?:
   return DEFAULT_PHOTOS[shapeId] ?? [];
 }
 
-export const photoUrl = (file: string, small?: boolean) => `/assets/products/${file}${small ? '-sm' : ''}.jpg`;
+/** Fotografiile de aluminiu există și în varianta eloxată (negru, bronz). */
+const ELOX_SUFFIX: Record<EloxColorId, string> = { natur: '', negru: '--elox-negru', bronz: '--elox-bronz' };
+
+export const photoUrl = (file: string, opts?: { small?: boolean; elox?: EloxColorId }) =>
+  `/assets/products/${file}${opts?.elox ? ELOX_SUFFIX[opts.elox] : ''}${opts?.small ? '-sm' : ''}.jpg`;

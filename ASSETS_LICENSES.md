@@ -18,6 +18,7 @@ Regenerare: `node tools/generate-tech-drawings.mjs`.
 |---|---|---|
 | `banner/hero.jpg`, `banner/hero-mobile.jpg` | Fotografie Color Metal furnizată de client (textură metalică aurie, 2000×667) | Drept de utilizare: Color Metal SRL. |
 | `about/sediu.jpg`, `about/sediu-mobile.jpg` | Fotografie Color Metal furnizată de client (sediul, 2000×1125) | Drept de utilizare: Color Metal SRL. Folosită ca antet pe pagina „Despre noi”. |
+| `arhitectural/acoperis.jpg`, `arhitectural/acoperis-mobile.jpg` | Fotografie Color Metal furnizată de client (proiect de referință: acoperiș din titan-zinc) | Drept de utilizare: Color Metal SRL. Fundal pentru trimiterea către magazinul arhitectural, de pe prima pagină. |
 | `brand/color-metal-logo.png`, `brand/color-metal-logo-sm.png` | https://color-metal.ro/sites/default/files/CM_Singular_Logo_color_print_1.png (logo oficial) | Marcă înregistrată Color Metal SRL. |
 | `brand/favicon.png` | generat în proiect (inițialele „CM” pe fundal auriu #CBA349) | – |
 
@@ -25,7 +26,7 @@ Regenerare: `node tools/generate-tech-drawings.mjs`.
 
 | Fișier(e) | Sursă | Observații |
 |---|---|---|
-| `products/*.jpg` (21 fotografii, două dimensiuni fiecare) | catalogul oficial Color Metal: https://color-metal.ro/ro/produse/industriale | **Fotografii proprii Color Metal**, folosite cu acordul clientului. Preluate și pregătite cu `tools/fetch-product-photos.mjs`: fundal alb (fotografiile decupate sunt PNG cu transparență), marginea albă tăiată, piesa încadrată întreagă într-un cadru 4:3 cu o margine mică – așa rămân vizibile capetele barelor și ale profilelor. Două dimensiuni: 1200×900 și 360×270, JPEG optimizat. Se folosesc **doar fotografiile pe fundal alb**; cele din catalogul furnizorului (fundal întunecat, filigran) nu au fost preluate. Fotografia afișată urmează materialul ales, iar la tablă suprafața aleasă (lisă, stucco, striată Diamond / Quintet); unde nu există fotografie pentru materialul ales, rămâne desenul tehnic, colorat în culoarea materialului. |
+| `products/*.jpg` (21 fotografii × două dimensiuni, plus variantele eloxate ale celor din aluminiu) | catalogul oficial Color Metal: https://color-metal.ro/ro/produse/industriale | **Fotografii proprii Color Metal**, folosite cu acordul clientului. Preluate și pregătite cu `tools/fetch-product-photos.mjs`: fundal alb (fotografiile decupate sunt PNG cu transparență), marginea albă tăiată, piesa încadrată întreagă într-un cadru 4:3 cu o margine mică – așa rămân vizibile capetele barelor și ale profilelor. Două dimensiuni: 1200×900 și 360×270, JPEG optimizat. Se folosesc **doar fotografiile pe fundal alb**; cele din catalogul furnizorului (fundal întunecat, filigran) nu au fost preluate. Fotografia afișată urmează materialul ales, iar la tablă suprafața aleasă (lisă, stucco, striată Diamond / Quintet); unde nu există fotografie pentru materialul ales, rămâne desenul tehnic, colorat în culoarea materialului. La finisajul eloxat, piesa din fotografie este recolorată (negru / bronz) pixel cu pixel, pe rampa culorii, păstrându-și luminozitatea – reflexiile și umbrele rămân intacte, iar fundalul alb nu se atinge. |
 
 ## 4. Alte resurse
 

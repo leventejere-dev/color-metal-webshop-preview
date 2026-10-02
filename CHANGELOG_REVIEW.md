@@ -273,3 +273,8 @@ fotografii reale + ilustrațiile tehnice oficiale pentru fiecare formă.
   lisă, deci acolo nu mai apare deloc rândul „Finisaj”.
 - Pagina „Despre noi”: fotografia sediului este acum un link către site-ul principal (color-metal.ro), iar legenda
   arată locația – „Sediul Color Metal · Odorheiu Secuiesc, jud. Harghita”.
+- **Fotografia urmează și eloxarea:** la finisajul Eloxat, piesa din fotografie apare în culoarea aleasă – negru sau
+  bronz – nu doar desenul tehnic. Recolorarea se face pixel cu pixel, pe rampa culorii, păstrând luminozitatea
+  originală, deci reflexiile și textura metalului rămân credibile, iar fundalul alb rămâne alb.
+- Trimiterea către magazinul arhitectural de pe prima pagină are acum ca fundal o fotografie de referință (acoperiș
+  din titan-zinc), cu umbră în degrade peste ea, astfel încât textul rămâne perfect lizibil.
